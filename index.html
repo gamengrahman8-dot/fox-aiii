@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="theme-color" content="#09090b">
-<meta name="description" content="Fox AI - Intelligent AI Assistant">
-<title>Fox AI</title>
+<meta name="theme-color" content="#080808">
+<meta name="description" content="FOX AI - Intelligent AI Assistant">
+<title>FOX AI</title>
 
 <style>
 *{
@@ -14,31 +14,29 @@
 }
 
 :root{
-  --bg:#09090b;
+  --bg:#080809;
   --panel:#111113;
-  --panel2:#18181b;
-  --panel3:#27272a;
-  --border:#2d2d32;
-  --text:#f4f4f5;
-  --muted:#a1a1aa;
+  --panel2:#19191c;
+  --panel3:#242428;
+  --border:#2c2c31;
+  --text:#f7f7f8;
+  --muted:#9999a2;
   --accent:#ff7900;
   --accent2:#ff3d00;
   --danger:#ef4444;
-  --green:#22c55e;
 }
 
 body.light{
   --bg:#f7f7f8;
-  --panel:#ffffff;
-  --panel2:#f0f0f1;
-  --panel3:#e4e4e7;
-  --border:#d4d4d8;
-  --text:#18181b;
-  --muted:#71717a;
+  --panel:#fff;
+  --panel2:#f0f0f2;
+  --panel3:#e3e3e7;
+  --border:#d3d3d8;
+  --text:#171719;
+  --muted:#6f6f78;
 }
 
-html,
-body{
+html,body{
   width:100%;
   height:100%;
   margin:0;
@@ -49,12 +47,10 @@ body{
 }
 
 body{
-  transition:background .2s,color .2s;
+  transition:.25s;
 }
 
-button,
-input,
-textarea{
+button,input,textarea{
   font:inherit;
 }
 
@@ -73,9 +69,7 @@ svg{
   stroke-linejoin:round;
 }
 
-/* =====================================================
-   SPLASH
-   ===================================================== */
+/* ================= SPLASH ================= */
 
 .foxSplash{
   position:fixed;
@@ -85,110 +79,73 @@ svg{
   flex-direction:column;
   align-items:center;
   justify-content:center;
-  overflow:hidden;
   background:
-    radial-gradient(
-      circle at center,
-      rgba(255,121,0,.20),
-      transparent 36%
-    ),
-    #070708;
-  animation:splashOut .7s ease 1.55s forwards;
+    radial-gradient(circle at 50% 45%,rgba(255,90,0,.22),transparent 34%),
+    #060607;
+  animation:splashOut .65s ease 1.55s forwards;
 }
 
 .splashGlow{
   position:absolute;
-  width:280px;
-  height:280px;
+  width:300px;
+  height:300px;
   border-radius:50%;
-  background:rgba(255,90,0,.20);
+  background:rgba(255,80,0,.18);
   filter:blur(75px);
-  animation:glowPulse 1.25s ease-in-out infinite;
+  animation:pulse 1.2s infinite;
 }
 
 .foxLogoWrap{
   position:relative;
-  width:150px;
-  height:150px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  animation:
-    foxEnter .9s cubic-bezier(.2,.9,.2,1) forwards,
-    foxFloat 1.4s ease-in-out .9s infinite alternate;
+  width:155px;
+  height:155px;
+  animation:foxIn .9s cubic-bezier(.2,.9,.2,1);
 }
 
 .foxLogo{
-  width:150px;
-  height:150px;
-  filter:
-    drop-shadow(0 0 12px rgba(255,100,0,.7))
-    drop-shadow(0 0 38px rgba(255,70,0,.35));
+  width:100%;
+  height:100%;
+  filter:drop-shadow(0 0 13px rgba(255,100,0,.7))
+         drop-shadow(0 0 40px rgba(255,70,0,.3));
 }
 
 .splashTitle{
   position:relative;
-  margin-top:18px;
+  margin-top:17px;
+  color:#fff;
   font-size:34px;
   font-weight:900;
   letter-spacing:8px;
-  color:#fff;
   opacity:0;
-  transform:translateY(15px);
-  animation:titleEnter .7s ease .45s forwards;
+  animation:titleIn .7s ease .35s forwards;
 }
 
 .splashLine{
-  position:relative;
   width:0;
   height:2px;
   margin-top:13px;
-  border-radius:10px;
   background:linear-gradient(90deg,#ff9a00,#ff3d00);
   box-shadow:0 0 15px rgba(255,100,0,.8);
-  animation:lineEnter .8s ease .65s forwards;
+  animation:lineIn .7s ease .55s forwards;
 }
 
-@keyframes foxEnter{
-  0%{
-    opacity:0;
-    transform:scale(.35) translateY(35px) rotate(-8deg);
-  }
-  65%{
-    opacity:1;
-    transform:scale(1.08) translateY(-4px) rotate(2deg);
-  }
-  100%{
-    opacity:1;
-    transform:scale(1) translateY(0) rotate(0);
-  }
+@keyframes foxIn{
+  0%{opacity:0;transform:scale(.3) translateY(35px) rotate(-10deg)}
+  65%{opacity:1;transform:scale(1.08) translateY(-4px) rotate(2deg)}
+  100%{opacity:1;transform:scale(1)}
 }
 
-@keyframes foxFloat{
-  from{transform:translateY(0)}
-  to{transform:translateY(-7px)}
+@keyframes titleIn{
+  to{opacity:1;transform:translateY(0)}
 }
 
-@keyframes titleEnter{
-  to{
-    opacity:1;
-    transform:translateY(0);
-  }
+@keyframes lineIn{
+  to{width:125px}
 }
 
-@keyframes lineEnter{
-  to{width:120px}
-}
-
-@keyframes glowPulse{
-  0%,100%{
-    transform:scale(.8);
-    opacity:.45;
-  }
-  50%{
-    transform:scale(1.25);
-    opacity:.8;
-  }
+@keyframes pulse{
+  0%,100%{transform:scale(.8);opacity:.4}
+  50%{transform:scale(1.25);opacity:.8}
 }
 
 @keyframes splashOut{
@@ -200,9 +157,7 @@ svg{
   }
 }
 
-/* =====================================================
-   APP
-   ===================================================== */
+/* ================= APP ================= */
 
 .app{
   width:100%;
@@ -210,26 +165,23 @@ svg{
   display:flex;
   flex-direction:column;
   background:
-    radial-gradient(
-      circle at 50% -15%,
-      rgba(255,121,0,.13),
-      transparent 35%
-    ),
+    radial-gradient(circle at 50% -20%,rgba(255,121,0,.13),transparent 35%),
     var(--bg);
 }
 
-/* HEADER */
+/* ================= HEADER ================= */
 
 .header{
   height:64px;
   min-height:64px;
-  padding:0 12px;
+  padding:0 11px;
   display:flex;
   align-items:center;
   justify-content:space-between;
+  direction:rtl;
   border-bottom:1px solid var(--border);
-  background:rgba(9,9,11,.88);
-  backdrop-filter:blur(18px);
+  background:rgba(8,8,9,.88);
+  backdrop-filter:blur(20px);
   z-index:10;
 }
 
@@ -240,7 +192,8 @@ body.light .header{
 .headerSide{
   display:flex;
   align-items:center;
-  gap:6px;
+  gap:4px;
+  direction:rtl;
 }
 
 .iconBtn{
@@ -250,8 +203,8 @@ body.light .header{
   display:flex;
   align-items:center;
   justify-content:center;
-  background:transparent;
   color:var(--text);
+  background:transparent;
   transition:.15s;
 }
 
@@ -265,25 +218,18 @@ body.light .header{
 
 .brandName{
   font-size:18px;
-  font-weight:800;
+  font-weight:850;
 }
 
-.brandStatus{
-  margin-top:3px;
-  color:var(--green);
-  font-size:10px;
-}
-
-/* CHAT */
+/* ================= CHAT ================= */
 
 .chat{
   flex:1;
   overflow-y:auto;
   overflow-x:hidden;
-  padding:28px 16px 150px;
+  padding:28px 15px 150px;
   overscroll-behavior:contain;
   -webkit-overflow-scrolling:touch;
-  scroll-behavior:auto;
 }
 
 .messages{
@@ -302,16 +248,13 @@ body.light .header{
 
 .empty h1{
   margin:0 0 10px;
-  font-size:38px;
-  font-weight:800;
-  background:linear-gradient(
-    135deg,
-    var(--accent),
-    var(--accent2)
-  );
+  font-size:42px;
+  font-weight:900;
+  background:linear-gradient(135deg,#ff9a00,#ff3d00);
   -webkit-background-clip:text;
   background-clip:text;
   color:transparent;
+  letter-spacing:-1px;
 }
 
 .empty p{
@@ -320,23 +263,17 @@ body.light .header{
   font-size:17px;
 }
 
-/* MESSAGE */
+/* ================= MESSAGE ================= */
 
 .message{
   width:100%;
-  margin:0 0 34px;
-  animation:appear .14s ease;
+  margin:0 0 35px;
+  animation:messageIn .16s ease;
 }
 
-@keyframes appear{
-  from{
-    opacity:0;
-    transform:translateY(5px);
-  }
-  to{
-    opacity:1;
-    transform:none;
-  }
+@keyframes messageIn{
+  from{opacity:0;transform:translateY(6px)}
+  to{opacity:1;transform:none}
 }
 
 .message.ai{
@@ -352,11 +289,11 @@ body.light .header{
 }
 
 .messageInner{
-  max-width:88%;
+  max-width:90%;
 }
 
 .message.user .messageInner{
-  max-width:84%;
+  max-width:86%;
 }
 
 .messageText{
@@ -369,23 +306,19 @@ body.light .header{
 .message.ai .messageText{
   direction:rtl;
   text-align:right;
+  background:transparent;
 }
 
 .message.user .messageText{
   direction:rtl;
   text-align:right;
+  padding:12px 17px;
+  border-radius:20px;
   background:var(--panel2);
   border:1px solid var(--border);
-  border-radius:20px;
-  padding:12px 17px;
 }
 
-.message.ai .messageText{
-  background:transparent;
-  padding:0;
-}
-
-/* ACTIONS */
+/* ================= ACTIONS ================= */
 
 .actions{
   display:flex;
@@ -406,25 +339,25 @@ body.light .header{
   background:var(--panel2);
 }
 
-/* CODE */
+/* ================= CODE ================= */
 
 .codeBlock{
   direction:ltr;
   margin:16px 0;
-  border:1px solid #303034;
-  border-radius:15px;
   overflow:hidden;
-  background:#0c0c0e;
+  border:1px solid #303035;
+  border-radius:15px;
+  background:#0b0b0d;
 }
 
 .codeHeader{
-  height:42px;
+  height:43px;
   padding:0 10px;
   display:flex;
   align-items:center;
   justify-content:space-between;
+  border-bottom:1px solid #303035;
   color:#aaa;
-  border-bottom:1px solid #303034;
   font-size:11px;
 }
 
@@ -454,8 +387,6 @@ body.light .header{
   font-family:monospace;
 }
 
-/* CURSOR */
-
 .cursor{
   display:inline-block;
   width:2px;
@@ -471,7 +402,7 @@ body.light .header{
   51%,100%{opacity:0}
 }
 
-/* FILE */
+/* ================= FILE ================= */
 
 .fileCard{
   margin-top:10px;
@@ -505,7 +436,7 @@ body.light .header{
   font-size:10px;
 }
 
-/* COMPOSER */
+/* ================= COMPOSER ================= */
 
 .composerArea{
   position:absolute;
@@ -513,22 +444,20 @@ body.light .header{
   right:0;
   bottom:0;
   z-index:12;
+  display:flex;
+  justify-content:center;
   padding:8px 10px 13px;
-  background:linear-gradient(
-    to top,
-    var(--bg) 65%,
-    transparent
-  );
+  background:linear-gradient(to top,var(--bg) 65%,transparent);
 }
 
 .composer{
   width:min(900px,100%);
-  margin:auto;
+  margin:0;
   overflow:hidden;
   border:1px solid var(--border);
-  border-radius:22px;
+  border-radius:23px;
   background:var(--panel);
-  box-shadow:0 10px 45px rgba(0,0,0,.28);
+  box-shadow:0 12px 50px rgba(0,0,0,.3);
 }
 
 .preview{
@@ -580,10 +509,24 @@ body.light .header{
   align-items:flex-end;
   gap:5px;
   padding:8px;
+  direction:rtl;
+}
+
+#attach{
+  order:1;
+}
+
+#input{
+  order:2;
+}
+
+#send{
+  order:3;
 }
 
 textarea{
   flex:1;
+  min-width:0;
   min-height:45px;
   max-height:160px;
   resize:none;
@@ -609,27 +552,23 @@ textarea::placeholder{
   justify-content:center;
   border-radius:14px;
   color:#fff;
-  background:linear-gradient(
-    135deg,
-    var(--accent),
-    var(--accent2)
-  );
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
 }
 
 .send.stop{
-  background:#303034;
+  background:#303035;
 }
 
-/* MENU */
+/* ================= MENU ================= */
 
 .overlay{
   position:fixed;
   inset:0;
   z-index:30;
-  background:rgba(0,0,0,.58);
+  background:rgba(0,0,0,.62);
   opacity:0;
   pointer-events:none;
-  transition:.18s;
+  transition:.2s;
 }
 
 .overlay.show{
@@ -649,8 +588,8 @@ textarea::placeholder{
   background:var(--panel);
   border-left:1px solid var(--border);
   transform:translateX(105%);
-  transition:transform .22s cubic-bezier(.2,.8,.2,1);
-  box-shadow:-15px 0 45px rgba(0,0,0,.3);
+  transition:transform .23s cubic-bezier(.2,.8,.2,1);
+  box-shadow:-18px 0 50px rgba(0,0,0,.35);
 }
 
 .sideMenu.show{
@@ -669,7 +608,7 @@ textarea::placeholder{
 
 .menuTitle{
   font-size:20px;
-  font-weight:800;
+  font-weight:850;
 }
 
 .menuBody{
@@ -688,17 +627,13 @@ textarea::placeholder{
   gap:8px;
   border-radius:13px;
   color:#fff;
-  background:linear-gradient(
-    135deg,
-    var(--accent),
-    var(--accent2)
-  );
-  font-weight:700;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  font-weight:750;
 }
 
 .menuSearch{
   width:100%;
-  height:42px;
+  height:43px;
   margin-bottom:12px;
   padding:0 12px;
   outline:0;
@@ -710,7 +645,7 @@ textarea::placeholder{
 
 .menuItem{
   width:100%;
-  min-height:47px;
+  min-height:48px;
   padding:11px 12px;
   display:flex;
   align-items:center;
@@ -770,7 +705,7 @@ textarea::placeholder{
   font-size:10px;
 }
 
-/* MODALS */
+/* ================= MODALS ================= */
 
 .modalBack{
   position:fixed;
@@ -779,8 +714,8 @@ textarea::placeholder{
   display:none;
   align-items:center;
   justify-content:center;
-  padding:17px;
-  background:rgba(0,0,0,.65);
+  padding:14px;
+  background:rgba(0,0,0,.68);
 }
 
 .modalBack.show{
@@ -788,56 +723,82 @@ textarea::placeholder{
 }
 
 .modal{
-  width:min(440px,100%);
-  max-height:87vh;
+  width:min(470px,100%);
+  max-height:90vh;
   overflow:auto;
   border:1px solid var(--border);
-  border-radius:22px;
+  border-radius:23px;
   background:var(--panel);
+  box-shadow:0 25px 80px rgba(0,0,0,.45);
 }
 
 .modalHeader{
-  padding:17px;
+  position:sticky;
+  top:0;
+  z-index:2;
+  padding:16px;
   display:flex;
   align-items:center;
   justify-content:space-between;
   border-bottom:1px solid var(--border);
+  background:var(--panel);
 }
 
 .modalTitle{
   font-size:19px;
-  font-weight:800;
+  font-weight:850;
 }
 
 .modalBody{
-  padding:16px;
+  padding:10px 16px 18px;
 }
 
-.setting{
-  padding:14px 0;
+/* ================= SETTINGS ================= */
+
+.settingsSection{
+  margin:10px 0 7px;
+  padding:8px 4px;
+  color:var(--muted);
+  font-size:11px;
+  font-weight:700;
+}
+
+.settingRow{
+  min-height:64px;
+  padding:12px 3px;
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
   border-bottom:1px solid var(--border);
 }
 
-.setting:last-child{
-  border:0;
+.settingInfo{
+  flex:1;
+  text-align:right;
 }
 
-.settingTop{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-}
-
-.setting strong{
+.settingInfo strong{
+  display:block;
   font-size:14px;
 }
 
-.setting small{
+.settingInfo small{
   display:block;
   margin-top:4px;
   color:var(--muted);
-  font-size:11px;
+  font-size:10px;
 }
+
+.settingControl{
+  flex-shrink:0;
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+}
+
+/* SWITCH */
 
 .switch{
   width:49px;
@@ -867,24 +828,67 @@ textarea::placeholder{
   transform:translateX(-21px);
 }
 
-.langs{
+/* CHOICES */
+
+.choiceGroup{
   display:flex;
-  gap:7px;
-  margin-top:10px;
+  flex-wrap:wrap;
+  gap:6px;
 }
 
-.langs button{
-  flex:1;
-  padding:10px;
+.choice{
+  min-width:62px;
+  padding:8px 10px;
   border:1px solid var(--border);
   border-radius:9px;
   background:var(--panel2);
   color:var(--text);
+  font-size:11px;
 }
 
-.langs button.active{
+.choice.active{
   background:var(--accent);
+  border-color:var(--accent);
   color:#fff;
+}
+
+/* ACTION SETTINGS */
+
+.settingAction{
+  width:100%;
+  min-height:50px;
+  padding:11px 12px;
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  border-bottom:1px solid var(--border);
+  background:transparent;
+  color:var(--text);
+  text-align:right;
+}
+
+.settingAction:last-child{
+  border-bottom:0;
+}
+
+.settingAction .actionRight{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.settingAction svg{
+  color:var(--muted);
+}
+
+.settingAction.danger{
+  color:var(--danger);
+}
+
+.settingAction.danger svg{
+  color:var(--danger);
 }
 
 /* SOCIAL */
@@ -893,26 +897,26 @@ textarea::placeholder{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:9px;
-  margin-top:10px;
+  padding:8px 0 5px;
 }
 
 .socialBtn{
-  min-height:52px;
+  min-height:55px;
   display:flex;
   align-items:center;
   justify-content:center;
   gap:9px;
   border:1px solid var(--border);
-  border-radius:13px;
+  border-radius:14px;
   background:var(--panel2);
   color:var(--text);
-  transition:.18s;
   font-weight:700;
+  transition:.15s;
 }
 
 .socialBtn svg{
-  width:24px;
-  height:24px;
+  width:25px;
+  height:25px;
 }
 
 .whatsappBtn svg{
@@ -923,25 +927,11 @@ textarea::placeholder{
   color:#229ED9;
 }
 
-.socialBtn:hover{
-  background:var(--panel3);
-}
-
 .socialBtn:active{
   transform:scale(.95);
 }
 
-.support{
-  width:100%;
-  padding:12px;
-  margin-top:8px;
-  border:1px solid var(--border);
-  border-radius:10px;
-  background:var(--panel2);
-  color:var(--text);
-}
-
-/* TOAST */
+/* ================= TOAST ================= */
 
 .toast{
   position:fixed;
@@ -950,11 +940,10 @@ textarea::placeholder{
   z-index:100;
   padding:10px 15px;
   border:1px solid #3b3b40;
-  border-radius:10px;
+  border-radius:11px;
   background:#222225;
   color:#fff;
   font-size:12px;
-  white-space:nowrap;
   opacity:0;
   pointer-events:none;
   transform:translate(-50%,15px);
@@ -966,7 +955,29 @@ textarea::placeholder{
   transform:translate(-50%,0);
 }
 
-/* LTR */
+/* ================= FONT SIZES ================= */
+
+body.font-small .messageText{
+  font-size:17px;
+}
+
+body.font-normal .messageText{
+  font-size:20px;
+}
+
+body.font-large .messageText{
+  font-size:23px;
+}
+
+body.font-small textarea{
+  font-size:16px;
+}
+
+body.font-large textarea{
+  font-size:20px;
+}
+
+/* ================= LTR ================= */
 
 html[dir="ltr"] .sideMenu{
   right:auto;
@@ -974,21 +985,11 @@ html[dir="ltr"] .sideMenu{
   transform:translateX(-105%);
   border-left:0;
   border-right:1px solid var(--border);
-  box-shadow:15px 0 45px rgba(0,0,0,.3);
+  box-shadow:18px 0 50px rgba(0,0,0,.35);
 }
 
 html[dir="ltr"] .sideMenu.show{
   transform:translateX(0);
-}
-
-html[dir="ltr"] .message.ai{
-  direction:ltr;
-  justify-content:flex-start;
-}
-
-html[dir="ltr"] .message.user{
-  direction:ltr;
-  justify-content:flex-end;
 }
 
 html[dir="ltr"] .messageText{
@@ -996,49 +997,90 @@ html[dir="ltr"] .messageText{
   text-align:left!important;
 }
 
-html[dir="ltr"] .menuItem{
+html[dir="ltr"] .menuItem,
+html[dir="ltr"] .settingInfo,
+html[dir="ltr"] .settingAction{
   text-align:left;
 }
 
-html[dir="ltr"] .switch:after{
-  right:3px;
+html[dir="ltr"] .inputRow{
+  direction:ltr;
 }
 
-html[dir="ltr"] .switch.on:after{
-  transform:translateX(21px);
+html[dir="ltr"] .header{
+  direction:ltr;
 }
 
-/* MOBILE */
+html[dir="ltr"] .headerSide{
+  direction:ltr;
+}
+
+html[dir="ltr"] .message.user{
+  direction:ltr;
+}
+
+html[dir="ltr"] .message.user .messageText{
+  direction:ltr;
+  text-align:left;
+}
+
+/* ================= MOBILE ================= */
 
 @media(max-width:600px){
 
+  .header{
+    height:60px;
+    min-height:60px;
+    padding:0 8px;
+  }
+
   .chat{
     padding:22px 13px 145px;
+  }
+
+  .messageInner,
+  .message.user .messageInner{
+    max-width:95%;
   }
 
   .messageText{
     font-size:19px;
   }
 
-  .messageInner,
-  .message.user .messageInner{
-    max-width:94%;
-  }
-
-  textarea{
-    font-size:17px;
-  }
-
-  .sideMenu{
-    width:90vw;
-  }
-
   .empty h1{
-    font-size:34px;
+    font-size:36px;
   }
 
   .splashTitle{
     font-size:30px;
+  }
+
+  .modal{
+    max-height:92vh;
+    border-radius:21px;
+  }
+
+  .composerArea{
+    padding:7px 8px 10px;
+  }
+
+  .inputRow{
+    padding:7px;
+    gap:4px;
+  }
+
+  .iconBtn{
+    width:42px;
+    height:42px;
+  }
+
+  .send{
+    width:44px;
+    height:44px;
+  }
+
+  textarea{
+    font-size:17px;
   }
 }
 </style>
@@ -1046,11 +1088,9 @@ html[dir="ltr"] .switch.on:after{
 
 <body>
 
-<!-- =====================================================
-     SPLASH
-     ===================================================== -->
+<!-- SPLASH -->
 
-<div id="foxSplash" class="foxSplash">
+<div class="foxSplash" id="foxSplash">
 
   <div class="splashGlow"></div>
 
@@ -1059,13 +1099,8 @@ html[dir="ltr"] .switch.on:after{
     <svg class="foxLogo" viewBox="0 0 200 180">
 
       <defs>
-        <linearGradient
-          id="foxGradient"
-          x1="0%"
-          y1="0%"
-          x2="100%"
-          y2="100%"
-        >
+        <linearGradient id="foxGradient"
+          x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stop-color="#ff9a00"/>
           <stop offset="55%" stop-color="#ff6500"/>
           <stop offset="100%" stop-color="#ff2800"/>
@@ -1077,15 +1112,8 @@ html[dir="ltr"] .switch.on:after{
         fill="url(#foxGradient)"
       />
 
-      <path
-        d="M38 38L68 53L53 80Z"
-        fill="#ffb000"
-      />
-
-      <path
-        d="M162 38L132 53L147 80Z"
-        fill="#ff8a00"
-      />
+      <path d="M38 38L68 53L53 80Z" fill="#ffb000"/>
+      <path d="M162 38L132 53L147 80Z" fill="#ff8a00"/>
 
       <path
         d="M68 86C76 78 86 78 94 86"
@@ -1103,10 +1131,7 @@ html[dir="ltr"] .switch.on:after{
         stroke-linecap="round"
       />
 
-      <path
-        d="M91 108L100 102L109 108L100 118Z"
-        fill="#171717"
-      />
+      <path d="M91 108L100 102L109 108L100 118Z" fill="#171717"/>
 
       <path
         d="M82 124C91 131 109 131 118 124"
@@ -1121,159 +1146,119 @@ html[dir="ltr"] .switch.on:after{
   </div>
 
   <div class="splashTitle">FOX AI</div>
-
   <div class="splashLine"></div>
 
 </div>
 
 
-<!-- =====================================================
-     APP
-     ===================================================== -->
+<!-- APP -->
 
 <div class="app">
 
-<header class="header">
+  <header class="header">
 
-  <div class="headerSide">
+    <div class="headerSide">
 
-    <button class="iconBtn" id="menuBtn">
+      <button class="iconBtn" id="menuBtn" aria-label="Menu">
+
+        <svg viewBox="0 0 24 24">
+          <path d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+
+      </button>
+
+      <div class="brandName">Fox AI</div>
+
+    </div>
+
+    <button class="iconBtn" id="newChat" aria-label="New chat">
 
       <svg viewBox="0 0 24 24">
-        <path d="M4 6h16M4 12h16M4 18h16"/>
+        <path d="M12 5v14M5 12h14"/>
       </svg>
 
     </button>
 
-    <div>
+  </header>
 
-      <div class="brandName">
-        Fox AI
-      </div>
 
-      <div class="brandStatus" id="status">
-        آماده
+  <main class="chat" id="chat">
+
+    <div class="messages" id="messages">
+
+      <div class="empty" id="empty">
+
+        <h1>Fox AI</h1>
+
+        <p id="welcome">
+          چه کاری می‌توانم برایت انجام دهم؟
+        </p>
+
       </div>
 
     </div>
 
-  </div>
+  </main>
 
 
-  <button
-    class="iconBtn"
-    id="newChat"
-  >
+  <!-- COMPOSER -->
 
-    <svg viewBox="0 0 24 24">
-      <path d="M12 5v14M5 12h14"/>
-    </svg>
+  <div class="composerArea">
 
-  </button>
+    <div class="composer">
 
-</header>
+      <div class="preview" id="preview">
 
+        <img id="previewImage">
 
-<main class="chat" id="chat">
+        <div class="previewInfo">
 
-  <div
-    class="messages"
-    id="messages"
-  >
+          <div class="previewName" id="previewName"></div>
 
-    <div
-      class="empty"
-      id="empty"
-    >
+          <div class="previewSize" id="previewSize"></div>
 
-      <h1>Fox AI</h1>
+        </div>
 
-      <p id="welcome">
-        چه کاری می‌توانم برایت انجام دهم؟
-      </p>
-
-    </div>
-
-  </div>
-
-</main>
-
-
-<div class="composerArea">
-
-  <div class="composer">
-
-    <div
-      class="preview"
-      id="preview"
-    >
-
-      <img id="previewImage">
-
-      <div class="previewInfo">
-
-        <div
-          class="previewName"
-          id="previewName"
-        ></div>
-
-        <div
-          class="previewSize"
-          id="previewSize"
-        ></div>
+        <button class="removeFile" id="removeFile">
+          حذف
+        </button>
 
       </div>
 
-      <button
-        class="removeFile"
-        id="removeFile"
-      >
-        حذف
-      </button>
 
-    </div>
+      <div class="inputRow">
 
+        <button class="iconBtn" id="attach" aria-label="Attach file">
 
-    <div class="inputRow">
+          <svg viewBox="0 0 24 24">
+            <path d="M21.4 11.6l-8.9 8.9a6 6 0 01-8.5-8.5l9.2-9.2a4 4 0 015.7 5.7L9.7 17.7a2 2 0 01-2.8-2.8l8.5-8.5"/>
+          </svg>
 
-      <button
-        class="iconBtn"
-        id="attach"
-      >
+        </button>
 
-        <svg viewBox="0 0 24 24">
-          <path d="M21.4 11.6l-8.9 8.9a6 6 0 01-8.5-8.5l9.2-9.2a4 4 0 015.7 5.7L9.7 17.7a2 2 0 01-2.8-2.8l8.5-8.5"/>
-        </svg>
+        <input
+          type="file"
+          id="file"
+          hidden
+          accept="image/*,.txt,.js,.html,.css,.json,.md,.csv"
+        >
 
-      </button>
+        <textarea
+          id="input"
+          rows="1"
+          placeholder="پیامت را بنویس..."
+        ></textarea>
 
+        <button class="send" id="send" aria-label="Send">
 
-      <input
-        type="file"
-        id="file"
-        hidden
-        accept="image/*,.txt,.js,.html,.css,.json,.md,.csv"
-      >
+          <svg viewBox="0 0 24 24">
+            <path d="M22 2L11 13"/>
+            <path d="M22 2l-7 20-9-4z"/>
+          </svg>
 
+        </button>
 
-      <textarea
-        id="input"
-        rows="1"
-        placeholder="پیامت را بنویس..."
-      ></textarea>
-
-
-      <button
-        class="send"
-        id="send"
-      >
-
-        <svg viewBox="0 0 24 24">
-          <path d="M22 2L11 13"/>
-          <path d="M22 2l-7 20-9-4z"/>
-        </svg>
-
-      </button>
+      </div>
 
     </div>
 
@@ -1281,23 +1266,12 @@ html[dir="ltr"] .switch.on:after{
 
 </div>
 
-</div>
 
+<!-- MENU -->
 
-<!-- =====================================================
-     MENU
-     ===================================================== -->
+<div class="overlay" id="overlay"></div>
 
-<div
-  class="overlay"
-  id="overlay"
-></div>
-
-
-<aside
-  class="sideMenu"
-  id="menu"
->
+<aside class="sideMenu" id="menu">
 
   <div class="menuHeader">
 
@@ -1305,10 +1279,7 @@ html[dir="ltr"] .switch.on:after{
       Fox AI
     </div>
 
-    <button
-      class="iconBtn"
-      id="closeMenu"
-    >
+    <button class="iconBtn" id="closeMenu" aria-label="Close">
 
       <svg viewBox="0 0 24 24">
         <path d="M6 6l12 12M18 6L6 18"/>
@@ -1321,10 +1292,7 @@ html[dir="ltr"] .switch.on:after{
 
   <div class="menuBody">
 
-    <button
-      class="newChatLarge"
-      id="newChatMenu"
-    >
+    <button class="newChatLarge" id="newChatMenu">
 
       <svg viewBox="0 0 24 24">
         <path d="M12 5v14M5 12h14"/>
@@ -1344,10 +1312,7 @@ html[dir="ltr"] .switch.on:after{
     >
 
 
-    <button
-      class="menuItem"
-      id="settingsBtn"
-    >
+    <button class="menuItem" id="settingsBtn">
 
       <svg viewBox="0 0 24 24">
         <circle cx="12" cy="12" r="3"/>
@@ -1361,10 +1326,7 @@ html[dir="ltr"] .switch.on:after{
     </button>
 
 
-    <button
-      class="menuItem"
-      id="aboutBtn"
-    >
+    <button class="menuItem" id="aboutBtn">
 
       <svg viewBox="0 0 24 24">
         <circle cx="12" cy="12" r="9"/>
@@ -1381,13 +1343,9 @@ html[dir="ltr"] .switch.on:after{
     <div class="menuDivider"></div>
 
 
-    <div
-      class="menuLabel"
-      data-i18n="history"
-    >
+    <div class="menuLabel" data-i18n="history">
       سابقه گفتگو
     </div>
-
 
     <div id="history"></div>
 
@@ -1395,10 +1353,7 @@ html[dir="ltr"] .switch.on:after{
     <div class="menuDivider"></div>
 
 
-    <button
-      class="menuItem"
-      id="deleteAll"
-    >
+    <button class="menuItem" id="deleteAll">
 
       <svg viewBox="0 0 24 24">
         <path d="M4 7h16M10 11v6M14 11v6M6 7l1 14h10l1-14M9 7V4h6v3"/>
@@ -1415,30 +1370,19 @@ html[dir="ltr"] .switch.on:after{
 </aside>
 
 
-<!-- =====================================================
-     SETTINGS
-     ===================================================== -->
+<!-- SETTINGS -->
 
-<div
-  class="modalBack"
-  id="settingsModal"
->
+<div class="modalBack" id="settingsModal">
 
   <div class="modal">
 
     <div class="modalHeader">
 
-      <div
-        class="modalTitle"
-        data-i18n="settings"
-      >
+      <div class="modalTitle" data-i18n="settings">
         تنظیمات
       </div>
 
-      <button
-        class="iconBtn"
-        id="closeSettings"
-      >
+      <button class="iconBtn" id="closeSettings" aria-label="Close">
 
         <svg viewBox="0 0 24 24">
           <path d="M6 6l12 12M18 6L6 18"/>
@@ -1451,126 +1395,296 @@ html[dir="ltr"] .switch.on:after{
 
     <div class="modalBody">
 
-      <div class="setting">
+      <div class="settingsSection" data-i18n="appearance">
+        ظاهر برنامه
+      </div>
 
-        <div class="settingTop">
 
-          <div>
+      <div class="settingRow">
 
-            <strong data-i18n="lightMode">
-              حالت روشن
-            </strong>
+        <div class="settingInfo">
+          <strong data-i18n="lightMode">حالت روشن</strong>
+          <small data-i18n="lightModeDesc">تغییر ظاهر Fox AI</small>
+        </div>
 
-            <small data-i18n="changeAppearance">
-              تغییر ظاهر Fox AI
-            </small>
+        <div class="settingControl">
+          <button class="switch" id="themeSwitch"></button>
+        </div>
+
+      </div>
+
+
+      <div class="settingRow">
+
+        <div class="settingInfo">
+          <strong data-i18n="fontSize">اندازه متن</strong>
+          <small data-i18n="fontSizeDesc">اندازه نوشته‌های گفتگو</small>
+        </div>
+
+        <div class="settingControl">
+
+          <div class="choiceGroup">
+
+            <button class="choice" data-font="small" data-i18n="small">
+              کوچک
+            </button>
+
+            <button class="choice active" data-font="normal" data-i18n="medium">
+              متوسط
+            </button>
+
+            <button class="choice" data-font="large" data-i18n="large">
+              بزرگ
+            </button>
 
           </div>
 
-          <button
-            class="switch"
-            id="themeSwitch"
-          ></button>
+        </div>
+
+      </div>
+
+
+      <div class="settingRow">
+
+        <div class="settingInfo">
+          <strong data-i18n="language">زبان</strong>
+          <small data-i18n="languageDesc">زبان رابط برنامه</small>
+        </div>
+
+        <div class="settingControl">
+
+          <div class="choiceGroup">
+
+            <button class="choice active" id="faBtn">
+              فارسی
+            </button>
+
+            <button class="choice" id="enBtn">
+              English
+            </button>
+
+          </div>
 
         </div>
 
       </div>
 
 
-      <div class="setting">
+      <div class="settingsSection" data-i18n="chatSettings">
+        گفتگو
+      </div>
 
-        <strong data-i18n="language">
-          زبان
-        </strong>
 
-        <small data-i18n="interfaceLanguage">
-          زبان رابط برنامه
-        </small>
+      <div class="settingRow">
 
-        <div class="langs">
+        <div class="settingInfo">
+          <strong data-i18n="enterSend">ارسال با Enter</strong>
+          <small data-i18n="enterSendDesc">با Enter پیام ارسال شود</small>
+        </div>
 
-          <button
-            id="faBtn"
-            class="active"
-          >
-            فارسی
-          </button>
-
-          <button id="enBtn">
-            English
-          </button>
-
+        <div class="settingControl">
+          <button class="switch on" id="enterSwitch"></button>
         </div>
 
       </div>
 
 
-      <div class="setting">
+      <div class="settingRow">
 
-        <strong data-i18n="support">
-          پشتیبانی
-        </strong>
+        <div class="settingInfo">
+          <strong data-i18n="autoScroll">اسکرول خودکار</strong>
+          <small data-i18n="autoScrollDesc">هنگام پاسخ، صفحه پایین بماند</small>
+        </div>
 
-        <small data-i18n="supportText">
-          ارتباط با پشتیبانی Fox AI
-        </small>
-
-
-        <div class="socialButtons">
-
-          <button
-            class="socialBtn whatsappBtn"
-            id="whatsapp"
-          >
-
-            <svg viewBox="0 0 24 24">
-
-              <path d="M20 11.5a8 8 0 0 1-11.8 7L4 20l1.5-4.1A8 8 0 1 1 20 11.5Z"/>
-
-              <path d="M8.5 8.5c.3-.4.7-.4 1-.1l1 1c.3.3.3.7.1 1l-.5.6c.8 1.2 1.8 2.2 3 3l.6-.5c.3-.2.7-.2 1 .1l1 1c.3.3.3.7-.1 1-1 .9-2.4.7-4.1-.4-1.6-1-3-2.4-4-4-1.1-1.7-1.3-3.1-.4-4.1Z"/>
-
-            </svg>
-
-            <span>
-              WhatsApp
-            </span>
-
-          </button>
-
-
-          <button
-            class="socialBtn telegramBtn"
-            id="telegram"
-          >
-
-            <svg viewBox="0 0 24 24">
-
-              <path d="M21 3L3.5 10.2c-.7.3-.7 1.3 0 1.5l4.5 1.5 1.7 5.4c.2.7 1.1.8 1.5.3l2.5-3.1 4.5 3.3c.6.4 1.4.1 1.6-.6L21.9 4c.2-.7-.3-1.3-.9-1Z"/>
-
-              <path d="M8 13.2l9.4-7.1"/>
-
-            </svg>
-
-            <span>
-              Telegram
-            </span>
-
-          </button>
-
+        <div class="settingControl">
+          <button class="switch on" id="scrollSwitch"></button>
         </div>
 
       </div>
 
 
-      <div class="setting">
+      <div class="settingRow">
 
-        <strong data-i18n="aboutApp">
-          درباره برنامه
-        </strong>
+        <div class="settingInfo">
+          <strong data-i18n="showTime">نمایش زمان پیام</strong>
+          <small data-i18n="showTimeDesc">زمان ارسال پیام‌ها نمایش داده شود</small>
+        </div>
 
-        <small>
-          Fox AI V10
-        </small>
+        <div class="settingControl">
+          <button class="switch" id="timeSwitch"></button>
+        </div>
+
+      </div>
+
+
+      <div class="settingsSection" data-i18n="chatManagement">
+        مدیریت گفتگوها
+      </div>
+
+
+      <button class="settingAction" id="exportChats">
+
+        <div class="actionRight">
+
+          <svg viewBox="0 0 24 24">
+            <path d="M12 3v12"/>
+            <path d="M7 10l5 5 5-5"/>
+            <path d="M4 20h16"/>
+          </svg>
+
+          <span data-i18n="exportChats">
+            خروجی گرفتن از چت‌ها
+          </span>
+
+        </div>
+
+        <svg viewBox="0 0 24 24">
+          <path d="M9 18l6-6-6-6"/>
+        </svg>
+
+      </button>
+
+
+      <button class="settingAction" id="importChats">
+
+        <div class="actionRight">
+
+          <svg viewBox="0 0 24 24">
+            <path d="M12 21V9"/>
+            <path d="M7 14l5-5 5 5"/>
+            <path d="M4 4h16"/>
+          </svg>
+
+          <span data-i18n="importChats">
+            وارد کردن چت‌ها
+          </span>
+
+        </div>
+
+        <svg viewBox="0 0 24 24">
+          <path d="M9 18l6-6-6-6"/>
+        </svg>
+
+      </button>
+
+
+      <input
+        type="file"
+        id="importFile"
+        hidden
+        accept=".json,application/json"
+      >
+
+
+      <button class="settingAction" id="clearCurrent">
+
+        <div class="actionRight">
+
+          <svg viewBox="0 0 24 24">
+            <path d="M5 5l14 14M19 5L5 19"/>
+          </svg>
+
+          <span data-i18n="clearCurrent">
+            پاک کردن چت فعلی
+          </span>
+
+        </div>
+
+        <svg viewBox="0 0 24 24">
+          <path d="M9 18l6-6-6-6"/>
+        </svg>
+
+      </button>
+
+
+      <div class="settingsSection" data-i18n="sharingSupport">
+        اشتراک‌گذاری و پشتیبانی
+      </div>
+
+
+      <button class="settingAction" id="shareApp">
+
+        <div class="actionRight">
+
+          <svg viewBox="0 0 24 24">
+            <circle cx="18" cy="5" r="2"/>
+            <circle cx="6" cy="12" r="2"/>
+            <circle cx="18" cy="19" r="2"/>
+            <path d="M8 11l8-5M8 13l8 5"/>
+          </svg>
+
+          <span data-i18n="shareFox">
+            اشتراک‌گذاری Fox AI
+          </span>
+
+        </div>
+
+        <svg viewBox="0 0 24 24">
+          <path d="M9 18l6-6-6-6"/>
+        </svg>
+
+      </button>
+
+
+      <div class="socialButtons">
+
+        <button class="socialBtn whatsappBtn" id="whatsapp">
+
+          <svg viewBox="0 0 24 24">
+            <path d="M20 11.5a8 8 0 0 1-11.8 7L4 20l1.5-4.1A8 8 0 1 1 20 11.5Z"/>
+            <path d="M8.5 8.5c.3-.4.7-.4 1-.1l1 1c.3.3.3.7.1 1l-.5.6c.8 1.2 1.8 2.2 3 3l.6-.5c.3-.2.7-.2 1 .1l1 1c.3.3.3.7-.1 1-1 .9-2.4.7-4.1-.4-1.6-1-3-2.4-4-4-1.1-1.7-1.3-3.1-.4-4.1Z"/>
+          </svg>
+
+          <span>WhatsApp</span>
+
+        </button>
+
+
+        <button class="socialBtn telegramBtn" id="telegram">
+
+          <svg viewBox="0 0 24 24">
+            <path d="M21 3L3.5 10.2c-.7.3-.7 1.3 0 1.5l4.5 1.5 1.7 5.4c.2.7 1.1.8 1.5.3l2.5-3.1 4.5 3.3c.6.4 1.4.1 1.6-.6L21.9 4c.2-.7-.3-1.3-.9-1Z"/>
+            <path d="M8 13.2l9.4-7.1"/>
+          </svg>
+
+          <span>Telegram</span>
+
+        </button>
+
+      </div>
+
+
+      <button class="settingAction danger" id="resetSettings">
+
+        <div class="actionRight">
+
+          <svg viewBox="0 0 24 24">
+            <path d="M4 4v6h6"/>
+            <path d="M5 15a8 8 0 1 0 1-8L4 10"/>
+          </svg>
+
+          <span data-i18n="resetSettings">
+            بازنشانی تنظیمات
+          </span>
+
+        </div>
+
+        <svg viewBox="0 0 24 24">
+          <path d="M9 18l6-6-6-6"/>
+        </svg>
+
+      </button>
+
+
+      <div class="settingRow">
+
+        <div class="settingInfo">
+
+          <strong data-i18n="aboutApp">درباره برنامه</strong>
+
+          <small>FOX AI V11</small>
+
+        </div>
 
       </div>
 
@@ -1581,30 +1695,19 @@ html[dir="ltr"] .switch.on:after{
 </div>
 
 
-<!-- =====================================================
-     ABOUT
-     ===================================================== -->
+<!-- ABOUT -->
 
-<div
-  class="modalBack"
-  id="aboutModal"
->
+<div class="modalBack" id="aboutModal">
 
   <div class="modal">
 
     <div class="modalHeader">
 
-      <div
-        class="modalTitle"
-        data-i18n="about"
-      >
+      <div class="modalTitle" data-i18n="aboutFox">
         درباره Fox AI
       </div>
 
-      <button
-        class="iconBtn"
-        id="closeAbout"
-      >
+      <button class="iconBtn" id="closeAbout" aria-label="Close">
 
         <svg viewBox="0 0 24 24">
           <path d="M6 6l12 12M18 6L6 18"/>
@@ -1619,17 +1722,19 @@ html[dir="ltr"] .switch.on:after{
 
       <p
         id="aboutText"
+        data-i18n="aboutText"
         style="font-size:16px;line-height:2"
       >
-        Fox AI یک دستیار هوش مصنوعی
-        برای گفتگو، برنامه‌نویسی،
-        تحلیل متن، تصویر و فایل است.
+        Fox AI یک دستیار هوش مصنوعی حرفه‌ای
+        برای گفتگو، برنامه‌نویسی، تحلیل متن،
+        تصویر و فایل است.
       </p>
 
       <p
+        data-i18n="version"
         style="color:var(--muted);font-size:12px"
       >
-        Fox AI V10
+        FOX AI V11
       </p>
 
     </div>
@@ -1639,181 +1744,247 @@ html[dir="ltr"] .switch.on:after{
 </div>
 
 
-<div
-  class="toast"
-  id="toast"
-></div>
+<div class="toast" id="toast"></div>
 
 
 <script>
 
-/* =====================================================
-   API
-   ===================================================== */
+/* ================= API ================= */
 
-const API_KEY =
-  "l1jbuNUY6CannGd8nGUTpQiTaZAx2N1C";
-
-const API_URL =
-  "https://api.mistral.ai/v1/chat/completions";
-
-const TEXT_MODEL =
-  "mistral-small-latest";
-
-const VISION_MODEL =
-  "mistral-small-2506";
+const API_KEY="l1jbuNUY6CannGd8nGUTpQiTaZAx2N1C";
+const API_URL="https://api.mistral.ai/v1/chat/completions";
+const TEXT_MODEL="mistral-small-latest";
+const VISION_MODEL="mistral-small-2506";
 
 
-/* =====================================================
-   SHARE
-   ===================================================== */
+const SHARE_FOOTER_FA=
+"\n\nبا ما باشید روباه\nhttps://gamengrahman8-dot.github.io/fox-aiii/";
 
-const SHARE_FOOTER =
-  "\n\nباما باشید روباه\nhttps://gamengrahman8-dot.github.io/fox-aiii/";
+const SHARE_FOOTER_EN=
+"\n\nPowered by FOX AI\nhttps://gamengrahman8-dot.github.io/fox-aiii/";
 
 
-/* =====================================================
-   STATE
-   ===================================================== */
+const PHONE="989011268205";
+
+
+/* ================= STATE ================= */
 
 let chats=[];
-
 let currentId=null;
-
 let attached=null;
-
 let controller=null;
-
 let generating=false;
-
 let language="fa";
-
 let userIsNearBottom=true;
 
-
-/* =====================================================
-   ELEMENTS
-   ===================================================== */
-
-const chat=
-  document.getElementById("chat");
-
-const messages=
-  document.getElementById("messages");
-
-const empty=
-  document.getElementById("empty");
-
-const input=
-  document.getElementById("input");
-
-const send=
-  document.getElementById("send");
-
-const status=
-  document.getElementById("status");
-
-const toast=
-  document.getElementById("toast");
-
-const menu=
-  document.getElementById("menu");
-
-const overlay=
-  document.getElementById("overlay");
+let settings={
+  enter:true,
+  scroll:true,
+  time:false,
+  font:"normal"
+};
 
 
-/* =====================================================
-   TRANSLATIONS
-   ===================================================== */
+/* ================= ELEMENTS ================= */
+
+const chat=document.getElementById("chat");
+const messages=document.getElementById("messages");
+const empty=document.getElementById("empty");
+const input=document.getElementById("input");
+const send=document.getElementById("send");
+const toast=document.getElementById("toast");
+const menu=document.getElementById("menu");
+const overlay=document.getElementById("overlay");
+
+
+/* ================= TRANSLATIONS ================= */
 
 const T={
 
-  fa:{
-    ready:"آماده",
-    generating:"در حال پاسخ‌گویی",
-    stopped:"پاسخ متوقف شد",
-    welcome:"چه کاری می‌توانم برایت انجام دهم؟",
-    placeholder:"پیامت را بنویس...",
-    newChat:"چت جدید",
-    settings:"تنظیمات",
-    about:"درباره Fox AI",
-    history:"سابقه گفتگو",
-    deleteAll:"پاک کردن همه چت‌ها",
-    searchChats:"جستجوی چت‌ها...",
-    noChats:"چتی پیدا نشد",
-    delete:"حذف",
-    copy:"کپی",
-    copied:"کپی شد",
-    share:"اشتراک‌گذاری",
-    code:"کد",
-    copyCode:"کپی کد",
-    codeCopied:"کد کپی شد",
-    remove:"حذف",
-    lightMode:"حالت روشن",
-    changeAppearance:"تغییر ظاهر Fox AI",
-    language:"زبان",
-    interfaceLanguage:"زبان رابط برنامه",
-    support:"پشتیبانی",
-    supportText:"ارتباط با پشتیبانی Fox AI",
-    aboutApp:"درباره برنامه",
-    aboutText:"Fox AI یک دستیار هوش مصنوعی برای گفتگو، برنامه‌نویسی، تحلیل متن، تصویر و فایل است.",
-    fileSent:"فایل ارسال شد.",
-    imageAnalyze:"این تصویر را دقیق تحلیل کن.",
-    fileSize:"حجم فایل نباید بیشتر از 10MB باشد",
-    apiKey:"کلید API را داخل کد قرار بده",
-    invalidKey:"API Key نامعتبر است",
-    forbidden:"دسترسی API رد شد",
-    rateLimit:"محدودیت درخواست فعال است",
-    apiError:"خطا در اتصال به API",
-    copiedText:"متن کپی شد",
-    deleteConfirm:"همه گفتگوها حذف شوند؟",
-    emptyFile:"فایل ارسال شده:",
-    noFile:"فایلی انتخاب نشده است"
-  },
+fa:{
 
-  en:{
-    ready:"Ready",
-    generating:"Generating",
-    stopped:"Response stopped",
-    welcome:"How can I help you?",
-    placeholder:"Write a message...",
-    newChat:"New chat",
-    settings:"Settings",
-    about:"About Fox AI",
-    history:"Chat history",
-    deleteAll:"Delete all chats",
-    searchChats:"Search chats...",
-    noChats:"No chats found",
-    delete:"Delete",
-    copy:"Copy",
-    copied:"Copied",
-    share:"Share",
-    code:"Code",
-    copyCode:"Copy code",
-    codeCopied:"Code copied",
-    remove:"Remove",
-    lightMode:"Light mode",
-    changeAppearance:"Change Fox AI appearance",
-    language:"Language",
-    interfaceLanguage:"Interface language",
-    support:"Support",
-    supportText:"Contact Fox AI support",
-    aboutApp:"About the app",
-    aboutText:"Fox AI is an AI assistant for conversation, programming, text analysis, images and files.",
-    fileSent:"File sent.",
-    imageAnalyze:"Analyze this image carefully.",
-    fileSize:"File size must be less than 10MB",
-    apiKey:"Add your API key to the code",
-    invalidKey:"Invalid API Key",
-    forbidden:"API access was denied",
-    rateLimit:"Rate limit reached",
-    apiError:"API connection error",
-    copiedText:"Text copied",
-    deleteConfirm:"Delete all chats?",
-    emptyFile:"File sent:",
-    noFile:"No file selected"
-  }
+  welcome:"چه کاری می‌توانم برایت انجام دهم؟",
+  placeholder:"پیامت را بنویس...",
+
+  newChat:"چت جدید",
+  settings:"تنظیمات",
+  about:"درباره Fox AI",
+  aboutFox:"درباره Fox AI",
+
+  history:"سابقه گفتگو",
+  deleteAll:"پاک کردن همه چت‌ها",
+  searchChats:"جستجوی چت‌ها...",
+  noChats:"چتی پیدا نشد",
+  delete:"حذف",
+
+  copy:"کپی",
+  copied:"کپی شد",
+  share:"اشتراک‌گذاری",
+
+  code:"کد",
+  copyCode:"کپی کد",
+  codeCopied:"کد کپی شد",
+
+  remove:"حذف",
+
+  stopped:"پاسخ متوقف شد",
+
+  apiKey:"کلید API را داخل کد قرار بده",
+  invalidKey:"API Key نامعتبر است",
+  forbidden:"دسترسی API رد شد",
+  rateLimit:"محدودیت درخواست فعال است",
+  apiError:"خطا در اتصال به API",
+
+  fileSize:"حجم فایل نباید بیشتر از 10MB باشد",
+  fileSent:"فایل ارسال شد.",
+  imageAnalyze:"این تصویر را دقیق تحلیل کن.",
+  emptyFile:"فایل ارسال شده:",
+  copiedText:"متن کپی شد",
+
+  deleteConfirm:"همه گفتگوها حذف شوند؟",
+
+  appearance:"ظاهر برنامه",
+  lightMode:"حالت روشن",
+  lightModeDesc:"تغییر ظاهر Fox AI",
+
+  fontSize:"اندازه متن",
+  fontSizeDesc:"اندازه نوشته‌های گفتگو",
+
+  small:"کوچک",
+  medium:"متوسط",
+  large:"بزرگ",
+
+  language:"زبان",
+  languageDesc:"زبان رابط برنامه",
+
+  chatSettings:"گفتگو",
+
+  enterSend:"ارسال با Enter",
+  enterSendDesc:"با Enter پیام ارسال شود",
+
+  autoScroll:"اسکرول خودکار",
+  autoScrollDesc:"هنگام پاسخ، صفحه پایین بماند",
+
+  showTime:"نمایش زمان پیام",
+  showTimeDesc:"زمان ارسال پیام‌ها نمایش داده شود",
+
+  chatManagement:"مدیریت گفتگوها",
+
+  exportChats:"خروجی گرفتن از چت‌ها",
+  importChats:"وارد کردن چت‌ها",
+  clearCurrent:"پاک کردن چت فعلی",
+
+  sharingSupport:"اشتراک‌گذاری و پشتیبانی",
+  shareFox:"اشتراک‌گذاری Fox AI",
+
+  resetSettings:"بازنشانی تنظیمات",
+
+  aboutApp:"درباره برنامه",
+
+  aboutText:
+  "Fox AI یک دستیار هوش مصنوعی حرفه‌ای برای گفتگو، برنامه‌نویسی، تحلیل متن، تصویر و فایل است.",
+
+  version:"FOX AI V11",
+
+  chatsImported:"چت‌ها وارد شدند",
+  invalidFile:"فایل نامعتبر است",
+  currentCleared:"چت فعلی پاک شد",
+  settingsReset:"تنظیمات بازنشانی شد"
+
+},
+
+
+en:{
+
+  welcome:"How can I help you?",
+  placeholder:"Write a message...",
+
+  newChat:"New chat",
+  settings:"Settings",
+  about:"About Fox AI",
+  aboutFox:"About Fox AI",
+
+  history:"Chat history",
+  deleteAll:"Delete all chats",
+  searchChats:"Search chats...",
+  noChats:"No chats found",
+  delete:"Delete",
+
+  copy:"Copy",
+  copied:"Copied",
+  share:"Share",
+
+  code:"Code",
+  copyCode:"Copy code",
+  codeCopied:"Code copied",
+
+  remove:"Remove",
+
+  stopped:"Response stopped",
+
+  apiKey:"Add your API key to the code",
+  invalidKey:"Invalid API Key",
+  forbidden:"API access was denied",
+  rateLimit:"Rate limit reached",
+  apiError:"API connection error",
+
+  fileSize:"File size must be less than 10MB",
+  fileSent:"File sent.",
+  imageAnalyze:"Analyze this image carefully.",
+  emptyFile:"File sent:",
+  copiedText:"Text copied",
+
+  deleteConfirm:"Delete all chats?",
+
+  appearance:"Appearance",
+  lightMode:"Light mode",
+  lightModeDesc:"Change the Fox AI appearance",
+
+  fontSize:"Text size",
+  fontSizeDesc:"Change the chat text size",
+
+  small:"Small",
+  medium:"Medium",
+  large:"Large",
+
+  language:"Language",
+  languageDesc:"Application interface language",
+
+  chatSettings:"Chat",
+
+  enterSend:"Send with Enter",
+  enterSendDesc:"Send messages by pressing Enter",
+
+  autoScroll:"Auto scroll",
+  autoScrollDesc:"Keep the page at the bottom while responding",
+
+  showTime:"Show message time",
+  showTimeDesc:"Display the time messages were sent",
+
+  chatManagement:"Chat management",
+
+  exportChats:"Export chats",
+  importChats:"Import chats",
+  clearCurrent:"Clear current chat",
+
+  sharingSupport:"Sharing & Support",
+  shareFox:"Share Fox AI",
+
+  resetSettings:"Reset settings",
+
+  aboutApp:"About the app",
+
+  aboutText:
+  "Fox AI is a professional AI assistant for chatting, programming, text analysis, images and files.",
+
+  version:"FOX AI V11",
+
+  chatsImported:"Chats imported",
+  invalidFile:"Invalid file",
+  currentCleared:"Current chat cleared",
+  settingsReset:"Settings reset"
+
+}
 
 };
 
@@ -1827,9 +1998,7 @@ function tr(key){
 }
 
 
-/* =====================================================
-   STORAGE
-   ===================================================== */
+/* ================= STORAGE ================= */
 
 function save(){
 
@@ -1840,11 +2009,12 @@ function save(){
       JSON.stringify(chats)
     );
 
-  }catch(e){
+    localStorage.setItem(
+      "fox_settings",
+      JSON.stringify(settings)
+    );
 
-    console.log(e);
-
-  }
+  }catch(e){}
 
 }
 
@@ -1853,11 +2023,12 @@ function load(){
 
   try{
 
-    chats=JSON.parse(
-      localStorage.getItem(
-        "fox_ai_v10"
-      ) || "[]"
-    );
+    chats=
+      JSON.parse(
+        localStorage.getItem(
+          "fox_ai_v10"
+        ) || "[]"
+      );
 
     if(!Array.isArray(chats))
       chats=[];
@@ -1868,12 +2039,27 @@ function load(){
 
   }
 
+
+  try{
+
+    const s=
+      JSON.parse(
+        localStorage.getItem(
+          "fox_settings"
+        ) || "{}"
+      );
+
+    settings={
+      ...settings,
+      ...s
+    };
+
+  }catch(e){}
+
 }
 
 
-/* =====================================================
-   HELPERS
-   ===================================================== */
+/* ================= HELPERS ================= */
 
 function createId(){
 
@@ -1907,15 +2093,63 @@ function toastMessage(text){
 
   toastMessage.timer=
     setTimeout(()=>{
+
       toast.classList.remove("show");
+
     },1800);
 
 }
 
 
-/* =====================================================
-   SMART SCROLL
-   ===================================================== */
+async function copyText(text){
+
+  try{
+
+    if(
+      navigator.clipboard &&
+      window.isSecureContext
+    ){
+
+      await navigator.clipboard.writeText(text);
+
+      return true;
+
+    }
+
+  }catch(e){}
+
+
+  try{
+
+    const area=
+      document.createElement("textarea");
+
+    area.value=text;
+
+    area.style.position="fixed";
+    area.style.opacity="0";
+
+    document.body.appendChild(area);
+
+    area.focus();
+    area.select();
+
+    document.execCommand("copy");
+
+    area.remove();
+
+    return true;
+
+  }catch(e){
+
+    return false;
+
+  }
+
+}
+
+
+/* ================= SCROLL ================= */
 
 function checkScroll(){
 
@@ -1925,7 +2159,7 @@ function checkScroll(){
     chat.clientHeight;
 
   userIsNearBottom=
-    distance<120;
+    distance<140;
 
 }
 
@@ -1939,6 +2173,9 @@ chat.addEventListener(
 
 function smartScroll(){
 
+  if(!settings.scroll)
+    return;
+
   if(!userIsNearBottom)
     return;
 
@@ -1948,14 +2185,11 @@ function smartScroll(){
 }
 
 
-/* =====================================================
-   MENU
-   ===================================================== */
+/* ================= MENU ================= */
 
 function openMenu(){
 
   menu.classList.add("show");
-
   overlay.classList.add("show");
 
 }
@@ -1964,24 +2198,25 @@ function openMenu(){
 function closeMenu(){
 
   menu.classList.remove("show");
-
   overlay.classList.remove("show");
 
 }
 
 
-document.getElementById("menuBtn")
-  .onclick=openMenu;
+document.getElementById(
+  "menuBtn"
+).onclick=openMenu;
 
-document.getElementById("closeMenu")
-  .onclick=closeMenu;
+
+document.getElementById(
+  "closeMenu"
+).onclick=closeMenu;
+
 
 overlay.onclick=closeMenu;
 
 
-/* =====================================================
-   CHAT
-   ===================================================== */
+/* ================= CHAT ================= */
 
 function currentChat(){
 
@@ -2000,8 +2235,8 @@ function newChat(){
 
     title:
       language==="fa"
-        ? "گفتگوی جدید"
-        : "New chat",
+      ?"گفتگوی جدید"
+      :"New chat",
 
     messages:[],
 
@@ -2048,21 +2283,24 @@ function ensureChat(){
 }
 
 
-document.getElementById("newChat")
-  .onclick=newChat;
-
-document.getElementById("newChatMenu")
-  .onclick=newChat;
+document.getElementById(
+  "newChat"
+).onclick=newChat;
 
 
-/* =====================================================
-   HISTORY
-   ===================================================== */
+document.getElementById(
+  "newChatMenu"
+).onclick=newChat;
+
+
+/* ================= HISTORY ================= */
 
 function renderHistory(query=""){
 
   const history=
-    document.getElementById("history");
+    document.getElementById(
+      "history"
+    );
 
   history.innerHTML="";
 
@@ -2070,30 +2308,31 @@ function renderHistory(query=""){
     query.trim().toLowerCase();
 
   const list=
-    chats.filter(c=>{
-
-      if(!q)
-        return true;
-
-      return String(c.title)
+    chats.filter(c=>
+      !q ||
+      String(c.title)
         .toLowerCase()
-        .includes(q);
-
-    });
+        .includes(q)
+    );
 
 
   if(!list.length){
 
     history.innerHTML=`
+
       <div style="
         color:var(--muted);
         font-size:11px;
-        padding:10px;
+        padding:10px
       ">
+
         ${escapeHTML(
           tr("noChats")
         )}
-      </div>`;
+
+      </div>
+
+    `;
 
     return;
 
@@ -2141,8 +2380,7 @@ function renderHistory(query=""){
       if(currentId===c.id){
 
         currentId=
-          chats[0]?.id ||
-          null;
+          chats[0]?.id||null;
 
       }
 
@@ -2156,7 +2394,6 @@ function renderHistory(query=""){
 
 
     row.appendChild(title);
-
     row.appendChild(del);
 
 
@@ -2178,84 +2415,109 @@ function renderHistory(query=""){
 }
 
 
-document
-  .getElementById("historySearch")
-  .addEventListener(
-    "input",
-    e=>renderHistory(
+document.getElementById(
+  "historySearch"
+).addEventListener(
+  "input",
+  e=>{
+    renderHistory(
       e.target.value
-    )
-  );
+    );
+  }
+);
 
 
-/* =====================================================
-   MARKDOWN
-   ===================================================== */
+/* ================= MARKDOWN ================= */
 
 function markdown(text){
 
-  let html=
+  let source=
     escapeHTML(text);
 
+  const blocks=[];
 
-  html=html.replace(
-    /```([\w+-]*)\n?([\s\S]*?)```/g,
-    (_,lang,code)=>{
 
-      return `
-        <div class="codeBlock">
+  source=
+    source.replace(
+      /```([\w+-]*)\n?([\s\S]*?)```/g,
+      (_,lang,code)=>{
 
-          <div class="codeHeader">
+        const id=
+          blocks.length;
 
-            <span>
-              ${escapeHTML(
-                lang || tr("code")
-              )}
-            </span>
+        blocks.push(`
 
-            <button
-              class="copyCode"
-              type="button">
-              ${tr("copyCode")}
-            </button>
+          <div class="codeBlock">
+
+            <div class="codeHeader">
+
+              <span>
+                ${escapeHTML(
+                  lang || tr("code")
+                )}
+              </span>
+
+              <button
+                class="copyCode"
+                type="button"
+              >
+                ${tr("copyCode")}
+              </button>
+
+            </div>
+
+            <pre class="codeContent">${code}</pre>
 
           </div>
 
-          <pre class="codeContent">${code}</pre>
+        `);
 
-        </div>
-      `;
+        return `___FOX_CODE_${id}___`;
+
+      }
+    );
+
+
+  source=
+    source.replace(
+      /`([^`]+)`/g,
+      '<code class="inlineCode">$1</code>'
+    );
+
+
+  source=
+    source.replace(
+      /\*\*(.*?)\*\*/g,
+      "<strong>$1</strong>"
+    );
+
+
+  source=
+    source.replace(
+      /\n/g,
+      "<br>"
+    );
+
+
+  blocks.forEach(
+    (block,i)=>{
+
+      source=
+        source.replace(
+          `___FOX_CODE_${i}___`,
+          block
+        );
 
     }
   );
 
 
-  html=html.replace(
-    /`([^`]+)`/g,
-    '<code class="inlineCode">$1</code>'
-  );
-
-
-  html=html.replace(
-    /\*\*(.*?)\*\*/g,
-    "<strong>$1</strong>"
-  );
-
-
-  html=html.replace(
-    /\n/g,
-    "<br>"
-  );
-
-
-  return html;
+  return source;
 
 }
 
 
-/* =====================================================
-   COPY CODE
-   ===================================================== */
+/* ================= COPY CODE ================= */
 
 document.addEventListener(
   "click",
@@ -2267,72 +2529,41 @@ document.addEventListener(
     if(!button)
       return;
 
-
     const block=
       button.closest(".codeBlock");
 
-    if(!block)
-      return;
-
-
     const code=
-      block.querySelector(
+      block?.querySelector(
         ".codeContent"
       );
 
     if(!code)
       return;
 
-
-    try{
-
-      await navigator.clipboard.writeText(
+    const ok=
+      await copyText(
         code.textContent
       );
 
-      button.textContent=
-        tr("codeCopied");
-
-    }catch(err){
-
-      const area=
-        document.createElement(
-          "textarea"
-        );
-
-      area.value=
-        code.textContent;
-
-      document.body.appendChild(area);
-
-      area.select();
-
-      document.execCommand(
-        "copy"
-      );
-
-      area.remove();
+    if(ok){
 
       button.textContent=
         tr("codeCopied");
+
+      setTimeout(()=>{
+
+        button.textContent=
+          tr("copyCode");
+
+      },1200);
 
     }
-
-
-    setTimeout(()=>{
-
-      button.textContent=
-        tr("copyCode");
-
-    },1200);
 
   }
 );
 
 
-/* =====================================================
-   MESSAGE
-   ===================================================== */
+/* ================= MESSAGE ================= */
 
 function createMessageElement(
   msg,
@@ -2344,11 +2575,9 @@ function createMessageElement(
 
   wrapper.className=
     "message "+
-    (
-      msg.role==="user"
-        ? "user"
-        : "ai"
-    );
+    (msg.role==="user"
+      ?"user"
+      :"ai");
 
 
   const inner=
@@ -2391,8 +2620,7 @@ function createMessageElement(
 
 
     if(
-      msg.file.type &&
-      msg.file.type.startsWith(
+      msg.file.type?.startsWith(
         "image/"
       )
     ){
@@ -2429,12 +2657,10 @@ function createMessageElement(
       "fileType";
 
     fileType.textContent=
-      msg.file.type ||
-      "file";
+      msg.file.type||"file";
 
 
     info.appendChild(fileName);
-
     info.appendChild(fileType);
 
     card.appendChild(info);
@@ -2460,17 +2686,17 @@ function createMessageElement(
 
   copy.onclick=async()=>{
 
-    try{
-
-      await navigator.clipboard.writeText(
+    if(
+      await copyText(
         msg.content
-      );
+      )
+    ){
 
       toastMessage(
         tr("copied")
       );
 
-    }catch(e){}
+    }
 
   };
 
@@ -2489,9 +2715,14 @@ function createMessageElement(
 
     share.onclick=async()=>{
 
+      const footer=
+        language==="fa"
+        ?SHARE_FOOTER_FA
+        :SHARE_FOOTER_EN;
+
       const shareText=
         msg.content+
-        SHARE_FOOTER;
+        footer;
 
 
       try{
@@ -2500,7 +2731,7 @@ function createMessageElement(
 
           await navigator.share({
 
-            title:"Fox AI",
+            title:"FOX AI",
 
             text:shareText
 
@@ -2508,7 +2739,7 @@ function createMessageElement(
 
         }else{
 
-          await navigator.clipboard.writeText(
+          await copyText(
             shareText
           );
 
@@ -2535,8 +2766,8 @@ function createMessageElement(
 
     edit.textContent=
       language==="fa"
-        ? "ویرایش"
-        : "Edit";
+      ?"ویرایش"
+      :"Edit";
 
 
     edit.onclick=()=>{
@@ -2573,6 +2804,35 @@ function createMessageElement(
   }
 
 
+  if(
+    settings.time &&
+    msg.time
+  ){
+
+    const time=
+      document.createElement("span");
+
+    time.style.cssText=
+      "font-size:9px;color:var(--muted);padding:7px";
+
+    time.textContent=
+      new Date(
+        msg.time
+      ).toLocaleTimeString(
+        language==="fa"
+        ?"fa-IR"
+        :"en-US",
+        {
+          hour:"2-digit",
+          minute:"2-digit"
+        }
+      );
+
+    actions.appendChild(time);
+
+  }
+
+
   inner.appendChild(actions);
 
   wrapper.appendChild(inner);
@@ -2582,14 +2842,11 @@ function createMessageElement(
 }
 
 
-/* =====================================================
-   RENDER
-   ===================================================== */
+/* ================= RENDER ================= */
 
 function render(){
 
   messages.innerHTML="";
-
 
   const c=
     currentChat();
@@ -2626,8 +2883,6 @@ function render(){
   );
 
 
-  userIsNearBottom=true;
-
   requestAnimationFrame(
     smartScroll
   );
@@ -2635,9 +2890,7 @@ function render(){
 }
 
 
-/* =====================================================
-   STREAMING
-   ===================================================== */
+/* ================= STREAM UPDATE ================= */
 
 function updateLastAI(){
 
@@ -2684,15 +2937,12 @@ function updateLastAI(){
     markdown(ai.content)+
     '<span class="cursor"></span>';
 
-
   smartScroll();
 
 }
 
 
-/* =====================================================
-   FILE
-   ===================================================== */
+/* ================= FILE ================= */
 
 document.getElementById(
   "attach"
@@ -2707,100 +2957,97 @@ document.getElementById(
 
 document.getElementById(
   "file"
-).onchange=async e=>{
+).onchange=
+  async e=>{
 
-  const file=
-    e.target.files?.[0];
+    const file=
+      e.target.files?.[0];
 
-  if(!file)
-    return;
-
-
-  if(
-    file.size>
-    10*1024*1024
-  ){
-
-    toastMessage(
-      tr("fileSize")
-    );
-
-    e.target.value="";
-
-    return;
-
-  }
+    if(!file)
+      return;
 
 
-  attached=file;
+    if(
+      file.size>
+      10*1024*1024
+    ){
+
+      toastMessage(
+        tr("fileSize")
+      );
+
+      e.target.value="";
+
+      return;
+
+    }
 
 
-  document
-    .getElementById("preview")
-    .classList.add("show");
+    attached=file;
 
 
-  document
-    .getElementById("previewName")
-    .textContent=
+    document.getElementById(
+      "preview"
+    ).classList.add("show");
+
+
+    document.getElementById(
+      "previewName"
+    ).textContent=
       file.name;
 
 
-  document
-    .getElementById("previewSize")
-    .textContent=
+    document.getElementById(
+      "previewSize"
+    ).textContent=
       formatBytes(
         file.size
       );
 
 
-  const img=
-    document.getElementById(
-      "previewImage"
-    );
-
-
-  if(
-    file.type.startsWith(
-      "image/"
-    )
-  ){
-
-    img.style.display=
-      "block";
-
-    img.src=
-      await readDataURL(
-        file
+    const img=
+      document.getElementById(
+        "previewImage"
       );
 
-  }else{
 
-    img.style.display=
-      "none";
+    if(
+      file.type.startsWith(
+        "image/"
+      )
+    ){
 
-    img.src="";
+      img.style.display=
+        "block";
 
-  }
+      img.src=
+        await readDataURL(
+          file
+        );
 
-};
+    }else{
+
+      img.style.display=
+        "none";
+
+      img.src="";
+
+    }
+
+  };
 
 
-function formatBytes(
-  bytes
-){
+function formatBytes(bytes){
 
   if(bytes<1024)
     return bytes+" B";
 
-  if(bytes<
-    1024*1024
-  )
-    return (
+  if(bytes<1024*1024)
+    return(
       bytes/1024
     ).toFixed(1)+" KB";
 
-  return (
+  return(
     bytes/
     (1024*1024)
   ).toFixed(1)+" MB";
@@ -2808,9 +3055,7 @@ function formatBytes(
 }
 
 
-function readDataURL(
-  file
-){
+function readDataURL(file){
 
   return new Promise(
     (resolve,reject)=>{
@@ -2836,9 +3081,7 @@ function readDataURL(
 }
 
 
-function readText(
-  file
-){
+function readText(file){
 
   return new Promise(
     (resolve,reject)=>{
@@ -2874,11 +3117,9 @@ document.getElementById(
     "file"
   ).value="";
 
-  document
-    .getElementById("preview")
-    .classList.remove(
-      "show"
-    );
+  document.getElementById(
+    "preview"
+  ).classList.remove("show");
 
   document.getElementById(
     "previewImage"
@@ -2887,9 +3128,7 @@ document.getElementById(
 };
 
 
-/* =====================================================
-   API CONTENT
-   ===================================================== */
+/* ================= API CONTENT ================= */
 
 async function makeContent(
   text,
@@ -2911,19 +3150,21 @@ async function makeContent(
         file
       );
 
-
     return [
 
       {
         type:"text",
+
         text:
-          text ||
+          text||
           tr("imageAnalyze")
       },
 
       {
         type:"image_url",
+
         image_url:data
+
       }
 
     ];
@@ -2937,10 +3178,7 @@ async function makeContent(
   ){
 
     const content=
-      await readText(
-        file
-      );
-
+      await readText(file);
 
     return(
       text+
@@ -2957,17 +3195,14 @@ async function makeContent(
   return(
     text+
     "\n\n"+
-    tr("emptyFile")+
-    " "+
+    tr("emptyFile")+" "+
     file.name
   );
 
 }
 
 
-/* =====================================================
-   SEND
-   ===================================================== */
+/* ================= SEND ================= */
 
 async function sendMessage(){
 
@@ -2989,8 +3224,7 @@ async function sendMessage(){
 
 
   if(
-    API_KEY===
-      "YOUR_MISTRAL_API_KEY" ||
+    API_KEY==="YOUR_MISTRAL_API_KEY" ||
     !API_KEY.trim()
   ){
 
@@ -3039,10 +3273,8 @@ async function sendMessage(){
         file.type.startsWith(
           "image/"
         )
-          ? await readDataURL(
-              file
-            )
-          : ""
+        ?await readDataURL(file)
+        :""
 
     };
 
@@ -3054,14 +3286,14 @@ async function sendMessage(){
     role:"user",
 
     content:
-      text ||
+      text||
       tr("fileSent"),
 
-    apiContent:
-      content,
+    apiContent:content,
 
-    file:
-      savedFile
+    file:savedFile,
+
+    time:Date.now()
 
   });
 
@@ -3072,8 +3304,8 @@ async function sendMessage(){
   ){
 
     c.title=
-      text ||
-      file?.name ||
+      text||
+      file?.name||
       "Fox AI";
 
   }
@@ -3083,29 +3315,37 @@ async function sendMessage(){
 
   autoResize();
 
+
   attached=null;
+
 
   document.getElementById(
     "file"
   ).value="";
 
-  document
-    .getElementById("preview")
-    .classList.remove(
-      "show"
-    );
+
+  document.getElementById(
+    "preview"
+  ).classList.remove(
+    "show"
+  );
 
 
   save();
 
   renderHistory();
 
-  userIsNearBottom=true;
+
+  userIsNearBottom=
+    true;
+
 
   render();
 
 
-  generating=true;
+  generating=
+    true;
+
 
   controller=
     new AbortController();
@@ -3117,14 +3357,12 @@ async function sendMessage(){
 
 
   send.innerHTML=`
+
     <svg viewBox="0 0 24 24">
       <path d="M7 7h10v10H7z"/>
     </svg>
+
   `;
-
-
-  status.textContent=
-    tr("generating");
 
 
   try{
@@ -3132,38 +3370,37 @@ async function sendMessage(){
     const hasImage=
       c.messages.some(
         m=>
-          m.file &&
-          m.file.type &&
-          m.file.type.startsWith(
-            "image/"
-          )
+          m.file?.type
+            ?.startsWith(
+              "image/"
+            )
       );
 
 
     const model=
       hasImage
-        ? VISION_MODEL
-        : TEXT_MODEL;
+      ?VISION_MODEL
+      :TEXT_MODEL;
 
 
     const apiMessages=[
 
       {
-
         role:"system",
 
         content:
           language==="fa"
 
-            ?
+          ?
 
-            "تو Fox AI هستی. پاسخ‌های دقیق، حرفه‌ای، روان و کاربردی بده. اگر کاربر کد یا اپلیکیشن خواست، کد کامل و قابل اجرا ارائه کن. متن و کد را واضح و مرتب جدا کن."
+          "تو Fox AI هستی. پاسخ‌های دقیق، حرفه‌ای، روان و کاربردی بده. اگر کاربر کد یا اپلیکیشن خواست، کد کامل و قابل اجرا ارائه کن. متن و کد را واضح و مرتب جدا کن."
 
-            :
+          :
 
-            "You are Fox AI. Give accurate, professional and useful answers. When the user asks for code or an application, provide complete runnable code. Clearly separate normal text and code."
+          "You are Fox AI. Give accurate, professional and useful answers. When the user asks for code or an application, provide complete runnable code. Clearly separate normal text and code."
 
       },
+
 
       ...c.messages.map(
         m=>({
@@ -3198,20 +3435,21 @@ async function sendMessage(){
 
           },
 
-          body:JSON.stringify({
+          body:
+            JSON.stringify({
 
-            model,
+              model,
 
-            messages:
-              apiMessages,
+              messages:
+                apiMessages,
 
-            stream:true,
+              stream:true,
 
-            temperature:.6,
+              temperature:.6,
 
-            max_tokens:4096
+              max_tokens:4096
 
-          }),
+            }),
 
           signal:
             controller.signal
@@ -3231,8 +3469,8 @@ async function sendMessage(){
           await response.json();
 
         errorText=
-          data?.message ||
-          data?.error?.message ||
+          data?.message||
+          data?.error?.message||
           "";
 
       }catch(e){}
@@ -3251,7 +3489,9 @@ async function sendMessage(){
 
       role:"assistant",
 
-      content:""
+      content:"",
+
+      time:Date.now()
 
     };
 
@@ -3266,8 +3506,7 @@ async function sendMessage(){
 
 
     const reader=
-      response.body
-        .getReader();
+      response.body.getReader();
 
 
     const decoder=
@@ -3293,9 +3532,7 @@ async function sendMessage(){
       buffer+=
         decoder.decode(
           value,
-          {
-            stream:true
-          }
+          {stream:true}
         );
 
 
@@ -3304,13 +3541,11 @@ async function sendMessage(){
 
 
       buffer=
-        lines.pop() ||
-        "";
+        lines.pop()||"";
 
 
       for(
-        const raw
-        of lines
+        const raw of lines
       ){
 
         const line=
@@ -3327,9 +3562,7 @@ async function sendMessage(){
 
 
         const data=
-          line
-            .slice(5)
-            .trim();
+          line.slice(5).trim();
 
 
         if(
@@ -3346,15 +3579,12 @@ async function sendMessage(){
 
           const delta=
             json
-              ?.choices
-              ?.[0]
-              ?.delta
-              ?.content;
+              ?.choices?.[0]
+              ?.delta?.content;
 
 
           if(
-            typeof delta===
-            "string"
+            typeof delta==="string"
           ){
 
             ai.content+=
@@ -3377,8 +3607,7 @@ async function sendMessage(){
   }catch(e){
 
     if(
-      e.name===
-      "AbortError"
+      e.name==="AbortError"
     ){
 
       toastMessage(
@@ -3386,9 +3615,6 @@ async function sendMessage(){
       );
 
     }else{
-
-      console.error(e);
-
 
       let msg=
         tr("apiError");
@@ -3401,14 +3627,12 @@ async function sendMessage(){
         msg=
           tr("invalidKey");
 
-
       else if(
         String(e.message)
           .includes("403")
       )
         msg=
           tr("forbidden");
-
 
       else if(
         String(e.message)
@@ -3422,7 +3646,9 @@ async function sendMessage(){
 
         role:"assistant",
 
-        content:msg
+        content:msg,
+
+        time:Date.now()
 
       });
 
@@ -3435,9 +3661,12 @@ async function sendMessage(){
 
   }finally{
 
-    generating=false;
+    generating=
+      false;
 
-    controller=null;
+    controller=
+      null;
+
 
     send.classList.remove(
       "stop"
@@ -3445,15 +3674,13 @@ async function sendMessage(){
 
 
     send.innerHTML=`
+
       <svg viewBox="0 0 24 24">
         <path d="M22 2L11 13"/>
         <path d="M22 2l-7 20-9-4z"/>
       </svg>
+
     `;
-
-
-    status.textContent=
-      tr("ready");
 
 
     save();
@@ -3463,9 +3690,7 @@ async function sendMessage(){
 }
 
 
-/* =====================================================
-   INPUT
-   ===================================================== */
+/* ================= INPUT ================= */
 
 function autoResize(){
 
@@ -3476,8 +3701,7 @@ function autoResize(){
     Math.min(
       input.scrollHeight,
       160
-    )+
-    "px";
+    )+"px";
 
 }
 
@@ -3494,7 +3718,8 @@ input.addEventListener(
 
     if(
       e.key==="Enter" &&
-      !e.shiftKey
+      !e.shiftKey &&
+      settings.enter
     ){
 
       e.preventDefault();
@@ -3511,9 +3736,7 @@ send.onclick=
   sendMessage;
 
 
-/* =====================================================
-   THEME
-   ===================================================== */
+/* ================= THEME ================= */
 
 const themeSwitch=
   document.getElementById(
@@ -3521,41 +3744,49 @@ const themeSwitch=
   );
 
 
-try{
+function loadTheme(){
 
-  if(
-    localStorage.getItem(
-      "fox_theme"
-    )==="light"
-  ){
+  try{
 
-    document.body
-      .classList.add(
-        "light"
-      );
+    if(
+      localStorage.getItem(
+        "fox_theme"
+      )==="light"
+    ){
 
-    themeSwitch
-      .classList.add(
-        "on"
-      );
+      document.body
+        .classList.add(
+          "light"
+        );
 
-  }
+      themeSwitch
+        .classList.add(
+          "on"
+        );
 
-}catch(e){}
+    }
+
+  }catch(e){}
+
+}
+
+
+loadTheme();
 
 
 themeSwitch.onclick=()=>{
 
   const light=
-    document.body.classList
-      .toggle("light");
+    document.body
+      .classList.toggle(
+        "light"
+      );
 
 
-  themeSwitch.classList
-    .toggle(
-      "on",
-      light
-    );
+  themeSwitch.classList.toggle(
+    "on",
+    light
+  );
 
 
   try{
@@ -3563,8 +3794,8 @@ themeSwitch.onclick=()=>{
     localStorage.setItem(
       "fox_theme",
       light
-        ? "light"
-        : "dark"
+        ?"light"
+        :"dark"
     );
 
   }catch(e){}
@@ -3572,9 +3803,7 @@ themeSwitch.onclick=()=>{
 };
 
 
-/* =====================================================
-   SETTINGS
-   ===================================================== */
+/* ================= SETTINGS ================= */
 
 const settingsModal=
   document.getElementById(
@@ -3611,20 +3840,614 @@ document.getElementById(
 settingsModal.onclick=e=>{
 
   if(
-    e.target===
-    settingsModal
-  )
+    e.target===settingsModal
+  ){
+
     settingsModal
       .classList.remove(
         "show"
       );
 
+  }
+
 };
 
 
-/* =====================================================
-   ABOUT
-   ===================================================== */
+/* ================= SWITCHES ================= */
+
+function setupSwitch(
+  id,
+  key
+){
+
+  const el=
+    document.getElementById(
+      id
+    );
+
+
+  el.classList.toggle(
+    "on",
+    !!settings[key]
+  );
+
+
+  el.onclick=()=>{
+
+    settings[key]=
+      !settings[key];
+
+
+    el.classList.toggle(
+      "on",
+      settings[key]
+    );
+
+
+    save();
+
+  };
+
+}
+
+
+setupSwitch(
+  "enterSwitch",
+  "enter"
+);
+
+setupSwitch(
+  "scrollSwitch",
+  "scroll"
+);
+
+setupSwitch(
+  "timeSwitch",
+  "time"
+);
+
+
+/* ================= FONT ================= */
+
+function applyFont(){
+
+  document.body
+    .classList.remove(
+      "font-small",
+      "font-normal",
+      "font-large"
+    );
+
+
+  document.body
+    .classList.add(
+      "font-"+settings.font
+    );
+
+
+  document
+    .querySelectorAll(
+      "[data-font]"
+    )
+    .forEach(btn=>{
+
+      btn.classList.toggle(
+        "active",
+        btn.dataset.font===
+          settings.font
+      );
+
+      btn.textContent=
+        tr(btn.dataset.font==="small"
+          ?"small"
+          :btn.dataset.font==="large"
+          ?"large"
+          :"medium");
+
+    });
+
+}
+
+
+document
+  .querySelectorAll(
+    "[data-font]"
+  )
+  .forEach(btn=>{
+
+    btn.onclick=()=>{
+
+      settings.font=
+        btn.dataset.font;
+
+      applyFont();
+
+      save();
+
+    };
+
+  });
+
+
+/* ================= LANGUAGE ================= */
+
+document.getElementById(
+  "faBtn"
+).onclick=()=>{
+
+  setLanguage("fa");
+
+};
+
+
+document.getElementById(
+  "enBtn"
+).onclick=()=>{
+
+  setLanguage("en");
+
+};
+
+
+function setLanguage(lang){
+
+  language=lang;
+
+
+  try{
+
+    localStorage.setItem(
+      "fox_language",
+      lang
+    );
+
+  }catch(e){}
+
+
+  document.documentElement.lang=
+    lang;
+
+
+  document.documentElement.dir=
+    lang==="fa"
+      ?"rtl"
+      :"ltr";
+
+
+  document.getElementById(
+    "faBtn"
+  ).classList.toggle(
+    "active",
+    lang==="fa"
+  );
+
+
+  document.getElementById(
+    "enBtn"
+  ).classList.toggle(
+    "active",
+    lang==="en"
+  );
+
+
+  input.placeholder=
+    tr("placeholder");
+
+
+  document.getElementById(
+    "welcome"
+  ).textContent=
+    tr("welcome");
+
+
+  document.getElementById(
+    "historySearch"
+  ).placeholder=
+    tr("searchChats");
+
+
+  document
+    .querySelectorAll(
+      "[data-i18n]"
+    )
+    .forEach(el=>{
+
+      el.textContent=
+        tr(
+          el.getAttribute(
+            "data-i18n"
+          )
+        );
+
+    });
+
+
+  document.getElementById(
+    "removeFile"
+  ).textContent=
+    tr("remove");
+
+
+  applyFont();
+
+  renderHistory();
+
+  render();
+
+}
+
+
+/* ================= SUPPORT ================= */
+
+document.getElementById(
+  "whatsapp"
+).onclick=()=>{
+
+  window.open(
+    "https://wa.me/"+
+    PHONE,
+    "_blank"
+  );
+
+};
+
+
+document.getElementById(
+  "telegram"
+).onclick=()=>{
+
+  window.open(
+    "https://t.me/+"+
+    PHONE,
+    "_blank"
+  );
+
+};
+
+
+/* ================= SHARE APP ================= */
+
+document.getElementById(
+  "shareApp"
+).onclick=async()=>{
+
+  const footer=
+    language==="fa"
+    ?"با ما باشید روباه"
+    :"Powered by FOX AI";
+
+
+  const text=
+    "FOX AI\n\n"+
+    footer+
+    "\n"+
+    "https://gamengrahman8-dot.github.io/fox-aiii/";
+
+
+  try{
+
+    if(navigator.share){
+
+      await navigator.share({
+
+        title:"FOX AI",
+
+        text
+
+      });
+
+    }else{
+
+      await copyText(text);
+
+      toastMessage(
+        tr("copiedText")
+      );
+
+    }
+
+  }catch(e){}
+
+};
+
+
+/* ================= EXPORT ================= */
+
+document.getElementById(
+  "exportChats"
+).onclick=()=>{
+
+  if(!chats.length){
+
+    toastMessage(
+      tr("noChats")
+    );
+
+    return;
+
+  }
+
+
+  const data=
+    JSON.stringify(
+      chats,
+      null,
+      2
+    );
+
+
+  const blob=
+    new Blob(
+      [data],
+      {
+        type:
+          "application/json"
+      }
+    );
+
+
+  const url=
+    URL.createObjectURL(
+      blob
+    );
+
+
+  const a=
+    document.createElement(
+      "a"
+    );
+
+
+  a.href=url;
+
+  a.download=
+    "fox-ai-chats.json";
+
+
+  document.body.appendChild(a);
+
+  a.click();
+
+  a.remove();
+
+  URL.revokeObjectURL(url);
+
+};
+
+
+/* ================= IMPORT ================= */
+
+document.getElementById(
+  "importChats"
+).onclick=()=>{
+
+  document.getElementById(
+    "importFile"
+  ).click();
+
+};
+
+
+document.getElementById(
+  "importFile"
+).onchange=e=>{
+
+  const file=
+    e.target.files?.[0];
+
+  if(!file)
+    return;
+
+
+  const reader=
+    new FileReader();
+
+
+  reader.onload=()=>{
+
+    try{
+
+      const imported=
+        JSON.parse(
+          reader.result
+        );
+
+
+      if(
+        !Array.isArray(
+          imported
+        )
+      )
+        throw new Error();
+
+
+      chats=imported;
+
+      currentId=
+        chats[0]?.id||null;
+
+
+      save();
+
+      render();
+
+      renderHistory();
+
+
+      toastMessage(
+        tr("chatsImported")
+      );
+
+
+    }catch(e){
+
+      toastMessage(
+        tr("invalidFile")
+      );
+
+    }
+
+
+    e.target.value="";
+
+  };
+
+
+  reader.readAsText(file);
+
+};
+
+
+/* ================= CLEAR CURRENT ================= */
+
+document.getElementById(
+  "clearCurrent"
+).onclick=()=>{
+
+  const c=
+    currentChat();
+
+  if(!c)
+    return;
+
+
+  c.messages=[];
+
+
+  save();
+
+  render();
+
+  renderHistory();
+
+
+  settingsModal
+    .classList.remove(
+      "show"
+    );
+
+
+  toastMessage(
+    tr("currentCleared")
+  );
+
+};
+
+
+/* ================= RESET SETTINGS ================= */
+
+document.getElementById(
+  "resetSettings"
+).onclick=()=>{
+
+  settings={
+
+    enter:true,
+
+    scroll:true,
+
+    time:false,
+
+    font:"normal"
+
+  };
+
+
+  try{
+
+    localStorage.removeItem(
+      "fox_settings"
+    );
+
+    localStorage.removeItem(
+      "fox_theme"
+    );
+
+    localStorage.removeItem(
+      "fox_language"
+    );
+
+  }catch(e){}
+
+
+  document.body.classList.remove(
+    "light",
+    "font-small",
+    "font-large"
+  );
+
+
+  document.body.classList.add(
+    "font-normal"
+  );
+
+
+  themeSwitch.classList.remove(
+    "on"
+  );
+
+
+  setupSwitch(
+    "enterSwitch",
+    "enter"
+  );
+
+  setupSwitch(
+    "scrollSwitch",
+    "scroll"
+  );
+
+  setupSwitch(
+    "timeSwitch",
+    "time"
+  );
+
+
+  language="fa";
+
+  setLanguage("fa");
+
+  applyFont();
+
+
+  toastMessage(
+    tr("settingsReset")
+  );
+
+};
+
+
+/* ================= DELETE ALL ================= */
+
+document.getElementById(
+  "deleteAll"
+).onclick=()=>{
+
+  if(
+    !confirm(
+      tr("deleteConfirm")
+    )
+  )
+    return;
+
+
+  chats=[];
+
+  currentId=null;
+
+
+  save();
+
+  render();
+
+  renderHistory();
+
+  closeMenu();
+
+};
+
+
+/* ================= ABOUT ================= */
 
 const aboutModal=
   document.getElementById(
@@ -3661,216 +4484,27 @@ document.getElementById(
 aboutModal.onclick=e=>{
 
   if(
-    e.target===
-    aboutModal
-  )
+    e.target===aboutModal
+  ){
+
     aboutModal
       .classList.remove(
         "show"
       );
 
-};
-
-
-/* =====================================================
-   LANGUAGE
-   ===================================================== */
-
-document.getElementById(
-  "faBtn"
-).onclick=()=>{
-
-  setLanguage("fa");
+  }
 
 };
 
 
-document.getElementById(
-  "enBtn"
-).onclick=()=>{
-
-  setLanguage("en");
-
-};
-
-
-function setLanguage(
-  lang
-){
-
-  language=lang;
-
-
-  try{
-
-    localStorage.setItem(
-      "fox_language",
-      lang
-    );
-
-  }catch(e){}
-
-
-  document.documentElement
-    .lang=lang;
-
-
-  document.documentElement
-    .dir=
-      lang==="fa"
-        ? "rtl"
-        : "ltr";
-
-
-  document.getElementById(
-    "faBtn"
-  ).classList.toggle(
-    "active",
-    lang==="fa"
-  );
-
-
-  document.getElementById(
-    "enBtn"
-  ).classList.toggle(
-    "active",
-    lang==="en"
-  );
-
-
-  input.placeholder=
-    tr("placeholder");
-
-
-  document.getElementById(
-    "welcome"
-  ).textContent=
-    tr("welcome");
-
-
-  document.getElementById(
-    "status"
-  ).textContent=
-    generating
-      ? tr("generating")
-      : tr("ready");
-
-
-  document.getElementById(
-    "historySearch"
-  ).placeholder=
-    tr("searchChats");
-
-
-  document
-    .querySelectorAll(
-      "[data-i18n]"
-    )
-    .forEach(el=>{
-
-      const key=
-        el.getAttribute(
-          "data-i18n"
-        );
-
-      el.textContent=
-        tr(key);
-
-    });
-
-
-  document.getElementById(
-    "removeFile"
-  ).textContent=
-    tr("remove");
-
-
-  document.getElementById(
-    "aboutText"
-  ).textContent=
-    tr("aboutText");
-
-
-  renderHistory();
-
-  render();
-
-}
-
-
-/* =====================================================
-   SUPPORT
-   ===================================================== */
-
-const PHONE=
-  "989011268205";
-
-
-document.getElementById(
-  "whatsapp"
-).onclick=()=>{
-
-  window.open(
-    "https://wa.me/"+PHONE,
-    "_blank"
-  );
-
-};
-
-
-document.getElementById(
-  "telegram"
-).onclick=()=>{
-
-  window.open(
-    "https://t.me/+"+PHONE,
-    "_blank"
-  );
-
-};
-
-
-/* =====================================================
-   DELETE ALL
-   ===================================================== */
-
-document.getElementById(
-  "deleteAll"
-).onclick=()=>{
-
-  if(
-    !confirm(
-      tr("deleteConfirm")
-    )
-  )
-    return;
-
-
-  chats=[];
-
-  currentId=null;
-
-  save();
-
-  render();
-
-  renderHistory();
-
-  closeMenu();
-
-};
-
-
-/* =====================================================
-   INIT
-   ===================================================== */
+/* ================= INIT ================= */
 
 try{
 
   language=
     localStorage.getItem(
       "fox_language"
-    ) ||
+    )||
     "fa";
 
 }catch(e){
@@ -3893,11 +4527,24 @@ if(chats.length){
 
 setLanguage(language);
 
+applyFont();
+
 render();
 
 renderHistory();
 
+
+setTimeout(()=>{
+
+  document
+    .getElementById(
+      "foxSplash"
+    )
+    ?.remove();
+
+},2300);
+
 </script>
 
 </body>
-  </html>
+    </html>
