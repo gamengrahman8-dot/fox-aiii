@@ -1,0 +1,3735 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html><html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#08090c">
+<meta name="description" content="Fox AI - Intelligent AI Assistant">
+<title>Fox AI</title><style>
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
+
+:root{
+  --bg:#08090c;
+  --bg2:#0d0f13;
+  --panel:#111318;
+  --panel2:#181b21;
+  --panel3:#22262e;
+  --border:#292d35;
+  --text:#f5f7fa;
+  --muted:#9298a4;
+  --accent:#ff7a00;
+  --accent2:#ff3d00;
+  --green:#25d366;
+  --danger:#ef4444;
+  --shadow:rgba(0,0,0,.38);
+}
+
+body.light{
+  --bg:#f5f6f8;
+  --bg2:#ffffff;
+  --panel:#ffffff;
+  --panel2:#f0f1f3;
+  --panel3:#e4e6ea;
+  --border:#d7d9de;
+  --text:#17191d;
+  --muted:#696e78;
+  --shadow:rgba(0,0,0,.12);
+}
+
+html,
+body{
+  width:100%;
+  height:100%;
+  margin:0;
+  overflow:hidden;
+  background:var(--bg);
+  color:var(--text);
+  font-family:
+    Arial,
+    "Segoe UI",
+    Tahoma,
+    sans-serif;
+}
+
+button,
+textarea,
+input{
+  font:inherit;
+}
+
+button{
+  border:0;
+  cursor:pointer;
+}
+
+.app{
+  width:100%;
+  height:100dvh;
+  display:flex;
+  flex-direction:column;
+  position:relative;
+  overflow:hidden;
+  background:
+    radial-gradient(
+      circle at 50% -20%,
+      rgba(255,122,0,.16),
+      transparent 38%
+    ),
+    linear-gradient(
+      180deg,
+      var(--bg2),
+      var(--bg)
+    );
+}
+
+/* ================= HEADER ================= */
+
+.header{
+  height:66px;
+  min-height:66px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 12px;
+  border-bottom:1px solid var(--border);
+  background:rgba(8,9,12,.82);
+  backdrop-filter:blur(22px);
+  -webkit-backdrop-filter:blur(22px);
+  z-index:10;
+}
+
+body.light .header{
+  background:rgba(255,255,255,.86);
+}
+
+.headerSide{
+  display:flex;
+  align-items:center;
+  gap:7px;
+}
+
+.iconBtn{
+  width:43px;
+  height:43px;
+  border-radius:14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:transparent;
+  color:var(--text);
+  transition:
+    transform .16s ease,
+    background .16s ease;
+}
+
+.iconBtn:hover{
+  background:var(--panel2);
+}
+
+.iconBtn:active{
+  transform:scale(.90);
+}
+
+svg{
+  width:21px;
+  height:21px;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.8;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:9px;
+}
+
+.brandFox{
+  width:39px;
+  height:39px;
+  border-radius:13px;
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:
+    linear-gradient(
+      145deg,
+      #ff9d32,
+      #ff5b00
+    );
+  box-shadow:
+    0 7px 24px rgba(255,102,0,.25);
+  overflow:hidden;
+}
+
+.brandFox:before{
+  content:"";
+  position:absolute;
+  width:22px;
+  height:18px;
+  border-radius:48% 48% 42% 42%;
+  background:#fff;
+  top:11px;
+}
+
+.brandFox:after{
+  content:"";
+  position:absolute;
+  width:7px;
+  height:7px;
+  background:#171717;
+  border-radius:50%;
+  top:17px;
+  left:12px;
+  box-shadow:10px 0 #171717;
+}
+
+.brandText{
+  display:flex;
+  flex-direction:column;
+}
+
+.brandName{
+  font-size:18px;
+  font-weight:900;
+  letter-spacing:.2px;
+}
+
+.brandStatus{
+  color:var(--green);
+  font-size:10px;
+  margin-top:2px;
+}
+
+/* ================= CHAT ================= */
+
+.chat{
+  flex:1;
+  min-height:0;
+  overflow-y:auto;
+  overflow-x:hidden;
+  padding:28px 16px 155px;
+  overscroll-behavior:contain;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:thin;
+}
+
+.messages{
+  width:min(900px,100%);
+  margin:auto;
+}
+
+.empty{
+  min-height:64vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  text-align:center;
+}
+
+.emptyFox{
+  width:88px;
+  height:88px;
+  border-radius:28px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  margin-bottom:18px;
+  background:
+    linear-gradient(
+      145deg,
+      #ff9d32,
+      #ff4b00
+    );
+  box-shadow:
+    0 18px 55px rgba(255,92,0,.24);
+  animation:foxFloat 3s ease-in-out infinite;
+}
+
+.emptyFox:before{
+  content:"";
+  position:absolute;
+  width:50px;
+  height:42px;
+  border-radius:50% 50% 44% 44%;
+  background:#fff;
+}
+
+.emptyFox:after{
+  content:"";
+  position:absolute;
+  width:12px;
+  height:12px;
+  border-radius:50%;
+  background:#191919;
+  top:34px;
+  left:27px;
+  box-shadow:22px 0 #191919;
+}
+
+@keyframes foxFloat{
+  0%,100%{
+    transform:translateY(0) rotate(0);
+  }
+  50%{
+    transform:translateY(-7px) rotate(1deg);
+  }
+}
+
+.empty h1{
+  margin:0;
+  font-size:36px;
+  font-weight:900;
+}
+
+.empty p{
+  margin:10px 0 0;
+  color:var(--muted);
+  font-size:17px;
+}
+
+/* ================= MESSAGE ================= */
+
+.message{
+  width:100%;
+  margin-bottom:34px;
+  animation:messageIn .16s ease;
+}
+
+@keyframes messageIn{
+  from{
+    opacity:0;
+    transform:translateY(7px);
+  }
+  to{
+    opacity:1;
+    transform:none;
+  }
+}
+
+.message.ai{
+  display:flex;
+  justify-content:flex-start;
+  direction:ltr;
+}
+
+.message.user{
+  display:flex;
+  justify-content:flex-end;
+  direction:rtl;
+}
+
+.messageInner{
+  max-width:88%;
+}
+
+.message.user .messageInner{
+  max-width:84%;
+}
+
+.messageText{
+  font-size:20px;
+  line-height:1.9;
+  overflow-wrap:anywhere;
+  white-space:pre-wrap;
+}
+
+.message.ai .messageText{
+  direction:rtl;
+  text-align:right;
+}
+
+.message.user .messageText{
+  direction:rtl;
+  text-align:right;
+  background:var(--panel2);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:12px 17px;
+}
+
+.message.ai .messageText{
+  background:transparent;
+  padding:0;
+}
+
+/* ================= ACTIONS ================= */
+
+.actions{
+  display:flex;
+  gap:3px;
+  margin-top:9px;
+  direction:rtl;
+}
+
+.actions button{
+  background:transparent;
+  color:var(--muted);
+  padding:7px 9px;
+  border-radius:9px;
+  font-size:12px;
+  transition:.15s;
+}
+
+.actions button:hover{
+  color:var(--text);
+  background:var(--panel2);
+}
+
+.actions button:active{
+  transform:scale(.94);
+}
+
+/* ================= CODE ================= */
+
+.codeBlock{
+  direction:ltr;
+  margin:17px 0;
+  border:1px solid #30343d;
+  border-radius:16px;
+  overflow:hidden;
+  background:#0a0b0e;
+  box-shadow:0 12px 35px rgba(0,0,0,.22);
+}
+
+.codeHeader{
+  min-height:43px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 10px;
+  color:#aeb3bd;
+  border-bottom:1px solid #30343d;
+  font-size:11px;
+  background:#101216;
+}
+
+.copyCode{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  background:#252a32;
+  color:#fff;
+  padding:8px 11px;
+  border-radius:9px;
+  font-size:11px;
+  transition:.15s;
+}
+
+.copyCode:hover{
+  background:#333943;
+}
+
+.copyCode:active{
+  transform:scale(.94);
+}
+
+.codeContent{
+  margin:0;
+  padding:16px;
+  overflow:auto;
+  color:#f0f1f4;
+  font:14px/1.75 Consolas,Monaco,"Courier New",monospace;
+  white-space:pre;
+  tab-size:2;
+  -webkit-overflow-scrolling:touch;
+}
+
+.inlineCode{
+  direction:ltr;
+  display:inline-block;
+  background:var(--panel2);
+  padding:1px 6px;
+  border-radius:6px;
+  font-family:Consolas,monospace;
+}
+
+/* ================= CURSOR ================= */
+
+.cursor{
+  display:inline-block;
+  width:2px;
+  height:21px;
+  margin-right:4px;
+  vertical-align:-3px;
+  background:var(--accent);
+  animation:blink .7s infinite;
+}
+
+@keyframes blink{
+  0%,50%{opacity:1}
+  51%,100%{opacity:0}
+}
+
+/* ================= FILE ================= */
+
+.fileCard{
+  margin-top:10px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:9px;
+  border:1px solid var(--border);
+  border-radius:13px;
+  background:var(--panel);
+}
+
+.fileCard img{
+  width:58px;
+  height:58px;
+  object-fit:cover;
+  border-radius:9px;
+}
+
+.fileName{
+  font-size:13px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.fileType{
+  color:var(--muted);
+  font-size:10px;
+  margin-top:4px;
+}
+
+/* ================= COMPOSER ================= */
+
+.composerArea{
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  z-index:12;
+  padding:8px 10px 13px;
+  background:
+    linear-gradient(
+      to top,
+      var(--bg) 65%,
+      transparent
+    );
+}
+
+.composer{
+  width:min(900px,100%);
+  margin:auto;
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:23px;
+  overflow:hidden;
+  box-shadow:
+    0 15px 55px var(--shadow);
+}
+
+.preview{
+  display:none;
+  align-items:center;
+  gap:10px;
+  padding:9px 12px;
+  border-bottom:1px solid var(--border);
+}
+
+.preview.show{
+  display:flex;
+}
+
+.preview img{
+  width:46px;
+  height:46px;
+  border-radius:9px;
+  object-fit:cover;
+  display:none;
+}
+
+.previewInfo{
+  flex:1;
+  min-width:0;
+}
+
+.previewName{
+  font-size:12px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.previewSize{
+  font-size:10px;
+  color:var(--muted);
+  margin-top:3px;
+}
+
+.removeFile{
+  background:transparent;
+  color:var(--danger);
+  font-size:12px;
+}
+
+.inputRow{
+  display:flex;
+  align-items:flex-end;
+  gap:5px;
+  padding:8px;
+}
+
+textarea{
+  flex:1;
+  min-height:45px;
+  max-height:160px;
+  resize:none;
+  border:0;
+  outline:0;
+  background:transparent;
+  color:var(--text);
+  padding:9px 6px;
+  font-size:18px;
+  line-height:1.7;
+}
+
+textarea::placeholder{
+  color:var(--muted);
+}
+
+.send{
+  width:45px;
+  height:45px;
+  min-width:45px;
+  border-radius:14px;
+  color:#fff;
+  background:
+    linear-gradient(
+      135deg,
+      var(--accent),
+      var(--accent2)
+    );
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:.15s;
+  box-shadow:
+    0 8px 22px rgba(255,85,0,.2);
+}
+
+.send:active{
+  transform:scale(.91);
+}
+
+.send.stop{
+  background:#30343b;
+  box-shadow:none;
+}
+
+/* ================= MENU ================= */
+
+.overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.62);
+  opacity:0;
+  pointer-events:none;
+  transition:.22s;
+  z-index:30;
+  backdrop-filter:blur(3px);
+}
+
+.overlay.show{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.sideMenu{
+  position:fixed;
+  top:0;
+  right:0;
+  bottom:0;
+  width:min(365px,91vw);
+  background:
+    linear-gradient(
+      180deg,
+      var(--panel),
+      var(--bg2)
+    );
+  border-left:1px solid var(--border);
+  transform:translateX(105%);
+  transition:
+    transform .27s cubic-bezier(.2,.8,.2,1);
+  z-index:40;
+  display:flex;
+  flex-direction:column;
+  box-shadow:-20px 0 60px rgba(0,0,0,.35);
+}
+
+.sideMenu.show{
+  transform:translateX(0);
+}
+
+.menuHeader{
+  height:72px;
+  min-height:72px;
+  padding:0 13px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  border-bottom:1px solid var(--border);
+}
+
+.menuBrand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.menuFox{
+  width:40px;
+  height:40px;
+  border-radius:13px;
+  background:linear-gradient(145deg,#ff9d32,#ff4b00);
+  position:relative;
+}
+
+.menuFox:before{
+  content:"";
+  position:absolute;
+  width:22px;
+  height:18px;
+  background:white;
+  border-radius:50%;
+  left:9px;
+  top:11px;
+}
+
+.menuFox:after{
+  content:"";
+  position:absolute;
+  width:5px;
+  height:5px;
+  background:#111;
+  border-radius:50%;
+  left:14px;
+  top:17px;
+  box-shadow:8px 0 #111;
+}
+
+.menuTitle{
+  font-size:20px;
+  font-weight:900;
+}
+
+.menuSubtitle{
+  color:var(--green);
+  font-size:10px;
+  margin-top:2px;
+}
+
+.menuBody{
+  flex:1;
+  overflow:auto;
+  padding:13px;
+}
+
+.newChatLarge{
+  width:100%;
+  padding:14px;
+  border-radius:14px;
+  color:#fff;
+  background:
+    linear-gradient(
+      135deg,
+      var(--accent),
+      var(--accent2)
+    );
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  font-weight:800;
+  margin-bottom:13px;
+  box-shadow:
+    0 9px 25px rgba(255,80,0,.18);
+  transition:.16s;
+}
+
+.newChatLarge:active{
+  transform:scale(.98);
+}
+
+.menuSearch{
+  width:100%;
+  height:44px;
+  border:1px solid var(--border);
+  border-radius:12px;
+  outline:0;
+  background:var(--panel2);
+  color:var(--text);
+  padding:0 13px;
+  margin-bottom:12px;
+}
+
+.menuItem{
+  width:100%;
+  min-height:48px;
+  padding:11px 12px;
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  gap:11px;
+  background:transparent;
+  color:var(--text);
+  text-align:right;
+  transition:.15s;
+}
+
+.menuItem:hover{
+  background:var(--panel2);
+}
+
+.menuItem:active{
+  transform:scale(.98);
+}
+
+.menuItem svg{
+  color:var(--muted);
+}
+
+.menuDivider{
+  height:1px;
+  background:var(--border);
+  margin:13px 0;
+}
+
+.menuLabel{
+  color:var(--muted);
+  font-size:11px;
+  padding:4px 11px 8px;
+}
+
+.historyItem{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  padding:10px;
+  border-radius:11px;
+  color:var(--muted);
+  transition:.15s;
+}
+
+.historyItem:hover{
+  background:var(--panel2);
+  color:var(--text);
+}
+
+.historyTitle{
+  flex:1;
+  min-width:0;
+  font-size:12px;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+}
+
+.historyDelete{
+  background:transparent;
+  color:var(--danger);
+  font-size:10px;
+}
+
+/* ================= MODAL ================= */
+
+.modalBack{
+  position:fixed;
+  inset:0;
+  z-index:80;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:17px;
+  background:rgba(0,0,0,.68);
+  backdrop-filter:blur(5px);
+}
+
+.modalBack.show{
+  display:flex;
+}
+
+.modal{
+  width:min(450px,100%);
+  max-height:87vh;
+  overflow:auto;
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:23px;
+  box-shadow:0 25px 80px rgba(0,0,0,.4);
+  animation:modalIn .2s ease;
+}
+
+@keyframes modalIn{
+  from{
+    opacity:0;
+    transform:translateY(12px) scale(.98);
+  }
+  to{
+    opacity:1;
+    transform:none;
+  }
+}
+
+.modalHeader{
+  padding:17px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  border-bottom:1px solid var(--border);
+}
+
+.modalTitle{
+  font-size:19px;
+  font-weight:900;
+}
+
+.modalBody{
+  padding:16px;
+}
+
+.setting{
+  padding:14px 0;
+  border-bottom:1px solid var(--border);
+}
+
+.setting:last-child{
+  border:0;
+}
+
+.settingTop{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.setting strong{
+  font-size:14px;
+}
+
+.setting small{
+  display:block;
+  color:var(--muted);
+  font-size:11px;
+  margin-top:4px;
+}
+
+.switch{
+  width:50px;
+  height:29px;
+  border-radius:20px;
+  background:#3f434b;
+  position:relative;
+}
+
+.switch:after{
+  content:"";
+  position:absolute;
+  top:3px;
+  right:3px;
+  width:23px;
+  height:23px;
+  border-radius:50%;
+  background:white;
+  transition:.2s;
+}
+
+.switch.on{
+  background:var(--accent);
+}
+
+.switch.on:after{
+  transform:translateX(-21px);
+}
+
+.langs{
+  display:flex;
+  gap:7px;
+  margin-top:10px;
+}
+
+.langs button{
+  flex:1;
+  padding:10px;
+  border-radius:10px;
+  background:var(--panel2);
+  color:var(--text);
+  border:1px solid var(--border);
+}
+
+.langs button.active{
+  background:var(--accent);
+  color:#fff;
+}
+
+.support{
+  width:100%;
+  padding:12px;
+  border-radius:11px;
+  background:var(--panel2);
+  color:var(--text);
+  border:1px solid var(--border);
+  margin-top:8px;
+}
+
+/* ================= TOAST ================= */
+
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:105px;
+  transform:translate(-50%,15px);
+  padding:10px 15px;
+  border-radius:11px;
+  background:#22252b;
+  border:1px solid #3a3e46;
+  color:white;
+  font-size:12px;
+  opacity:0;
+  pointer-events:none;
+  transition:.2s;
+  z-index:100;
+  white-space:nowrap;
+}
+
+.toast.show{
+  opacity:1;
+  transform:translate(-50%,0);
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:600px){
+
+  .chat{
+    padding:22px 13px 145px;
+  }
+
+  .messageText{
+    font-size:19px;
+  }
+
+  .messageInner,
+  .message.user .messageInner{
+    max-width:94%;
+  }
+
+  textarea{
+    font-size:17px;
+  }
+
+  .sideMenu{
+    width:91vw;
+  }
+
+  .empty h1{
+    font-size:32px;
+  }
+}
+</style></head><body><div class="app"><header class="header">  <div class="headerSide"><button class="iconBtn" id="menuBtn" aria-label="Menu">
+  <svg viewBox="0 0 24 24">
+    <path d="M4 6h16M4 12h16M4 18h16"/>
+  </svg>
+</button>
+
+<div class="brand">
+
+  <div class="brandFox"></div>
+
+  <div class="brandText">
+    <div class="brandName">Fox AI</div>
+    <div class="brandStatus" id="status">آماده</div>
+  </div>
+
+</div>
+
+  </div>  <button class="iconBtn" id="newChat" aria-label="New chat">
+    <svg viewBox="0 0 24 24">
+      <path d="M12 5v14M5 12h14"/>
+    </svg>
+  </button></header><main class="chat" id="chat">  <div class="messages" id="messages"><div class="empty" id="empty">
+
+  <div class="emptyFox"></div>
+
+  <h1>Fox AI</h1>
+
+  <p id="welcome">
+    چه کاری می‌توانم برایت انجام دهم؟
+  </p>
+
+</div>
+
+  </div></main><div class="composerArea">  <div class="composer"><div class="preview" id="preview">
+
+  <img id="previewImage">
+
+  <div class="previewInfo">
+    <div class="previewName" id="previewName"></div>
+    <div class="previewSize" id="previewSize"></div>
+  </div>
+
+  <button class="removeFile" id="removeFile">
+    حذف
+  </button>
+
+</div>
+
+
+<div class="inputRow">
+
+  <button class="iconBtn" id="attach" aria-label="Attach">
+    <svg viewBox="0 0 24 24">
+      <path d="M21.4 11.6l-8.9 8.9a6 6 0 01-8.5-8.5l9.2-9.2a4 4 0 015.7 5.7L9.7 17.7a2 2 0 01-2.8-2.8l8.5-8.5"/>
+    </svg>
+  </button>
+
+  <input
+    type="file"
+    id="file"
+    hidden
+    accept="image/*,.txt,.js,.html,.css,.json,.md,.csv"
+  >
+
+  <textarea
+    id="input"
+    rows="1"
+    placeholder="پیامت را بنویس..."
+  ></textarea>
+
+  <button class="send" id="send">
+    <svg viewBox="0 0 24 24">
+      <path d="M22 2L11 13"/>
+      <path d="M22 2l-7 20-4-9z"/>
+    </svg>
+  </button>
+
+</div>
+
+  </div></div></div><!-- MENU --><div class="overlay" id="overlay"></div><aside class="sideMenu" id="menu">  <div class="menuHeader"><div class="menuBrand">
+
+  <div class="menuFox"></div>
+
+  <div>
+    <div class="menuTitle">Fox AI</div>
+    <div class="menuSubtitle" id="menuOnline">
+      آنلاین
+    </div>
+  </div>
+
+</div>
+
+<button class="iconBtn" id="closeMenu">
+  <svg viewBox="0 0 24 24">
+    <path d="M6 6l12 12M18 6L6 18"/>
+  </svg>
+</button>
+
+  </div>  <div class="menuBody"><button class="newChatLarge" id="newChatMenu">
+
+  <svg viewBox="0 0 24 24">
+    <path d="M12 5v14M5 12h14"/>
+  </svg>
+
+  <span id="newChatText">
+    چت جدید
+  </span>
+
+</button>
+
+
+<input
+  class="menuSearch"
+  id="historySearch"
+  placeholder="جستجوی چت‌ها..."
+>
+
+
+<button class="menuItem" id="settingsBtn">
+
+  <svg viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="3"/>
+    <path d="M19 13a7 7 0 000-2l2-1-2-3-2 1a8 8 0 00-2-1l-.3-2h-4l-.3 2a8 8 0 00-2 1l-2-1-2 3 2 1a7 7 0 000 2l-2 1 2 3 2-1a8 8 0 002 1l.3 2h4l.3-2a8 8 0 002-1l2 1 2-3z"/>
+  </svg>
+
+  <span id="settingsText">
+    تنظیمات
+  </span>
+
+</button>
+
+
+<button class="menuItem" id="aboutBtn">
+
+  <svg viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="9"/>
+    <path d="M12 11v5M12 8h.01"/>
+  </svg>
+
+  <span id="aboutText">
+    درباره Fox AI
+  </span>
+
+</button>
+
+
+<div class="menuDivider"></div>
+
+<div class="menuLabel" id="historyLabel">
+  سابقه گفتگو
+</div>
+
+<div id="history"></div>
+
+
+<div class="menuDivider"></div>
+
+
+<button class="menuItem" id="deleteAll">
+
+  <svg viewBox="0 0 24 24">
+    <path d="M4 7h16M10 11v6M14 11v6M6 7l1 14h10l1-14M9 7V4h6v3"/>
+  </svg>
+
+  <span id="deleteAllText">
+    پاک کردن همه چت‌ها
+  </span>
+
+</button>
+
+  </div></aside><!-- SETTINGS --><div class="modalBack" id="settingsModal">  <div class="modal"><div class="modalHeader">
+
+  <div class="modalTitle" id="settingsTitle">
+    تنظیمات
+  </div>
+
+  <button class="iconBtn" id="closeSettings">
+    <svg viewBox="0 0 24 24">
+      <path d="M6 6l12 12M18 6L6 18"/>
+    </svg>
+  </button>
+
+</div>
+
+
+<div class="modalBody">
+
+  <div class="setting">
+
+    <div class="settingTop">
+
+      <div>
+        <strong id="themeTitle">
+          حالت روشن
+        </strong>
+
+        <small id="themeDescription">
+          تغییر ظاهر Fox AI
+        </small>
+      </div>
+
+      <button
+        class="switch"
+        id="themeSwitch"
+      ></button>
+
+    </div>
+
+  </div>
+
+
+  <div class="setting">
+
+    <strong id="languageTitle">
+      زبان
+    </strong>
+
+    <small id="languageDescription">
+      زبان رابط برنامه
+    </small>
+
+    <div class="langs">
+
+      <button id="faBtn" class="active">
+        فارسی
+      </button>
+
+      <button id="enBtn">
+        English
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div class="setting">
+
+    <strong id="supportTitle">
+      پشتیبانی
+    </strong>
+
+    <small id="supportDescription">
+      ارتباط با پشتیبانی Fox AI
+    </small>
+
+    <button class="support" id="whatsapp">
+      پشتیبانی WhatsApp
+    </button>
+
+    <button class="support" id="telegram">
+      پشتیبانی Telegram
+    </button>
+
+  </div>
+
+
+  <div class="setting">
+
+    <strong id="aboutAppTitle">
+      درباره برنامه
+    </strong>
+
+    <small>
+      Fox AI V10
+    </small>
+
+  </div>
+
+</div>
+
+  </div></div><!-- ABOUT --><div class="modalBack" id="aboutModal">  <div class="modal"><div class="modalHeader">
+
+  <div class="modalTitle" id="aboutModalTitle">
+    درباره Fox AI
+  </div>
+
+  <button class="iconBtn" id="closeAbout">
+    <svg viewBox="0 0 24 24">
+      <path d="M6 6l12 12M18 6L6 18"/>
+    </svg>
+  </button>
+
+</div>
+
+<div class="modalBody">
+
+  <p
+    id="aboutDescription"
+    style="font-size:16px;line-height:2"
+  >
+    Fox AI یک دستیار هوش مصنوعی برای
+    گفتگو، برنامه‌نویسی، تحلیل متن،
+    تصویر و فایل است.
+  </p>
+
+  <p
+    style="color:var(--muted);font-size:12px"
+  >
+    Fox AI V10.0
+  </p>
+
+</div>
+
+  </div></div><div class="toast" id="toast"></div><script>
+
+/* =====================================================
+   FOX AI V10
+   ===================================================== */
+
+
+/* ================= API ================= */
+
+const API_KEY =
+  "YOUR_MISTRAL_API_KEY";
+
+const API_URL =
+  "https://api.mistral.ai/v1/chat/completions";
+
+const TEXT_MODEL =
+  "mistral-small-latest";
+
+const VISION_MODEL =
+  "mistral-small-2506";
+
+
+/* ================= STATE ================= */
+
+let chats = [];
+
+let currentId = null;
+
+let attached = null;
+
+let controller = null;
+
+let generating = false;
+
+let language = "fa";
+
+let userIsNearBottom = true;
+
+
+/* ================= ELEMENTS ================= */
+
+const chat =
+  document.getElementById("chat");
+
+const messages =
+  document.getElementById("messages");
+
+const empty =
+  document.getElementById("empty");
+
+const input =
+  document.getElementById("input");
+
+const send =
+  document.getElementById("send");
+
+const status =
+  document.getElementById("status");
+
+const toast =
+  document.getElementById("toast");
+
+const menu =
+  document.getElementById("menu");
+
+const overlay =
+  document.getElementById("overlay");
+
+
+/* ================= TRANSLATIONS ================= */
+
+const T = {
+
+  fa:{
+
+    ready:"آماده",
+
+    generating:"در حال پاسخ‌گویی",
+
+    stopped:"پاسخ متوقف شد",
+
+    welcome:
+      "چه کاری می‌توانم برایت انجام دهم؟",
+
+    placeholder:
+      "پیامت را بنویس...",
+
+    newChat:
+      "چت جدید",
+
+    search:
+      "جستجوی چت‌ها...",
+
+    settings:
+      "تنظیمات",
+
+    about:
+      "درباره Fox AI",
+
+    history:
+      "سابقه گفتگو",
+
+    deleteAll:
+      "پاک کردن همه چت‌ها",
+
+    online:
+      "آنلاین",
+
+    lightMode:
+      "حالت روشن",
+
+    darkMode:
+      "حالت تاریک",
+
+    themeDescription:
+      "تغییر ظاهر Fox AI",
+
+    language:
+      "زبان",
+
+    languageDescription:
+      "زبان رابط برنامه",
+
+    support:
+      "پشتیبانی",
+
+    supportDescription:
+      "ارتباط با پشتیبانی Fox AI",
+
+    whatsapp:
+      "پشتیبانی WhatsApp",
+
+    telegram:
+      "پشتیبانی Telegram",
+
+    aboutApp:
+      "درباره برنامه",
+
+    aboutDescription:
+      "Fox AI یک دستیار هوش مصنوعی برای گفتگو، برنامه‌نویسی، تحلیل متن، تصویر و فایل است.",
+
+    copy:
+      "کپی",
+
+    copied:
+      "کپی شد",
+
+    share:
+      "اشتراک‌گذاری",
+
+    shared:
+      "اشتراک‌گذاری انجام شد",
+
+    edit:
+      "ویرایش",
+
+    copyCode:
+      "کپی کد",
+
+    codeCopied:
+      "کد کپی شد",
+
+    deleted:
+      "حذف",
+
+    noChats:
+      "چتی پیدا نشد",
+
+    deleteConfirm:
+      "همه گفتگوها حذف شوند؟",
+
+    apiKey:
+      "کلید API را داخل کد قرار بده",
+
+    fileTooLarge:
+      "حجم فایل نباید بیشتر از 10MB باشد",
+
+    fileSent:
+      "فایل ارسال شد.",
+
+    imageDefault:
+      "این تصویر را دقیق تحلیل کن.",
+
+    apiError:
+      "خطا در اتصال به API",
+
+    invalidKey:
+      "API Key نامعتبر است",
+
+    forbidden:
+      "دسترسی API رد شد",
+
+    rateLimit:
+      "محدودیت درخواست فعال است",
+
+    copiedText:
+      "متن کپی شد"
+
+  },
+
+  en:{
+
+    ready:"Ready",
+
+    generating:"Generating",
+
+    stopped:"Response stopped",
+
+    welcome:
+      "How can I help you?",
+
+    placeholder:
+      "Write a message...",
+
+    newChat:
+      "New chat",
+
+    search:
+      "Search chats...",
+
+    settings:
+      "Settings",
+
+    about:
+      "About Fox AI",
+
+    history:
+      "Chat history",
+
+    deleteAll:
+      "Delete all chats",
+
+    online:
+      "Online",
+
+    lightMode:
+      "Light mode",
+
+    darkMode:
+      "Dark mode",
+
+    themeDescription:
+      "Change the Fox AI appearance",
+
+    language:
+      "Language",
+
+    languageDescription:
+      "Application interface language",
+
+    support:
+      "Support",
+
+    supportDescription:
+      "Contact Fox AI support",
+
+    whatsapp:
+      "WhatsApp Support",
+
+    telegram:
+      "Telegram Support",
+
+    aboutApp:
+      "About application",
+
+    aboutDescription:
+      "Fox AI is an AI assistant for conversations, programming, text analysis, images and files.",
+
+    copy:
+      "Copy",
+
+    copied:
+      "Copied",
+
+    share:
+      "Share",
+
+    shared:
+      "Shared",
+
+    edit:
+      "Edit",
+
+    copyCode:
+      "Copy code",
+
+    codeCopied:
+      "Code copied",
+
+    deleted:
+      "Delete",
+
+    noChats:
+      "No chats found",
+
+    deleteConfirm:
+      "Delete all chats?",
+
+    apiKey:
+      "Add your API key to the code",
+
+    fileTooLarge:
+      "File size must not exceed 10MB",
+
+    fileSent:
+      "File sent.",
+
+    imageDefault:
+      "Analyze this image carefully.",
+
+    apiError:
+      "API connection error",
+
+    invalidKey:
+      "Invalid API key",
+
+    forbidden:
+      "API access denied",
+
+    rateLimit:
+      "Request limit reached",
+
+    copiedText:
+      "Text copied"
+
+  }
+
+};
+
+
+/* ================= STORAGE ================= */
+
+function save(){
+
+  try{
+
+    localStorage.setItem(
+      "fox_ai_v10",
+      JSON.stringify(chats)
+    );
+
+  }catch(e){
+
+    console.log(e);
+
+  }
+
+}
+
+
+function load(){
+
+  try{
+
+    chats =
+      JSON.parse(
+        localStorage.getItem(
+          "fox_ai_v10"
+        ) || "[]"
+      );
+
+    if(!Array.isArray(chats))
+      chats=[];
+
+  }catch(e){
+
+    chats=[];
+
+  }
+
+}
+
+
+/* ================= HELPERS ================= */
+
+function makeId(){
+
+  return Date.now().toString(36)+
+    Math.random()
+      .toString(36)
+      .slice(2);
+
+}
+
+
+function escapeHTML(text){
+
+  return String(text)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+function toastMessage(text){
+
+  toast.textContent=text;
+
+  toast.classList.add("show");
+
+  clearTimeout(
+    toastMessage.timer
+  );
+
+  toastMessage.timer =
+    setTimeout(
+      ()=>{
+        toast.classList.remove("show");
+      },
+      1800
+    );
+
+}
+
+
+/* ================= CLIPBOARD ================= */
+
+async function copyText(text){
+
+  try{
+
+    if(
+      navigator.clipboard &&
+      window.isSecureContext
+    ){
+
+      await navigator.clipboard.writeText(
+        String(text)
+      );
+
+      return true;
+
+    }
+
+  }catch(e){}
+
+
+  try{
+
+    const area =
+      document.createElement("textarea");
+
+    area.value=String(text);
+
+    area.style.position="fixed";
+    area.style.left="-9999px";
+    area.style.top="0";
+
+    document.body.appendChild(area);
+
+    area.focus();
+    area.select();
+
+    const success =
+      document.execCommand("copy");
+
+    area.remove();
+
+    return success;
+
+  }catch(e){
+
+    return false;
+
+  }
+
+}
+
+
+/* ================= SMART SCROLL ================= */
+
+function checkScroll(){
+
+  const distance =
+    chat.scrollHeight -
+    chat.scrollTop -
+    chat.clientHeight;
+
+  userIsNearBottom =
+    distance < 120;
+
+}
+
+
+chat.addEventListener(
+  "scroll",
+  checkScroll,
+  {passive:true}
+);
+
+
+function smartScroll(){
+
+  if(!userIsNearBottom)
+    return;
+
+  chat.scrollTop =
+    chat.scrollHeight;
+
+}
+
+
+/* ================= MENU ================= */
+
+function openMenu(){
+
+  menu.classList.add("show");
+
+  overlay.classList.add("show");
+
+}
+
+
+function closeMenu(){
+
+  menu.classList.remove("show");
+
+  overlay.classList.remove("show");
+
+}
+
+
+document.getElementById("menuBtn")
+  .onclick=openMenu;
+
+document.getElementById("closeMenu")
+  .onclick=closeMenu;
+
+overlay.onclick=closeMenu;
+
+
+/* ================= CHAT ================= */
+
+function currentChat(){
+
+  return chats.find(
+    c=>c.id===currentId
+  );
+
+}
+
+
+function newChat(){
+
+  const c={
+
+    id:makeId(),
+
+    title:
+      T[language].newChat,
+
+    messages:[],
+
+    createdAt:Date.now()
+
+  };
+
+
+  chats.unshift(c);
+
+  currentId=c.id;
+
+  save();
+
+  render();
+
+  renderHistory();
+
+  closeMenu();
+
+  input.focus();
+
+}
+
+
+function ensureChat(){
+
+  if(
+    currentId &&
+    currentChat()
+  )
+    return;
+
+  if(chats.length){
+
+    currentId=chats[0].id;
+
+  }else{
+
+    newChat();
+
+  }
+
+}
+
+
+document.getElementById("newChat")
+  .onclick=newChat;
+
+document.getElementById("newChatMenu")
+  .onclick=newChat;
+
+
+/* ================= HISTORY ================= */
+
+function renderHistory(query=""){
+
+  const history =
+    document.getElementById("history");
+
+  history.innerHTML="";
+
+
+  const q =
+    query.trim().toLowerCase();
+
+
+  const list =
+    chats.filter(c=>{
+
+      if(!q)
+        return true;
+
+      return String(c.title)
+        .toLowerCase()
+        .includes(q);
+
+    });
+
+
+  if(!list.length){
+
+    history.innerHTML=`
+      <div style="
+        color:var(--muted);
+        font-size:11px;
+        padding:10px;
+      ">
+        ${T[language].noChats}
+      </div>`;
+
+    return;
+
+  }
+
+
+  list.forEach(c=>{
+
+    const row =
+      document.createElement("div");
+
+    row.className="historyItem";
+
+
+    const title =
+      document.createElement("div");
+
+    title.className="historyTitle";
+
+    title.textContent=c.title;
+
+
+    const del =
+      document.createElement("button");
+
+    del.className="historyDelete";
+
+    del.textContent=
+      T[language].deleted;
+
+
+    del.onclick=e=>{
+
+      e.stopPropagation();
+
+      chats =
+        chats.filter(
+          x=>x.id!==c.id
+        );
+
+
+      if(currentId===c.id){
+
+        currentId =
+          chats[0]?.id || null;
+
+      }
+
+
+      save();
+
+      render();
+
+      renderHistory();
+
+    };
+
+
+    row.appendChild(title);
+
+    row.appendChild(del);
+
+
+    row.onclick=()=>{
+
+      currentId=c.id;
+
+      render();
+
+      closeMenu();
+
+    };
+
+
+    history.appendChild(row);
+
+  });
+
+}
+
+
+document.getElementById("historySearch")
+  .addEventListener(
+    "input",
+    e=>{
+      renderHistory(e.target.value);
+    }
+  );
+
+
+/* ================= MARKDOWN ================= */
+
+function markdown(text){
+
+  let source =
+    String(text ?? "");
+
+
+  const codeParts=[];
+
+
+  /*
+    ابتدا بلوک‌های کد را جدا می‌کنیم.
+    این کار باعث می‌شود newlineهای کد
+    به <br> تبدیل نشوند.
+  */
+
+  source =
+    source.replace(
+      /```([a-zA-Z0-9_+#.-]*)\n?([\s\S]*?)```/g,
+      (_,lang,code)=>{
+
+        const index =
+          codeParts.length;
+
+        codeParts.push({
+          lang:lang || "code",
+          code:code
+        });
+
+        return `@@CODEBLOCK_${index}@@`;
+
+      }
+    );
+
+
+  let html =
+    escapeHTML(source);
+
+
+  html =
+    html.replace(
+      /`([^`\n]+)`/g,
+      '<code class="inlineCode">$1</code>'
+    );
+
+
+  html =
+    html.replace(
+      /\*\*(.*?)\*\*/g,
+      "<strong>$1</strong>"
+    );
+
+
+  html =
+    html.replace(
+      /\n/g,
+      "<br>"
+    );
+
+
+  codeParts.forEach(
+    (item,index)=>{
+
+      const safeCode =
+        escapeHTML(item.code);
+
+      const codeId =
+        "code_"+makeId();
+
+      const block = `
+        <div class="codeBlock">
+
+          <div class="codeHeader">
+
+            <span>
+              ${escapeHTML(item.lang)}
+            </span>
+
+            <button
+              class="copyCode"
+              data-code-id="${codeId}">
+              ${T[language].copyCode}
+            </button>
+
+          </div>
+
+          <pre
+            class="codeContent"
+            id="${codeId}">${safeCode}</pre>    </div>
+  `;
+
+  html =
+    html.replace(
+      `@@CODEBLOCK_${index}@@`,
+      block
+    );
+
+}
+
+);
+
+return html;
+
+}
+
+/* ================= CODE BUTTONS ================= */
+
+function setupCodeButtons(){
+
+document
+.querySelectorAll(".copyCode")
+.forEach(btn=>{
+
+  if(btn.dataset.ready==="1")
+    return;
+
+  btn.dataset.ready="1";
+
+  btn.onclick=async()=>{
+
+    const codeId =
+      btn.dataset.codeId;
+
+    const codeElement =
+      document.getElementById(
+        codeId
+      );
+
+    if(!codeElement)
+      return;
+
+    /*
+      textContent باعث می‌شود
+      دقیقاً خود کد کپی شود.
+    */
+
+    const code =
+      codeElement.textContent;
+
+    const success =
+      await copyText(code);
+
+    if(success){
+
+      btn.textContent =
+        T[language].codeCopied;
+
+      setTimeout(
+        ()=>{
+          btn.textContent =
+            T[language].copyCode;
+        },
+        1400
+      );
+
+    }else{
+
+      toastMessage(
+        T[language].apiError
+      );
+
+    }
+
+  };
+
+});
+
+}
+
+/* ================= MESSAGE ================= */
+
+function createMessageElement(
+msg,
+index
+){
+
+const wrapper =
+document.createElement("div");
+
+wrapper.className =
+"message "+
+(
+msg.role==="user"
+? "user"
+: "ai"
+);
+
+const inner =
+document.createElement("div");
+
+inner.className="messageInner";
+
+const text =
+document.createElement("div");
+
+text.className="messageText";
+
+if(msg.role==="assistant"){
+
+text.innerHTML =
+  markdown(msg.content);
+
+}else{
+
+text.textContent =
+  msg.content;
+
+}
+
+inner.appendChild(text);
+
+if(msg.file){
+
+const card =
+  document.createElement("div");
+
+card.className="fileCard";
+
+
+if(
+  msg.file.type &&
+  msg.file.type.startsWith("image/")
+){
+
+  const img =
+    document.createElement("img");
+
+  img.src =
+    msg.file.data;
+
+  card.appendChild(img);
+
+}
+
+
+const info =
+  document.createElement("div");
+
+info.innerHTML=`
+  <div class="fileName">
+    ${escapeHTML(msg.file.name)}
+  </div>
+
+  <div class="fileType">
+    ${escapeHTML(
+      msg.file.type || "file"
+    )}
+  </div>
+`;
+
+
+card.appendChild(info);
+
+inner.appendChild(card);
+
+}
+
+const actions =
+document.createElement("div");
+
+actions.className="actions";
+
+const copy =
+document.createElement("button");
+
+copy.textContent =
+T[language].copy;
+
+copy.onclick=async()=>{
+
+const success =
+  await copyText(msg.content);
+
+if(success){
+
+  toastMessage(
+    T[language].copied
+  );
+
+}
+
+};
+
+actions.appendChild(copy);
+
+if(msg.role==="assistant"){
+
+const share =
+  document.createElement("button");
+
+share.textContent =
+  T[language].share;
+
+
+share.onclick=async()=>{
+
+  try{
+
+    if(
+      navigator.share
+    ){
+
+      await navigator.share({
+
+        title:"Fox AI",
+
+        text:msg.content
+
+      });
+
+      toastMessage(
+        T[language].shared
+      );
+
+    }else{
+
+      const success =
+        await copyText(
+          msg.content
+        );
+
+      if(success){
+
+        toastMessage(
+          T[language].copiedText
+        );
+
+      }
+
+    }
+
+  }catch(e){
+
+    /*
+      اگر کاربر پنجره Share را ببندد،
+      خطا نمایش داده نمی‌شود.
+    */
+
+    if(
+      e &&
+      e.name!=="AbortError"
+    ){
+
+      const success =
+        await copyText(
+          msg.content
+        );
+
+      if(success)
+        toastMessage(
+          T[language].copiedText
+        );
+
+    }
+
+  }
+
+};
+
+
+actions.appendChild(share);
+
+}
+
+if(msg.role==="user"){
+
+const edit =
+  document.createElement("button");
+
+edit.textContent =
+  T[language].edit;
+
+
+edit.onclick=()=>{
+
+  input.value =
+    msg.content;
+
+  autoResize();
+
+
+  const c =
+    currentChat();
+
+
+  c.messages =
+    c.messages.slice(
+      0,
+      index
+    );
+
+
+  save();
+
+  render();
+
+  input.focus();
+
+};
+
+
+actions.appendChild(edit);
+
+}
+
+inner.appendChild(actions);
+
+wrapper.appendChild(inner);
+
+messages.appendChild(wrapper);
+
+setupCodeButtons();
+
+}
+
+/* ================= RENDER ================= */
+
+function render(){
+
+const c =
+currentChat();
+
+messages.innerHTML="";
+
+if(
+!c ||
+!c.messages.length
+){
+
+messages.appendChild(empty);
+
+empty.style.display="flex";
+
+return;
+
+}
+
+empty.style.display="none";
+
+c.messages.forEach(
+(m,i)=>{
+
+  createMessageElement(
+    m,
+    i
+  );
+
+}
+
+);
+
+userIsNearBottom=true;
+
+requestAnimationFrame(
+smartScroll
+);
+
+}
+
+/* ================= AI UPDATE ================= */
+
+function updateLastAI(){
+
+const c =
+currentChat();
+
+if(!c)
+return;
+
+const aiMessages =
+messages.querySelectorAll(
+".message.ai"
+);
+
+const wrapper =
+aiMessages[
+aiMessages.length-1
+];
+
+if(!wrapper)
+return;
+
+const text =
+wrapper.querySelector(
+".messageText"
+);
+
+if(!text)
+return;
+
+const ai =
+c.messages[
+c.messages.length-1
+];
+
+text.innerHTML =
+markdown(ai.content)+
+'<span class="cursor"></span>';
+
+setupCodeButtons();
+
+smartScroll();
+
+}
+
+/* ================= FILE ================= */
+
+document.getElementById("attach")
+.onclick=()=>{
+
+document
+  .getElementById("file")
+  .click();
+
+};
+
+document.getElementById("file")
+.onchange=async e=>{
+
+const file =
+  e.target.files?.[0];
+
+if(!file)
+  return;
+
+
+if(
+  file.size >
+  10*1024*1024
+){
+
+  toastMessage(
+    T[language].fileTooLarge
+  );
+
+  e.target.value="";
+
+  return;
+
+}
+
+
+attached=file;
+
+
+document
+  .getElementById("preview")
+  .classList.add("show");
+
+
+document
+  .getElementById("previewName")
+  .textContent =
+  file.name;
+
+
+document
+  .getElementById("previewSize")
+  .textContent =
+  formatBytes(file.size);
+
+
+const img =
+  document.getElementById(
+    "previewImage"
+  );
+
+
+if(
+  file.type.startsWith("image/")
+){
+
+  img.style.display="block";
+
+  img.src =
+    await readDataURL(file);
+
+}else{
+
+  img.style.display="none";
+
+  img.src="";
+
+}
+
+};
+
+function formatBytes(bytes){
+
+if(bytes<1024)
+return bytes+" B";
+
+if(bytes<1024*1024)
+return(
+bytes/1024
+).toFixed(1)+" KB";
+
+return(
+bytes/(1024*1024)
+).toFixed(1)+" MB";
+
+}
+
+function readDataURL(file){
+
+return new Promise(
+(resolve,reject)=>{
+
+  const r =
+    new FileReader();
+
+  r.onload =
+    ()=>resolve(r.result);
+
+  r.onerror =
+    reject;
+
+  r.readAsDataURL(file);
+
+}
+
+);
+
+}
+
+function readText(file){
+
+return new Promise(
+(resolve,reject)=>{
+
+  const r =
+    new FileReader();
+
+  r.onload =
+    ()=>resolve(r.result);
+
+  r.onerror =
+    reject;
+
+  r.readAsText(file);
+
+}
+
+);
+
+}
+
+document.getElementById("removeFile")
+.onclick=()=>{
+
+attached=null;
+
+document
+  .getElementById("file")
+  .value="";
+
+document
+  .getElementById("preview")
+  .classList.remove("show");
+
+document
+  .getElementById("previewImage")
+  .src="";
+
+};
+
+/* ================= API CONTENT ================= */
+
+async function makeContent(
+text,
+file
+){
+
+if(!file)
+return text;
+
+if(
+file.type.startsWith("image/")
+){
+
+const data =
+  await readDataURL(file);
+
+
+return [
+
+  {
+    type:"text",
+
+    text:
+      text ||
+      T[language].imageDefault
+
+  },
+
+  {
+    type:"image_url",
+
+    image_url:data
+
+  }
+
+];
+
+}
+
+if(
+/.(txt|js|html|css|json|md|csv)$/i
+.test(file.name)
+){
+
+const content =
+  await readText(file);
+
+
+return(
+  text+
+  "\n\n--- FILE ---\n"+
+  file.name+
+  "\n\n"+
+  content+
+  "\n\n--- END FILE ---"
+);
+
+}
+
+return(
+text+
+"\n\n"+
+T[language].fileSent+
+" "+
+file.name
+);
+
+}
+
+/* ================= SEND ================= */
+
+async function sendMessage(){
+
+if(generating){
+
+controller?.abort();
+
+return;
+
+}
+
+const text =
+input.value.trim();
+
+if(
+!text &&
+!attached
+)
+return;
+
+if(
+API_KEY===
+"YOUR_MISTRAL_API_KEY"
+){
+
+toastMessage(
+  T[language].apiKey
+);
+
+return;
+
+}
+
+ensureChat();
+
+const c =
+currentChat();
+
+const file =
+attached;
+
+const content =
+await makeContent(
+text,
+file
+);
+
+let savedFile=null;
+
+if(file){
+
+savedFile={
+
+  name:file.name,
+
+  type:file.type,
+
+  data:
+    file.type.startsWith("image/")
+      ? await readDataURL(file)
+      : ""
+
+};
+
+}
+
+c.messages.push({
+
+role:"user",
+
+content:
+  text ||
+  T[language].fileSent,
+
+apiContent:content,
+
+file:savedFile
+
+});
+
+if(
+c.title===T.fa.newChat ||
+c.title===T.en.newChat
+){
+
+c.title =
+  text ||
+  file?.name ||
+  "Fox AI";
+
+}
+
+input.value="";
+
+autoResize();
+
+attached=null;
+
+document
+.getElementById("file")
+.value="";
+
+document
+.getElementById("preview")
+.classList.remove("show");
+
+save();
+
+renderHistory();
+
+userIsNearBottom=true;
+
+render();
+
+generating=true;
+
+controller =
+new AbortController();
+
+send.classList.add("stop");
+
+send.innerHTML="<svg viewBox="0 0 24 24"> <path d="M7 7h10v10H7z"/> </svg>";
+
+status.textContent =
+T[language].generating;
+
+try{
+
+const hasImage =
+  c.messages.some(
+    m=>
+      m.file &&
+      m.file.type &&
+      m.file.type.startsWith("image/")
+  );
+
+
+const model =
+  hasImage
+    ? VISION_MODEL
+    : TEXT_MODEL;
+
+
+const apiMessages=[
+
+  {
+
+    role:"system",
+
+    content:
+      language==="fa"
+
+      ?
+
+      "تو Fox AI هستی. پاسخ‌های دقیق، حرفه‌ای، روان و کاربردی بده. اگر کاربر کد یا اپلیکیشن خواست، کد کامل و قابل اجرا ارائه کن. کد را داخل بلوک‌های ``` قرار بده و زبان کد را در ابتدای بلوک مشخص کن. متن و کد را واضح و مرتب جدا کن."
+
+      :
+
+      "You are Fox AI. Give accurate, professional and useful answers. When the user asks for code or an application, provide complete runnable code. Put code inside ``` blocks and specify the code language. Clearly separate normal text and code."
+
+  },
+
+  ...c.messages.map(
+    m=>({
+
+      role:m.role,
+
+      content:
+        m.apiContent ??
+        m.content
+
+    })
+  )
+
+];
+
+
+const response =
+  await fetch(
+    API_URL,
+    {
+
+      method:"POST",
+
+      headers:{
+
+        "Content-Type":
+          "application/json",
+
+        "Authorization":
+          "Bearer "+
+          API_KEY
+
+      },
+
+      body:JSON.stringify({
+
+        model,
+
+        messages:apiMessages,
+
+        stream:true,
+
+        temperature:.6,
+
+        max_tokens:4096
+
+      }),
+
+      signal:
+        controller.signal
+
+    }
+  );
+
+
+if(!response.ok){
+
+  let errorText="";
+
+  try{
+
+    const data =
+      await response.json();
+
+    errorText =
+      data?.message ||
+      data?.error?.message ||
+      "";
+
+  }catch(e){}
+
+
+  throw new Error(
+    response.status+
+    " "+
+    errorText
+  );
+
+}
+
+
+if(!response.body)
+  throw new Error(
+    "No response body"
+  );
+
+
+const ai={
+
+  role:"assistant",
+
+  content:""
+
+};
+
+
+c.messages.push(ai);
+
+
+createMessageElement(
+  ai,
+  c.messages.length-1
+);
+
+
+const reader =
+  response.body.getReader();
+
+const decoder =
+  new TextDecoder();
+
+let buffer="";
+
+
+while(true){
+
+  const {
+    value,
+    done
+  } =
+    await reader.read();
+
+
+  if(done)
+    break;
+
+
+  buffer +=
+    decoder.decode(
+      value,
+      {stream:true}
+    );
+
+
+  const lines =
+    buffer.split("\n");
+
+
+  buffer =
+    lines.pop() || "";
+
+
+  for(
+    const raw of lines
+  ){
+
+    const line =
+      raw.trim();
+
+
+    if(
+      !line ||
+      !line.startsWith("data:")
+    )
+      continue;
+
+
+    const data =
+      line.slice(5).trim();
+
+
+    if(
+      data==="[DONE]"
+    )
+      continue;
+
+
+    try{
+
+      const json =
+        JSON.parse(data);
+
+
+      const delta =
+        json
+          ?.choices
+          ?.[0]
+          ?.delta
+          ?.content;
+
+
+      if(
+        typeof delta==="string"
+      ){
+
+        ai.content +=
+          delta;
+
+        updateLastAI();
+
+      }
+
+    }catch(e){
+
+      /*
+        بعضی chunkها ممکن است
+        JSON کامل نباشند.
+      */
+
+    }
+
+  }
+
+}
+
+
+save();
+
+}catch(e){
+
+if(
+  e.name==="AbortError"
+){
+
+  toastMessage(
+    T[language].stopped
+  );
+
+}else{
+
+  console.error(e);
+
+
+  let msg =
+    T[language].apiError;
+
+
+  if(
+    String(e.message)
+      .includes("401")
+  )
+    msg =
+      T[language].invalidKey;
+
+
+  if(
+    String(e.message)
+      .includes("403")
+  )
+    msg =
+      T[language].forbidden;
+
+
+  if(
+    String(e.message)
+      .includes("429")
+  )
+    msg =
+      T[language].rateLimit;
+
+
+  /*
+    اگر AI خالی مانده باشد،
+    همان پیام خطا را جایگزین می‌کنیم.
+  */
+
+  const last =
+    c.messages[
+      c.messages.length-1
+    ];
+
+
+  if(
+    last &&
+    last.role==="assistant" &&
+    !last.content
+  ){
+
+    last.content=msg;
+
+  }else{
+
+    c.messages.push({
+
+      role:"assistant",
+
+      content:msg
+
+    });
+
+  }
+
+
+  render();
+
+  toastMessage(msg);
+
+}
+
+}finally{
+
+generating=false;
+
+controller=null;
+
+send.classList.remove("stop");
+
+send.innerHTML=`
+  <svg viewBox="0 0 24 24">
+    <path d="M22 2L11 13"/>
+    <path d="M22 2l-7 20-9-4z"/>
+  </svg>
+`;
+
+
+status.textContent =
+  T[language].ready;
+
+
+save();
+
+}
+
+}
+
+/* ================= INPUT ================= */
+
+function autoResize(){
+
+input.style.height="auto";
+
+input.style.height =
+Math.min(
+input.scrollHeight,
+160
+)+"px";
+
+}
+
+input.addEventListener(
+"input",
+autoResize
+);
+
+input.addEventListener(
+"keydown",
+e=>{
+
+if(
+  e.key==="Enter" &&
+  !e.shiftKey
+){
+
+  e.preventDefault();
+
+  sendMessage();
+
+}
+
+}
+);
+
+send.onclick =
+sendMessage;
+
+/* ================= THEME ================= */
+
+const themeSwitch =
+document.getElementById(
+"themeSwitch"
+);
+
+try{
+
+if(
+localStorage.getItem(
+"fox_theme"
+)==="light"
+){
+
+document.body.classList.add(
+  "light"
+);
+
+themeSwitch.classList.add(
+  "on"
+);
+
+}
+
+}catch(e){}
+
+function updateThemeText(){
+
+document.getElementById(
+"themeTitle"
+).textContent =
+document.body.classList.contains("light")
+? T[language].darkMode
+: T[language].lightMode;
+
+}
+
+themeSwitch.onclick=()=>{
+
+const light =
+document.body.classList.toggle(
+"light"
+);
+
+themeSwitch.classList.toggle(
+"on",
+light
+);
+
+try{
+
+localStorage.setItem(
+  "fox_theme",
+  light
+    ? "light"
+    : "dark"
+);
+
+}catch(e){}
+
+updateThemeText();
+
+};
+
+/* ================= SETTINGS ================= */
+
+const settingsModal =
+document.getElementById(
+"settingsModal"
+);
+
+document.getElementById("settingsBtn")
+.onclick=()=>{
+
+closeMenu();
+
+settingsModal.classList.add(
+  "show"
+);
+
+};
+
+document.getElementById("closeSettings")
+.onclick=()=>{
+
+settingsModal.classList.remove(
+  "show"
+);
+
+};
+
+settingsModal.onclick=e=>{
+
+if(
+e.target===settingsModal
+){
+
+settingsModal.classList.remove(
+  "show"
+);
+
+}
+
+};
+
+/* ================= ABOUT ================= */
+
+const aboutModal =
+document.getElementById(
+"aboutModal"
+);
+
+document.getElementById("aboutBtn")
+.onclick=()=>{
+
+closeMenu();
+
+aboutModal.classList.add(
+  "show"
+);
+
+};
+
+document.getElementById("closeAbout")
+.onclick=()=>{
+
+aboutModal.classList.remove(
+  "show"
+);
+
+};
+
+aboutModal.onclick=e=>{
+
+if(
+e.target===aboutModal
+){
+
+aboutModal.classList.remove(
+  "show"
+);
+
+}
+
+};
+
+/* ================= LANGUAGE ================= */
+
+document.getElementById("faBtn")
+.onclick=()=>setLanguage("fa");
+
+document.getElementById("enBtn")
+.onclick=()=>setLanguage("en");
+
+function setLanguage(lang){
+
+language =
+lang==="en"
+? "en"
+: "fa";
+
+try{
+
+localStorage.setItem(
+  "fox_language",
+  language
+);
+
+}catch(e){}
+
+document.documentElement.lang =
+language;
+
+document.documentElement.dir =
+language==="fa"
+? "rtl"
+: "ltr";
+
+const t =
+T[language];
+
+/*
+تمام متن‌های رابط کاربری
+در این قسمت تغییر می‌کنند.
+*/
+
+status.textContent =
+generating
+? t.generating
+: t.ready;
+
+input.placeholder =
+t.placeholder;
+
+document.getElementById(
+"welcome"
+).textContent =
+t.welcome;
+
+document.getElementById(
+"newChatText"
+).textContent =
+t.newChat;
+
+document.getElementById(
+"historySearch"
+).placeholder =
+t.search;
+
+document.getElementById(
+"settingsText"
+).textContent =
+t.settings;
+
+document.getElementById(
+"aboutText"
+).textContent =
+t.about;
+
+document.getElementById(
+"historyLabel"
+).textContent =
+t.history;
+
+document.getElementById(
+"deleteAllText"
+).textContent =
+t.deleteAll;
+
+document.getElementById(
+"menuOnline"
+).textContent =
+t.online;
+
+document.getElementById(
+"settingsTitle"
+).textContent =
+t.settings;
+
+document.getElementById(
+"themeDescription"
+).textContent =
+t.themeDescription;
+
+document.getElementById(
+"languageTitle"
+).textContent =
+t.language;
+
+document.getElementById(
+"languageDescription"
+).textContent =
+t.languageDescription;
+
+document.getElementById(
+"supportTitle"
+).textContent =
+t.support;
+
+document.getElementById(
+"supportDescription"
+).textContent =
+t.supportDescription;
+
+document.getElementById(
+"whatsapp"
+).textContent =
+t.whatsapp;
+
+document.getElementById(
+"telegram"
+).textContent =
+t.telegram;
+
+document.getElementById(
+"aboutAppTitle"
+).textContent =
+t.aboutApp;
+
+document.getElementById(
+"aboutModalTitle"
+).textContent =
+t.about;
+
+document.getElementById(
+"aboutDescription"
+).textContent =
+t.aboutDescription;
+
+document.getElementById(
+"faBtn"
+).classList.toggle(
+"active",
+language==="fa"
+);
+
+document.getElementById(
+"enBtn"
+).classList.toggle(
+"active",
+language==="en"
+);
+
+updateThemeText();
+
+/*
+پیام‌های موجود دوباره Render می‌شوند
+تا دکمه‌های Copy / Share / Edit
+هم زبان جدید را بگیرند.
+*/
+
+render();
+
+renderHistory();
+
+}
+
+/* ================= SUPPORT ================= */
+
+const PHONE =
+"989011268205";
+
+document.getElementById("whatsapp")
+.onclick=()=>{
+
+window.open(
+  "https://wa.me/"+PHONE,
+  "_blank",
+  "noopener"
+);
+
+};
+
+document.getElementById("telegram")
+.onclick=()=>{
+
+window.open(
+  "https://t.me/+"+PHONE,
+  "_blank",
+  "noopener"
+);
+
+};
+
+/* ================= DELETE ALL ================= */
+
+document.getElementById("deleteAll")
+.onclick=()=>{
+
+if(
+  !confirm(
+    T[language].deleteConfirm
+  )
+)
+  return;
+
+
+chats=[];
+
+currentId=null;
+
+save();
+
+render();
+
+renderHistory();
+
+closeMenu();
+
+};
+
+/* ================= INIT ================= */
+
+try{
+
+language =
+localStorage.getItem(
+"fox_language"
+) || "fa";
+
+}catch(e){
+
+language="fa";
+
+}
+
+load();
+
+if(chats.length){
+
+currentId =
+chats[0].id;
+
+}
+
+setLanguage(language);
+
+render();
+
+renderHistory();
+
+autoResize();
+
+</script></body>
+</html>
