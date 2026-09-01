@@ -63,6 +63,147 @@ button{
   cursor:pointer;
 }
 
+svg{
+  width:21px;
+  height:21px;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.8;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+/* =====================================================
+   SPLASH
+   ===================================================== */
+
+.foxSplash{
+  position:fixed;
+  inset:0;
+  z-index:99999;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(255,121,0,.20),
+      transparent 36%
+    ),
+    #070708;
+  animation:splashOut .7s ease 1.55s forwards;
+}
+
+.splashGlow{
+  position:absolute;
+  width:280px;
+  height:280px;
+  border-radius:50%;
+  background:rgba(255,90,0,.20);
+  filter:blur(75px);
+  animation:glowPulse 1.25s ease-in-out infinite;
+}
+
+.foxLogoWrap{
+  position:relative;
+  width:150px;
+  height:150px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  animation:
+    foxEnter .9s cubic-bezier(.2,.9,.2,1) forwards,
+    foxFloat 1.4s ease-in-out .9s infinite alternate;
+}
+
+.foxLogo{
+  width:150px;
+  height:150px;
+  filter:
+    drop-shadow(0 0 12px rgba(255,100,0,.7))
+    drop-shadow(0 0 38px rgba(255,70,0,.35));
+}
+
+.splashTitle{
+  position:relative;
+  margin-top:18px;
+  font-size:34px;
+  font-weight:900;
+  letter-spacing:8px;
+  color:#fff;
+  opacity:0;
+  transform:translateY(15px);
+  animation:titleEnter .7s ease .45s forwards;
+}
+
+.splashLine{
+  position:relative;
+  width:0;
+  height:2px;
+  margin-top:13px;
+  border-radius:10px;
+  background:linear-gradient(90deg,#ff9a00,#ff3d00);
+  box-shadow:0 0 15px rgba(255,100,0,.8);
+  animation:lineEnter .8s ease .65s forwards;
+}
+
+@keyframes foxEnter{
+  0%{
+    opacity:0;
+    transform:scale(.35) translateY(35px) rotate(-8deg);
+  }
+  65%{
+    opacity:1;
+    transform:scale(1.08) translateY(-4px) rotate(2deg);
+  }
+  100%{
+    opacity:1;
+    transform:scale(1) translateY(0) rotate(0);
+  }
+}
+
+@keyframes foxFloat{
+  from{transform:translateY(0)}
+  to{transform:translateY(-7px)}
+}
+
+@keyframes titleEnter{
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+@keyframes lineEnter{
+  to{width:120px}
+}
+
+@keyframes glowPulse{
+  0%,100%{
+    transform:scale(.8);
+    opacity:.45;
+  }
+  50%{
+    transform:scale(1.25);
+    opacity:.8;
+  }
+}
+
+@keyframes splashOut{
+  to{
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+    transform:scale(1.03);
+  }
+}
+
+/* =====================================================
+   APP
+   ===================================================== */
+
 .app{
   width:100%;
   height:100dvh;
@@ -120,16 +261,6 @@ body.light .header{
 
 .iconBtn:active{
   transform:scale(.91);
-}
-
-svg{
-  width:21px;
-  height:21px;
-  fill:none;
-  stroke:currentColor;
-  stroke-width:1.8;
-  stroke-linecap:round;
-  stroke-linejoin:round;
 }
 
 .brandName{
@@ -756,6 +887,50 @@ textarea::placeholder{
   color:#fff;
 }
 
+/* SOCIAL */
+
+.socialButtons{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
+  margin-top:10px;
+}
+
+.socialBtn{
+  min-height:52px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:9px;
+  border:1px solid var(--border);
+  border-radius:13px;
+  background:var(--panel2);
+  color:var(--text);
+  transition:.18s;
+  font-weight:700;
+}
+
+.socialBtn svg{
+  width:24px;
+  height:24px;
+}
+
+.whatsappBtn svg{
+  color:#25D366;
+}
+
+.telegramBtn svg{
+  color:#229ED9;
+}
+
+.socialBtn:hover{
+  background:var(--panel3);
+}
+
+.socialBtn:active{
+  transform:scale(.95);
+}
+
 .support{
   width:100%;
   padding:12px;
@@ -821,16 +996,8 @@ html[dir="ltr"] .messageText{
   text-align:left!important;
 }
 
-html[dir="ltr"] .message.user .messageText{
-  text-align:left!important;
-}
-
 html[dir="ltr"] .menuItem{
   text-align:left;
-}
-
-html[dir="ltr"] .menuDivider{
-  direction:ltr;
 }
 
 html[dir="ltr"] .switch:after{
@@ -869,11 +1036,100 @@ html[dir="ltr"] .switch.on:after{
   .empty h1{
     font-size:34px;
   }
+
+  .splashTitle{
+    font-size:30px;
+  }
 }
 </style>
 </head>
 
 <body>
+
+<!-- =====================================================
+     SPLASH
+     ===================================================== -->
+
+<div id="foxSplash" class="foxSplash">
+
+  <div class="splashGlow"></div>
+
+  <div class="foxLogoWrap">
+
+    <svg class="foxLogo" viewBox="0 0 200 180">
+
+      <defs>
+        <linearGradient
+          id="foxGradient"
+          x1="0%"
+          y1="0%"
+          x2="100%"
+          y2="100%"
+        >
+          <stop offset="0%" stop-color="#ff9a00"/>
+          <stop offset="55%" stop-color="#ff6500"/>
+          <stop offset="100%" stop-color="#ff2800"/>
+        </linearGradient>
+      </defs>
+
+      <path
+        d="M38 38L68 53L100 43L132 53L162 38L158 88C155 125 133 151 100 158C67 151 45 125 42 88Z"
+        fill="url(#foxGradient)"
+      />
+
+      <path
+        d="M38 38L68 53L53 80Z"
+        fill="#ffb000"
+      />
+
+      <path
+        d="M162 38L132 53L147 80Z"
+        fill="#ff8a00"
+      />
+
+      <path
+        d="M68 86C76 78 86 78 94 86"
+        fill="none"
+        stroke="#171717"
+        stroke-width="7"
+        stroke-linecap="round"
+      />
+
+      <path
+        d="M106 86C114 78 124 78 132 86"
+        fill="none"
+        stroke="#171717"
+        stroke-width="7"
+        stroke-linecap="round"
+      />
+
+      <path
+        d="M91 108L100 102L109 108L100 118Z"
+        fill="#171717"
+      />
+
+      <path
+        d="M82 124C91 131 109 131 118 124"
+        fill="none"
+        stroke="#171717"
+        stroke-width="5"
+        stroke-linecap="round"
+      />
+
+    </svg>
+
+  </div>
+
+  <div class="splashTitle">FOX AI</div>
+
+  <div class="splashLine"></div>
+
+</div>
+
+
+<!-- =====================================================
+     APP
+     ===================================================== -->
 
 <div class="app">
 
@@ -881,32 +1137,54 @@ html[dir="ltr"] .switch.on:after{
 
   <div class="headerSide">
 
-    <button class="iconBtn" id="menuBtn" aria-label="Menu">
+    <button class="iconBtn" id="menuBtn">
+
       <svg viewBox="0 0 24 24">
         <path d="M4 6h16M4 12h16M4 18h16"/>
       </svg>
+
     </button>
 
     <div>
-      <div class="brandName">Fox AI</div>
-      <div class="brandStatus" id="status">آماده</div>
+
+      <div class="brandName">
+        Fox AI
+      </div>
+
+      <div class="brandStatus" id="status">
+        آماده
+      </div>
+
     </div>
 
   </div>
 
-  <button class="iconBtn" id="newChat" aria-label="New chat">
+
+  <button
+    class="iconBtn"
+    id="newChat"
+  >
+
     <svg viewBox="0 0 24 24">
       <path d="M12 5v14M5 12h14"/>
     </svg>
+
   </button>
 
 </header>
 
+
 <main class="chat" id="chat">
 
-  <div class="messages" id="messages">
+  <div
+    class="messages"
+    id="messages"
+  >
 
-    <div class="empty" id="empty">
+    <div
+      class="empty"
+      id="empty"
+    >
 
       <h1>Fox AI</h1>
 
@@ -920,35 +1198,55 @@ html[dir="ltr"] .switch.on:after{
 
 </main>
 
+
 <div class="composerArea">
 
   <div class="composer">
 
-    <div class="preview" id="preview">
+    <div
+      class="preview"
+      id="preview"
+    >
 
       <img id="previewImage">
 
       <div class="previewInfo">
 
-        <div class="previewName" id="previewName"></div>
+        <div
+          class="previewName"
+          id="previewName"
+        ></div>
 
-        <div class="previewSize" id="previewSize"></div>
+        <div
+          class="previewSize"
+          id="previewSize"
+        ></div>
 
       </div>
 
-      <button class="removeFile" id="removeFile">
+      <button
+        class="removeFile"
+        id="removeFile"
+      >
         حذف
       </button>
 
     </div>
 
+
     <div class="inputRow">
 
-      <button class="iconBtn" id="attach" aria-label="Attach">
+      <button
+        class="iconBtn"
+        id="attach"
+      >
+
         <svg viewBox="0 0 24 24">
           <path d="M21.4 11.6l-8.9 8.9a6 6 0 01-8.5-8.5l9.2-9.2a4 4 0 015.7 5.7L9.7 17.7a2 2 0 01-2.8-2.8l8.5-8.5"/>
         </svg>
+
       </button>
+
 
       <input
         type="file"
@@ -957,17 +1255,24 @@ html[dir="ltr"] .switch.on:after{
         accept="image/*,.txt,.js,.html,.css,.json,.md,.csv"
       >
 
+
       <textarea
         id="input"
         rows="1"
         placeholder="پیامت را بنویس..."
       ></textarea>
 
-      <button class="send" id="send">
+
+      <button
+        class="send"
+        id="send"
+      >
+
         <svg viewBox="0 0 24 24">
           <path d="M22 2L11 13"/>
           <path d="M22 2l-7 20-9-4z"/>
         </svg>
+
       </button>
 
     </div>
@@ -978,17 +1283,32 @@ html[dir="ltr"] .switch.on:after{
 
 </div>
 
-<!-- MENU -->
 
-<div class="overlay" id="overlay"></div>
+<!-- =====================================================
+     MENU
+     ===================================================== -->
 
-<aside class="sideMenu" id="menu">
+<div
+  class="overlay"
+  id="overlay"
+></div>
+
+
+<aside
+  class="sideMenu"
+  id="menu"
+>
 
   <div class="menuHeader">
 
-    <div class="menuTitle">Fox AI</div>
+    <div class="menuTitle">
+      Fox AI
+    </div>
 
-    <button class="iconBtn" id="closeMenu">
+    <button
+      class="iconBtn"
+      id="closeMenu"
+    >
 
       <svg viewBox="0 0 24 24">
         <path d="M6 6l12 12M18 6L6 18"/>
@@ -998,9 +1318,13 @@ html[dir="ltr"] .switch.on:after{
 
   </div>
 
+
   <div class="menuBody">
 
-    <button class="newChatLarge" id="newChatMenu">
+    <button
+      class="newChatLarge"
+      id="newChatMenu"
+    >
 
       <svg viewBox="0 0 24 24">
         <path d="M12 5v14M5 12h14"/>
@@ -1012,46 +1336,69 @@ html[dir="ltr"] .switch.on:after{
 
     </button>
 
+
     <input
       class="menuSearch"
       id="historySearch"
       placeholder="جستجوی چت‌ها..."
-      data-placeholder="searchChats"
     >
 
-    <button class="menuItem" id="settingsBtn">
+
+    <button
+      class="menuItem"
+      id="settingsBtn"
+    >
 
       <svg viewBox="0 0 24 24">
         <circle cx="12" cy="12" r="3"/>
         <path d="M19 13a7 7 0 000-2l2-1-2-3-2 1a8 8 0 00-2-1l-.3-2h-4l-.3 2a8 8 0 00-2 1l-2-1-2 3 2 1a7 7 0 000 2l-2 1 2 3 2-1a8 8 0 002 1l.3 2h4l.3-2a8 8 0 002-1l2 1 2-3z"/>
       </svg>
 
-      <span data-i18n="settings">تنظیمات</span>
+      <span data-i18n="settings">
+        تنظیمات
+      </span>
 
     </button>
 
-    <button class="menuItem" id="aboutBtn">
+
+    <button
+      class="menuItem"
+      id="aboutBtn"
+    >
 
       <svg viewBox="0 0 24 24">
         <circle cx="12" cy="12" r="9"/>
         <path d="M12 11v5M12 8h.01"/>
       </svg>
 
-      <span data-i18n="about">درباره Fox AI</span>
+      <span data-i18n="about">
+        درباره Fox AI
+      </span>
 
     </button>
 
+
     <div class="menuDivider"></div>
 
-    <div class="menuLabel" data-i18n="history">
+
+    <div
+      class="menuLabel"
+      data-i18n="history"
+    >
       سابقه گفتگو
     </div>
 
+
     <div id="history"></div>
+
 
     <div class="menuDivider"></div>
 
-    <button class="menuItem" id="deleteAll">
+
+    <button
+      class="menuItem"
+      id="deleteAll"
+    >
 
       <svg viewBox="0 0 24 24">
         <path d="M4 7h16M10 11v6M14 11v6M6 7l1 14h10l1-14M9 7V4h6v3"/>
@@ -1067,19 +1414,31 @@ html[dir="ltr"] .switch.on:after{
 
 </aside>
 
-<!-- SETTINGS -->
 
-<div class="modalBack" id="settingsModal">
+<!-- =====================================================
+     SETTINGS
+     ===================================================== -->
+
+<div
+  class="modalBack"
+  id="settingsModal"
+>
 
   <div class="modal">
 
     <div class="modalHeader">
 
-      <div class="modalTitle" data-i18n="settings">
+      <div
+        class="modalTitle"
+        data-i18n="settings"
+      >
         تنظیمات
       </div>
 
-      <button class="iconBtn" id="closeSettings">
+      <button
+        class="iconBtn"
+        id="closeSettings"
+      >
 
         <svg viewBox="0 0 24 24">
           <path d="M6 6l12 12M18 6L6 18"/>
@@ -1088,6 +1447,7 @@ html[dir="ltr"] .switch.on:after{
       </button>
 
     </div>
+
 
     <div class="modalBody">
 
@@ -1107,11 +1467,15 @@ html[dir="ltr"] .switch.on:after{
 
           </div>
 
-          <button class="switch" id="themeSwitch"></button>
+          <button
+            class="switch"
+            id="themeSwitch"
+          ></button>
 
         </div>
 
       </div>
+
 
       <div class="setting">
 
@@ -1125,7 +1489,10 @@ html[dir="ltr"] .switch.on:after{
 
         <div class="langs">
 
-          <button id="faBtn" class="active">
+          <button
+            id="faBtn"
+            class="active"
+          >
             فارسی
           </button>
 
@@ -1137,6 +1504,7 @@ html[dir="ltr"] .switch.on:after{
 
       </div>
 
+
       <div class="setting">
 
         <strong data-i18n="support">
@@ -1147,15 +1515,52 @@ html[dir="ltr"] .switch.on:after{
           ارتباط با پشتیبانی Fox AI
         </small>
 
-        <button class="support" id="whatsapp">
-          WhatsApp
-        </button>
 
-        <button class="support" id="telegram">
-          Telegram
-        </button>
+        <div class="socialButtons">
+
+          <button
+            class="socialBtn whatsappBtn"
+            id="whatsapp"
+          >
+
+            <svg viewBox="0 0 24 24">
+
+              <path d="M20 11.5a8 8 0 0 1-11.8 7L4 20l1.5-4.1A8 8 0 1 1 20 11.5Z"/>
+
+              <path d="M8.5 8.5c.3-.4.7-.4 1-.1l1 1c.3.3.3.7.1 1l-.5.6c.8 1.2 1.8 2.2 3 3l.6-.5c.3-.2.7-.2 1 .1l1 1c.3.3.3.7-.1 1-1 .9-2.4.7-4.1-.4-1.6-1-3-2.4-4-4-1.1-1.7-1.3-3.1-.4-4.1Z"/>
+
+            </svg>
+
+            <span>
+              WhatsApp
+            </span>
+
+          </button>
+
+
+          <button
+            class="socialBtn telegramBtn"
+            id="telegram"
+          >
+
+            <svg viewBox="0 0 24 24">
+
+              <path d="M21 3L3.5 10.2c-.7.3-.7 1.3 0 1.5l4.5 1.5 1.7 5.4c.2.7 1.1.8 1.5.3l2.5-3.1 4.5 3.3c.6.4 1.4.1 1.6-.6L21.9 4c.2-.7-.3-1.3-.9-1Z"/>
+
+              <path d="M8 13.2l9.4-7.1"/>
+
+            </svg>
+
+            <span>
+              Telegram
+            </span>
+
+          </button>
+
+        </div>
 
       </div>
+
 
       <div class="setting">
 
@@ -1175,19 +1580,31 @@ html[dir="ltr"] .switch.on:after{
 
 </div>
 
-<!-- ABOUT -->
 
-<div class="modalBack" id="aboutModal">
+<!-- =====================================================
+     ABOUT
+     ===================================================== -->
+
+<div
+  class="modalBack"
+  id="aboutModal"
+>
 
   <div class="modal">
 
     <div class="modalHeader">
 
-      <div class="modalTitle" data-i18n="about">
+      <div
+        class="modalTitle"
+        data-i18n="about"
+      >
         درباره Fox AI
       </div>
 
-      <button class="iconBtn" id="closeAbout">
+      <button
+        class="iconBtn"
+        id="closeAbout"
+      >
 
         <svg viewBox="0 0 24 24">
           <path d="M6 6l12 12M18 6L6 18"/>
@@ -1196,6 +1613,7 @@ html[dir="ltr"] .switch.on:after{
       </button>
 
     </div>
+
 
     <div class="modalBody">
 
@@ -1208,7 +1626,9 @@ html[dir="ltr"] .switch.on:after{
         تحلیل متن، تصویر و فایل است.
       </p>
 
-      <p style="color:var(--muted);font-size:12px">
+      <p
+        style="color:var(--muted);font-size:12px"
+      >
         Fox AI V10
       </p>
 
@@ -1218,7 +1638,12 @@ html[dir="ltr"] .switch.on:after{
 
 </div>
 
-<div class="toast" id="toast"></div>
+
+<div
+  class="toast"
+  id="toast"
+></div>
+
 
 <script>
 
@@ -1237,6 +1662,14 @@ const TEXT_MODEL =
 
 const VISION_MODEL =
   "mistral-small-2506";
+
+
+/* =====================================================
+   SHARE
+   ===================================================== */
+
+const SHARE_FOOTER =
+  "\n\nباما باشید روباه\nhttps://gamengrahman8-dot.github.io/fox-aiii/";
 
 
 /* =====================================================
@@ -1262,23 +1695,32 @@ let userIsNearBottom=true;
    ELEMENTS
    ===================================================== */
 
-const chat=document.getElementById("chat");
+const chat=
+  document.getElementById("chat");
 
-const messages=document.getElementById("messages");
+const messages=
+  document.getElementById("messages");
 
-const empty=document.getElementById("empty");
+const empty=
+  document.getElementById("empty");
 
-const input=document.getElementById("input");
+const input=
+  document.getElementById("input");
 
-const send=document.getElementById("send");
+const send=
+  document.getElementById("send");
 
-const status=document.getElementById("status");
+const status=
+  document.getElementById("status");
 
-const toast=document.getElementById("toast");
+const toast=
+  document.getElementById("toast");
 
-const menu=document.getElementById("menu");
+const menu=
+  document.getElementById("menu");
 
-const overlay=document.getElementById("overlay");
+const overlay=
+  document.getElementById("overlay");
 
 
 /* =====================================================
@@ -1378,7 +1820,9 @@ const T={
 
 function tr(key){
 
-  return T[language]?.[key] || T.fa[key] || key;
+  return T[language]?.[key] ||
+         T.fa[key] ||
+         key;
 
 }
 
@@ -1410,7 +1854,9 @@ function load(){
   try{
 
     chats=JSON.parse(
-      localStorage.getItem("fox_ai_v10") || "[]"
+      localStorage.getItem(
+        "fox_ai_v10"
+      ) || "[]"
     );
 
     if(!Array.isArray(chats))
@@ -1455,11 +1901,14 @@ function toastMessage(text){
 
   toast.classList.add("show");
 
-  clearTimeout(toastMessage.timer);
+  clearTimeout(
+    toastMessage.timer
+  );
 
-  toastMessage.timer=setTimeout(()=>{
-    toast.classList.remove("show");
-  },1800);
+  toastMessage.timer=
+    setTimeout(()=>{
+      toast.classList.remove("show");
+    },1800);
 
 }
 
@@ -1493,7 +1942,8 @@ function smartScroll(){
   if(!userIsNearBottom)
     return;
 
-  chat.scrollTop=chat.scrollHeight;
+  chat.scrollTop=
+    chat.scrollHeight;
 
 }
 
@@ -1520,9 +1970,11 @@ function closeMenu(){
 }
 
 
-document.getElementById("menuBtn").onclick=openMenu;
+document.getElementById("menuBtn")
+  .onclick=openMenu;
 
-document.getElementById("closeMenu").onclick=closeMenu;
+document.getElementById("closeMenu")
+  .onclick=closeMenu;
 
 overlay.onclick=closeMenu;
 
@@ -1576,12 +2028,16 @@ function newChat(){
 
 function ensureChat(){
 
-  if(currentId && currentChat())
+  if(
+    currentId &&
+    currentChat()
+  )
     return;
 
   if(chats.length){
 
-    currentId=chats[0].id;
+    currentId=
+      chats[0].id;
 
   }else{
 
@@ -1592,9 +2048,11 @@ function ensureChat(){
 }
 
 
-document.getElementById("newChat").onclick=newChat;
+document.getElementById("newChat")
+  .onclick=newChat;
 
-document.getElementById("newChatMenu").onclick=newChat;
+document.getElementById("newChatMenu")
+  .onclick=newChat;
 
 
 /* =====================================================
@@ -1632,7 +2090,9 @@ function renderHistory(query=""){
         font-size:11px;
         padding:10px;
       ">
-        ${escapeHTML(tr("noChats"))}
+        ${escapeHTML(
+          tr("noChats")
+        )}
       </div>`;
 
     return;
@@ -1645,23 +2105,28 @@ function renderHistory(query=""){
     const row=
       document.createElement("div");
 
-    row.className="historyItem";
+    row.className=
+      "historyItem";
 
 
     const title=
       document.createElement("div");
 
-    title.className="historyTitle";
+    title.className=
+      "historyTitle";
 
-    title.textContent=c.title;
+    title.textContent=
+      c.title;
 
 
     const del=
       document.createElement("button");
 
-    del.className="historyDelete";
+    del.className=
+      "historyDelete";
 
-    del.textContent=tr("delete");
+    del.textContent=
+      tr("delete");
 
 
     del.onclick=e=>{
@@ -1676,7 +2141,8 @@ function renderHistory(query=""){
       if(currentId===c.id){
 
         currentId=
-          chats[0]?.id || null;
+          chats[0]?.id ||
+          null;
 
       }
 
@@ -1716,7 +2182,9 @@ document
   .getElementById("historySearch")
   .addEventListener(
     "input",
-    e=>renderHistory(e.target.value)
+    e=>renderHistory(
+      e.target.value
+    )
   );
 
 
@@ -1734,62 +2202,26 @@ function markdown(text){
     /```([\w+-]*)\n?([\s\S]*?)```/g,
     (_,lang,code)=>{
 
-      const codeId=
-        "code_"+createId();
-
-
-      setTimeout(()=>{
-
-        const btn=
-          document.querySelector(
-            `[data-code-id="${codeId}"]`
-          );
-
-        const el=
-          document.getElementById(codeId);
-
-
-        if(btn && el){
-
-          btn.onclick=()=>{
-
-            navigator.clipboard
-              ?.writeText(el.textContent)
-              .then(()=>{
-                btn.textContent=tr("codeCopied");
-
-                setTimeout(()=>{
-                  btn.textContent=tr("copyCode");
-                },1200);
-              });
-
-          };
-
-        }
-
-      });
-
-
       return `
         <div class="codeBlock">
 
           <div class="codeHeader">
 
             <span>
-              ${escapeHTML(lang || tr("code"))}
+              ${escapeHTML(
+                lang || tr("code")
+              )}
             </span>
 
             <button
               class="copyCode"
-              data-code-id="${codeId}">
+              type="button">
               ${tr("copyCode")}
             </button>
 
           </div>
 
-          <pre
-            class="codeContent"
-            id="${codeId}">${code}</pre>
+          <pre class="codeContent">${code}</pre>
 
         </div>
       `;
@@ -1822,10 +2254,90 @@ function markdown(text){
 
 
 /* =====================================================
+   COPY CODE
+   ===================================================== */
+
+document.addEventListener(
+  "click",
+  async e=>{
+
+    const button=
+      e.target.closest(".copyCode");
+
+    if(!button)
+      return;
+
+
+    const block=
+      button.closest(".codeBlock");
+
+    if(!block)
+      return;
+
+
+    const code=
+      block.querySelector(
+        ".codeContent"
+      );
+
+    if(!code)
+      return;
+
+
+    try{
+
+      await navigator.clipboard.writeText(
+        code.textContent
+      );
+
+      button.textContent=
+        tr("codeCopied");
+
+    }catch(err){
+
+      const area=
+        document.createElement(
+          "textarea"
+        );
+
+      area.value=
+        code.textContent;
+
+      document.body.appendChild(area);
+
+      area.select();
+
+      document.execCommand(
+        "copy"
+      );
+
+      area.remove();
+
+      button.textContent=
+        tr("codeCopied");
+
+    }
+
+
+    setTimeout(()=>{
+
+      button.textContent=
+        tr("copyCode");
+
+    },1200);
+
+  }
+);
+
+
+/* =====================================================
    MESSAGE
    ===================================================== */
 
-function createMessageElement(msg,index){
+function createMessageElement(
+  msg,
+  index
+){
 
   const wrapper=
     document.createElement("div");
@@ -1842,13 +2354,15 @@ function createMessageElement(msg,index){
   const inner=
     document.createElement("div");
 
-  inner.className="messageInner";
+  inner.className=
+    "messageInner";
 
 
   const text=
     document.createElement("div");
 
-  text.className="messageText";
+  text.className=
+    "messageText";
 
 
   if(msg.role==="assistant"){
@@ -1872,18 +2386,22 @@ function createMessageElement(msg,index){
     const card=
       document.createElement("div");
 
-    card.className="fileCard";
+    card.className=
+      "fileCard";
 
 
     if(
       msg.file.type &&
-      msg.file.type.startsWith("image/")
+      msg.file.type.startsWith(
+        "image/"
+      )
     ){
 
       const img=
         document.createElement("img");
 
-      img.src=msg.file.data;
+      img.src=
+        msg.file.data;
 
       card.appendChild(img);
 
@@ -1897,18 +2415,22 @@ function createMessageElement(msg,index){
     const fileName=
       document.createElement("div");
 
-    fileName.className="fileName";
+    fileName.className=
+      "fileName";
 
-    fileName.textContent=msg.file.name;
+    fileName.textContent=
+      msg.file.name;
 
 
     const fileType=
       document.createElement("div");
 
-    fileType.className="fileType";
+    fileType.className=
+      "fileType";
 
     fileType.textContent=
-      msg.file.type || "file";
+      msg.file.type ||
+      "file";
 
 
     info.appendChild(fileName);
@@ -1925,30 +2447,30 @@ function createMessageElement(msg,index){
   const actions=
     document.createElement("div");
 
-  actions.className="actions";
+  actions.className=
+    "actions";
 
 
   const copy=
     document.createElement("button");
 
-  copy.textContent=tr("copy");
+  copy.textContent=
+    tr("copy");
 
 
-  copy.onclick=()=>{
+  copy.onclick=async()=>{
 
-    if(!navigator.clipboard){
+    try{
 
-      toastMessage(msg.content);
+      await navigator.clipboard.writeText(
+        msg.content
+      );
 
-      return;
+      toastMessage(
+        tr("copied")
+      );
 
-    }
-
-    navigator.clipboard
-      .writeText(msg.content)
-      .then(()=>{
-        toastMessage(tr("copied"));
-      });
+    }catch(e){}
 
   };
 
@@ -1961,27 +2483,38 @@ function createMessageElement(msg,index){
     const share=
       document.createElement("button");
 
-    share.textContent=tr("share");
+    share.textContent=
+      tr("share");
 
 
     share.onclick=async()=>{
+
+      const shareText=
+        msg.content+
+        SHARE_FOOTER;
+
 
       try{
 
         if(navigator.share){
 
           await navigator.share({
+
             title:"Fox AI",
-            text:msg.content
+
+            text:shareText
+
           });
 
         }else{
 
           await navigator.clipboard.writeText(
-            msg.content
+            shareText
           );
 
-          toastMessage(tr("copiedText"));
+          toastMessage(
+            tr("copiedText")
+          );
 
         }
 
@@ -2008,16 +2541,21 @@ function createMessageElement(msg,index){
 
     edit.onclick=()=>{
 
-      input.value=msg.content;
+      input.value=
+        msg.content;
 
       autoResize();
 
-      const c=currentChat();
+      const c=
+        currentChat();
 
       if(c){
 
         c.messages=
-          c.messages.slice(0,index);
+          c.messages.slice(
+            0,
+            index
+          );
 
       }
 
@@ -2053,26 +2591,37 @@ function render(){
   messages.innerHTML="";
 
 
-  const c=currentChat();
+  const c=
+    currentChat();
 
 
-  if(!c || !c.messages.length){
+  if(
+    !c ||
+    !c.messages.length
+  ){
 
-    messages.appendChild(empty);
+    messages.appendChild(
+      empty
+    );
 
-    empty.style.display="flex";
+    empty.style.display=
+      "flex";
 
     return;
 
   }
 
 
-  empty.style.display="none";
+  empty.style.display=
+    "none";
 
 
   c.messages.forEach(
     (m,i)=>{
-      createMessageElement(m,i);
+      createMessageElement(
+        m,
+        i
+      );
     }
   );
 
@@ -2092,7 +2641,8 @@ function render(){
 
 function updateLastAI(){
 
-  const c=currentChat();
+  const c=
+    currentChat();
 
   if(!c)
     return;
@@ -2105,7 +2655,9 @@ function updateLastAI(){
 
 
   const wrapper=
-    aiMessages[aiMessages.length-1];
+    aiMessages[
+      aiMessages.length-1
+    ];
 
 
   if(!wrapper)
@@ -2123,7 +2675,9 @@ function updateLastAI(){
 
 
   const ai=
-    c.messages[c.messages.length-1];
+    c.messages[
+      c.messages.length-1
+    ];
 
 
   text.innerHTML=
@@ -2140,24 +2694,36 @@ function updateLastAI(){
    FILE
    ===================================================== */
 
-document.getElementById("attach").onclick=()=>{
+document.getElementById(
+  "attach"
+).onclick=()=>{
 
-  document.getElementById("file").click();
+  document.getElementById(
+    "file"
+  ).click();
 
 };
 
 
-document.getElementById("file").onchange=async e=>{
+document.getElementById(
+  "file"
+).onchange=async e=>{
 
-  const file=e.target.files?.[0];
+  const file=
+    e.target.files?.[0];
 
   if(!file)
     return;
 
 
-  if(file.size>10*1024*1024){
+  if(
+    file.size>
+    10*1024*1024
+  ){
 
-    toastMessage(tr("fileSize"));
+    toastMessage(
+      tr("fileSize")
+    );
 
     e.target.value="";
 
@@ -2176,28 +2742,42 @@ document.getElementById("file").onchange=async e=>{
 
   document
     .getElementById("previewName")
-    .textContent=file.name;
+    .textContent=
+      file.name;
 
 
   document
     .getElementById("previewSize")
-    .textContent=formatBytes(file.size);
+    .textContent=
+      formatBytes(
+        file.size
+      );
 
 
   const img=
-    document.getElementById("previewImage");
+    document.getElementById(
+      "previewImage"
+    );
 
 
-  if(file.type.startsWith("image/")){
+  if(
+    file.type.startsWith(
+      "image/"
+    )
+  ){
 
-    img.style.display="block";
+    img.style.display=
+      "block";
 
     img.src=
-      await readDataURL(file);
+      await readDataURL(
+        file
+      );
 
   }else{
 
-    img.style.display="none";
+    img.style.display=
+      "none";
 
     img.src="";
 
@@ -2206,66 +2786,103 @@ document.getElementById("file").onchange=async e=>{
 };
 
 
-function formatBytes(bytes){
+function formatBytes(
+  bytes
+){
 
   if(bytes<1024)
     return bytes+" B";
 
-  if(bytes<1024*1024)
-    return (bytes/1024).toFixed(1)+" KB";
+  if(bytes<
+    1024*1024
+  )
+    return (
+      bytes/1024
+    ).toFixed(1)+" KB";
 
   return (
-    bytes/(1024*1024)
+    bytes/
+    (1024*1024)
   ).toFixed(1)+" MB";
 
 }
 
 
-function readDataURL(file){
+function readDataURL(
+  file
+){
 
-  return new Promise((resolve,reject)=>{
+  return new Promise(
+    (resolve,reject)=>{
 
-    const r=new FileReader();
+      const r=
+        new FileReader();
 
-    r.onload=()=>resolve(r.result);
+      r.onload=
+        ()=>resolve(
+          r.result
+        );
 
-    r.onerror=reject;
+      r.onerror=
+        reject;
 
-    r.readAsDataURL(file);
+      r.readAsDataURL(
+        file
+      );
 
-  });
-
-}
-
-
-function readText(file){
-
-  return new Promise((resolve,reject)=>{
-
-    const r=new FileReader();
-
-    r.onload=()=>resolve(r.result);
-
-    r.onerror=reject;
-
-    r.readAsText(file);
-
-  });
+    }
+  );
 
 }
 
 
-document.getElementById("removeFile").onclick=()=>{
+function readText(
+  file
+){
+
+  return new Promise(
+    (resolve,reject)=>{
+
+      const r=
+        new FileReader();
+
+      r.onload=
+        ()=>resolve(
+          r.result
+        );
+
+      r.onerror=
+        reject;
+
+      r.readAsText(
+        file
+      );
+
+    }
+  );
+
+}
+
+
+document.getElementById(
+  "removeFile"
+).onclick=()=>{
 
   attached=null;
 
-  document.getElementById("file").value="";
+  document.getElementById(
+    "file"
+  ).value="";
 
   document
     .getElementById("preview")
-    .classList.remove("show");
+    .classList.remove(
+      "show"
+    );
 
-  document.getElementById("previewImage").src="";
+  document.getElementById(
+    "previewImage"
+  ).src="";
 
 };
 
@@ -2274,16 +2891,25 @@ document.getElementById("removeFile").onclick=()=>{
    API CONTENT
    ===================================================== */
 
-async function makeContent(text,file){
+async function makeContent(
+  text,
+  file
+){
 
   if(!file)
     return text;
 
 
-  if(file.type.startsWith("image/")){
+  if(
+    file.type.startsWith(
+      "image/"
+    )
+  ){
 
     const data=
-      await readDataURL(file);
+      await readDataURL(
+        file
+      );
 
 
     return [
@@ -2311,7 +2937,9 @@ async function makeContent(text,file){
   ){
 
     const content=
-      await readText(file);
+      await readText(
+        file
+      );
 
 
     return(
@@ -2361,11 +2989,14 @@ async function sendMessage(){
 
 
   if(
-    API_KEY==="YOUR_MISTRAL_API_KEY" ||
+    API_KEY===
+      "YOUR_MISTRAL_API_KEY" ||
     !API_KEY.trim()
   ){
 
-    toastMessage(tr("apiKey"));
+    toastMessage(
+      tr("apiKey")
+    );
 
     return;
 
@@ -2375,17 +3006,22 @@ async function sendMessage(){
   ensureChat();
 
 
-  const c=currentChat();
+  const c=
+    currentChat();
 
   if(!c)
     return;
 
 
-  const file=attached;
+  const file=
+    attached;
 
 
   const content=
-    await makeContent(text,file);
+    await makeContent(
+      text,
+      file
+    );
 
 
   let savedFile=null;
@@ -2400,8 +3036,12 @@ async function sendMessage(){
       type:file.type,
 
       data:
-        file.type.startsWith("image/")
-          ? await readDataURL(file)
+        file.type.startsWith(
+          "image/"
+        )
+          ? await readDataURL(
+              file
+            )
           : ""
 
     };
@@ -2417,9 +3057,11 @@ async function sendMessage(){
       text ||
       tr("fileSent"),
 
-    apiContent:content,
+    apiContent:
+      content,
 
-    file:savedFile
+    file:
+      savedFile
 
   });
 
@@ -2443,17 +3085,20 @@ async function sendMessage(){
 
   attached=null;
 
-  document.getElementById("file").value="";
+  document.getElementById(
+    "file"
+  ).value="";
 
   document
     .getElementById("preview")
-    .classList.remove("show");
+    .classList.remove(
+      "show"
+    );
 
 
   save();
 
   renderHistory();
-
 
   userIsNearBottom=true;
 
@@ -2466,7 +3111,9 @@ async function sendMessage(){
     new AbortController();
 
 
-  send.classList.add("stop");
+  send.classList.add(
+    "stop"
+  );
 
 
   send.innerHTML=`
@@ -2476,7 +3123,8 @@ async function sendMessage(){
   `;
 
 
-  status.textContent=tr("generating");
+  status.textContent=
+    tr("generating");
 
 
   try{
@@ -2486,7 +3134,9 @@ async function sendMessage(){
         m=>
           m.file &&
           m.file.type &&
-          m.file.type.startsWith("image/")
+          m.file.type.startsWith(
+            "image/"
+          )
       );
 
 
@@ -2504,9 +3154,13 @@ async function sendMessage(){
 
         content:
           language==="fa"
+
             ?
+
             "تو Fox AI هستی. پاسخ‌های دقیق، حرفه‌ای، روان و کاربردی بده. اگر کاربر کد یا اپلیکیشن خواست، کد کامل و قابل اجرا ارائه کن. متن و کد را واضح و مرتب جدا کن."
+
             :
+
             "You are Fox AI. Give accurate, professional and useful answers. When the user asks for code or an application, provide complete runnable code. Clearly separate normal text and code."
 
       },
@@ -2548,7 +3202,8 @@ async function sendMessage(){
 
             model,
 
-            messages:apiMessages,
+            messages:
+              apiMessages,
 
             stream:true,
 
@@ -2558,7 +3213,8 @@ async function sendMessage(){
 
           }),
 
-          signal:controller.signal
+          signal:
+            controller.signal
 
         }
       );
@@ -2567,6 +3223,7 @@ async function sendMessage(){
     if(!response.ok){
 
       let errorText="";
+
 
       try{
 
@@ -2609,7 +3266,8 @@ async function sendMessage(){
 
 
     const reader=
-      response.body.getReader();
+      response.body
+        .getReader();
 
 
     const decoder=
@@ -2635,7 +3293,9 @@ async function sendMessage(){
       buffer+=
         decoder.decode(
           value,
-          {stream:true}
+          {
+            stream:true
+          }
         );
 
 
@@ -2644,26 +3304,37 @@ async function sendMessage(){
 
 
       buffer=
-        lines.pop() || "";
+        lines.pop() ||
+        "";
 
 
-      for(const raw of lines){
+      for(
+        const raw
+        of lines
+      ){
 
-        const line=raw.trim();
+        const line=
+          raw.trim();
 
 
         if(
           !line ||
-          !line.startsWith("data:")
+          !line.startsWith(
+            "data:"
+          )
         )
           continue;
 
 
         const data=
-          line.slice(5).trim();
+          line
+            .slice(5)
+            .trim();
 
 
-        if(data==="[DONE]")
+        if(
+          data==="[DONE]"
+        )
           continue;
 
 
@@ -2681,9 +3352,13 @@ async function sendMessage(){
               ?.content;
 
 
-          if(typeof delta==="string"){
+          if(
+            typeof delta===
+            "string"
+          ){
 
-            ai.content+=delta;
+            ai.content+=
+              delta;
 
             updateLastAI();
 
@@ -2701,34 +3376,46 @@ async function sendMessage(){
 
   }catch(e){
 
-    if(e.name==="AbortError"){
+    if(
+      e.name===
+      "AbortError"
+    ){
 
-      toastMessage(tr("stopped"));
+      toastMessage(
+        tr("stopped")
+      );
 
     }else{
 
       console.error(e);
 
 
-      let msg=tr("apiError");
+      let msg=
+        tr("apiError");
 
 
       if(
-        String(e.message).includes("401")
+        String(e.message)
+          .includes("401")
       )
-        msg=tr("invalidKey");
+        msg=
+          tr("invalidKey");
 
 
       else if(
-        String(e.message).includes("403")
+        String(e.message)
+          .includes("403")
       )
-        msg=tr("forbidden");
+        msg=
+          tr("forbidden");
 
 
       else if(
-        String(e.message).includes("429")
+        String(e.message)
+          .includes("429")
       )
-        msg=tr("rateLimit");
+        msg=
+          tr("rateLimit");
 
 
       c.messages.push({
@@ -2752,7 +3439,9 @@ async function sendMessage(){
 
     controller=null;
 
-    send.classList.remove("stop");
+    send.classList.remove(
+      "stop"
+    );
 
 
     send.innerHTML=`
@@ -2763,7 +3452,9 @@ async function sendMessage(){
     `;
 
 
-    status.textContent=tr("ready");
+    status.textContent=
+      tr("ready");
+
 
     save();
 
@@ -2778,13 +3469,15 @@ async function sendMessage(){
 
 function autoResize(){
 
-  input.style.height="auto";
+  input.style.height=
+    "auto";
 
   input.style.height=
     Math.min(
       input.scrollHeight,
       160
-    )+"px";
+    )+
+    "px";
 
 }
 
@@ -2814,7 +3507,8 @@ input.addEventListener(
 );
 
 
-send.onclick=sendMessage;
+send.onclick=
+  sendMessage;
 
 
 /* =====================================================
@@ -2822,18 +3516,28 @@ send.onclick=sendMessage;
    ===================================================== */
 
 const themeSwitch=
-  document.getElementById("themeSwitch");
+  document.getElementById(
+    "themeSwitch"
+  );
 
 
 try{
 
   if(
-    localStorage.getItem("fox_theme")==="light"
+    localStorage.getItem(
+      "fox_theme"
+    )==="light"
   ){
 
-    document.body.classList.add("light");
+    document.body
+      .classList.add(
+        "light"
+      );
 
-    themeSwitch.classList.add("on");
+    themeSwitch
+      .classList.add(
+        "on"
+      );
 
   }
 
@@ -2843,17 +3547,24 @@ try{
 themeSwitch.onclick=()=>{
 
   const light=
-    document.body.classList.toggle("light");
+    document.body.classList
+      .toggle("light");
 
 
-  themeSwitch.classList.toggle("on",light);
+  themeSwitch.classList
+    .toggle(
+      "on",
+      light
+    );
 
 
   try{
 
     localStorage.setItem(
       "fox_theme",
-      light ? "light" : "dark"
+      light
+        ? "light"
+        : "dark"
     );
 
   }catch(e){}
@@ -2866,29 +3577,47 @@ themeSwitch.onclick=()=>{
    ===================================================== */
 
 const settingsModal=
-  document.getElementById("settingsModal");
+  document.getElementById(
+    "settingsModal"
+  );
 
 
-document.getElementById("settingsBtn").onclick=()=>{
+document.getElementById(
+  "settingsBtn"
+).onclick=()=>{
 
   closeMenu();
 
-  settingsModal.classList.add("show");
+  settingsModal
+    .classList.add(
+      "show"
+    );
 
 };
 
 
-document.getElementById("closeSettings").onclick=()=>{
+document.getElementById(
+  "closeSettings"
+).onclick=()=>{
 
-  settingsModal.classList.remove("show");
+  settingsModal
+    .classList.remove(
+      "show"
+    );
 
 };
 
 
 settingsModal.onclick=e=>{
 
-  if(e.target===settingsModal)
-    settingsModal.classList.remove("show");
+  if(
+    e.target===
+    settingsModal
+  )
+    settingsModal
+      .classList.remove(
+        "show"
+      );
 
 };
 
@@ -2898,29 +3627,47 @@ settingsModal.onclick=e=>{
    ===================================================== */
 
 const aboutModal=
-  document.getElementById("aboutModal");
+  document.getElementById(
+    "aboutModal"
+  );
 
 
-document.getElementById("aboutBtn").onclick=()=>{
+document.getElementById(
+  "aboutBtn"
+).onclick=()=>{
 
   closeMenu();
 
-  aboutModal.classList.add("show");
+  aboutModal
+    .classList.add(
+      "show"
+    );
 
 };
 
 
-document.getElementById("closeAbout").onclick=()=>{
+document.getElementById(
+  "closeAbout"
+).onclick=()=>{
 
-  aboutModal.classList.remove("show");
+  aboutModal
+    .classList.remove(
+      "show"
+    );
 
 };
 
 
 aboutModal.onclick=e=>{
 
-  if(e.target===aboutModal)
-    aboutModal.classList.remove("show");
+  if(
+    e.target===
+    aboutModal
+  )
+    aboutModal
+      .classList.remove(
+        "show"
+      );
 
 };
 
@@ -2929,21 +3676,27 @@ aboutModal.onclick=e=>{
    LANGUAGE
    ===================================================== */
 
-document.getElementById("faBtn").onclick=()=>{
+document.getElementById(
+  "faBtn"
+).onclick=()=>{
 
   setLanguage("fa");
 
 };
 
 
-document.getElementById("enBtn").onclick=()=>{
+document.getElementById(
+  "enBtn"
+).onclick=()=>{
 
   setLanguage("en");
 
 };
 
 
-function setLanguage(lang){
+function setLanguage(
+  lang
+){
 
   language=lang;
 
@@ -2958,72 +3711,84 @@ function setLanguage(lang){
   }catch(e){}
 
 
-  document.documentElement.lang=lang;
-
-  document.documentElement.dir=
-    lang==="fa"
-      ? "rtl"
-      : "ltr";
+  document.documentElement
+    .lang=lang;
 
 
-  document.getElementById("faBtn")
-    .classList.toggle(
-      "active",
+  document.documentElement
+    .dir=
       lang==="fa"
-    );
+        ? "rtl"
+        : "ltr";
 
 
-  document.getElementById("enBtn")
-    .classList.toggle(
-      "active",
-      lang==="en"
-    );
+  document.getElementById(
+    "faBtn"
+  ).classList.toggle(
+    "active",
+    lang==="fa"
+  );
+
+
+  document.getElementById(
+    "enBtn"
+  ).classList.toggle(
+    "active",
+    lang==="en"
+  );
 
 
   input.placeholder=
     tr("placeholder");
 
 
-  document.getElementById("welcome")
-    .textContent=
+  document.getElementById(
+    "welcome"
+  ).textContent=
     tr("welcome");
 
 
-  document.getElementById("status")
-    .textContent=
+  document.getElementById(
+    "status"
+  ).textContent=
     generating
       ? tr("generating")
       : tr("ready");
 
 
-  document
-    .getElementById("historySearch")
-    .placeholder=
-      tr("searchChats");
+  document.getElementById(
+    "historySearch"
+  ).placeholder=
+    tr("searchChats");
 
 
   document
-    .querySelectorAll("[data-i18n]")
+    .querySelectorAll(
+      "[data-i18n]"
+    )
     .forEach(el=>{
 
       const key=
-        el.getAttribute("data-i18n");
+        el.getAttribute(
+          "data-i18n"
+        );
 
-      el.textContent=tr(key);
+      el.textContent=
+        tr(key);
 
     });
 
 
-  document
-    .getElementById("removeFile")
-    .textContent=
-      tr("remove");
+  document.getElementById(
+    "removeFile"
+  ).textContent=
+    tr("remove");
 
 
-  document
-    .getElementById("aboutText")
-    .textContent=
-      tr("aboutText");
+  document.getElementById(
+    "aboutText"
+  ).textContent=
+    tr("aboutText");
 
 
   renderHistory();
@@ -3037,10 +3802,13 @@ function setLanguage(lang){
    SUPPORT
    ===================================================== */
 
-const PHONE="989011268205";
+const PHONE=
+  "989011268205";
 
 
-document.getElementById("whatsapp").onclick=()=>{
+document.getElementById(
+  "whatsapp"
+).onclick=()=>{
 
   window.open(
     "https://wa.me/"+PHONE,
@@ -3050,7 +3818,9 @@ document.getElementById("whatsapp").onclick=()=>{
 };
 
 
-document.getElementById("telegram").onclick=()=>{
+document.getElementById(
+  "telegram"
+).onclick=()=>{
 
   window.open(
     "https://t.me/+"+PHONE,
@@ -3064,9 +3834,15 @@ document.getElementById("telegram").onclick=()=>{
    DELETE ALL
    ===================================================== */
 
-document.getElementById("deleteAll").onclick=()=>{
+document.getElementById(
+  "deleteAll"
+).onclick=()=>{
 
-  if(!confirm(tr("deleteConfirm")))
+  if(
+    !confirm(
+      tr("deleteConfirm")
+    )
+  )
     return;
 
 
@@ -3092,7 +3868,9 @@ document.getElementById("deleteAll").onclick=()=>{
 try{
 
   language=
-    localStorage.getItem("fox_language") ||
+    localStorage.getItem(
+      "fox_language"
+    ) ||
     "fa";
 
 }catch(e){
@@ -3107,7 +3885,8 @@ load();
 
 if(chats.length){
 
-  currentId=chats[0].id;
+  currentId=
+    chats[0].id;
 
 }
 
@@ -3121,4 +3900,4 @@ renderHistory();
 </script>
 
 </body>
-        </html>
+  </html>
