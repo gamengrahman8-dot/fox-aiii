@@ -130,22 +130,42 @@ svg{
 }
 
 @keyframes foxIn{
-  0%{opacity:0;transform:scale(.3) translateY(35px) rotate(-10deg)}
-  65%{opacity:1;transform:scale(1.08) translateY(-4px) rotate(2deg)}
-  100%{opacity:1;transform:scale(1)}
+  0%{
+    opacity:0;
+    transform:scale(.3) translateY(35px) rotate(-10deg)
+  }
+  65%{
+    opacity:1;
+    transform:scale(1.08) translateY(-4px) rotate(2deg)
+  }
+  100%{
+    opacity:1;
+    transform:scale(1)
+  }
 }
 
 @keyframes titleIn{
-  to{opacity:1;transform:translateY(0)}
+  to{
+    opacity:1;
+    transform:translateY(0)
+  }
 }
 
 @keyframes lineIn{
-  to{width:125px}
+  to{
+    width:125px
+  }
 }
 
 @keyframes pulse{
-  0%,100%{transform:scale(.8);opacity:.4}
-  50%{transform:scale(1.25);opacity:.8}
+  0%,100%{
+    transform:scale(.8);
+    opacity:.4
+  }
+  50%{
+    transform:scale(1.25);
+    opacity:.8
+  }
 }
 
 @keyframes splashOut{
@@ -172,13 +192,14 @@ svg{
 /* ================= HEADER ================= */
 
 .header{
+  position:relative;
   height:64px;
   min-height:64px;
   padding:0 11px;
   display:flex;
   align-items:center;
-  justify-content:space-between;
-  direction:rtl;
+  justify-content:center;
+  direction:ltr;
   border-bottom:1px solid var(--border);
   background:rgba(8,8,9,.88);
   backdrop-filter:blur(20px);
@@ -190,10 +211,7 @@ body.light .header{
 }
 
 .headerSide{
-  display:flex;
-  align-items:center;
-  gap:4px;
-  direction:rtl;
+  display:none;
 }
 
 .iconBtn{
@@ -216,9 +234,39 @@ body.light .header{
   transform:scale(.91);
 }
 
+/* چت جدید سمت چپ */
+
+.newChatTop{
+  position:absolute;
+  left:11px;
+  top:50%;
+  transform:translateY(-50%);
+}
+
+/* منو سمت راست */
+
+.menuTop{
+  position:absolute;
+  right:11px;
+  top:50%;
+  transform:translateY(-50%);
+}
+
+.newChatTop:active,
+.menuTop:active{
+  transform:translateY(-50%) scale(.91);
+}
+
+/* FOX AI وسط */
+
 .brandName{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
   font-size:18px;
   font-weight:850;
+  white-space:nowrap;
 }
 
 /* ================= CHAT ================= */
@@ -272,8 +320,14 @@ body.light .header{
 }
 
 @keyframes messageIn{
-  from{opacity:0;transform:translateY(6px)}
-  to{opacity:1;transform:none}
+  from{
+    opacity:0;
+    transform:translateY(6px)
+  }
+  to{
+    opacity:1;
+    transform:none
+  }
 }
 
 .message.ai{
@@ -324,6 +378,8 @@ body.light .header{
   display:flex;
   gap:3px;
   margin-top:8px;
+  align-items:center;
+  flex-wrap:wrap;
 }
 
 .actions button{
@@ -337,6 +393,80 @@ body.light .header{
 .actions button:hover{
   color:var(--text);
   background:var(--panel2);
+}
+
+/* ================= GENERATED IMAGE ================= */
+
+.generatedImageCard{
+  margin-top:14px;
+  max-width:100%;
+  border:1px solid var(--border);
+  border-radius:18px;
+  overflow:hidden;
+  background:var(--panel);
+  box-shadow:0 10px 35px rgba(0,0,0,.25);
+}
+
+.generatedImage{
+  display:block;
+  width:100%;
+  max-width:720px;
+  height:auto;
+  object-fit:contain;
+  background:#090909;
+}
+
+.generatedImageActions{
+  display:flex;
+  gap:7px;
+  padding:9px;
+  border-top:1px solid var(--border);
+}
+
+.generatedImageActions button{
+  flex:1;
+  min-height:42px;
+  border-radius:11px;
+  background:var(--panel2);
+  color:var(--text);
+  font-size:12px;
+}
+
+.generatedImageActions button.primary{
+  color:#fff;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+}
+
+.imageGenerating{
+  margin-top:12px;
+  padding:16px;
+  border:1px solid var(--border);
+  border-radius:15px;
+  background:var(--panel);
+  color:var(--muted);
+  display:flex;
+  align-items:center;
+  gap:9px;
+  font-size:13px;
+}
+
+.imageGeneratingDot{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:var(--accent);
+  animation:imagePulse 1s infinite;
+}
+
+@keyframes imagePulse{
+  0%,100%{
+    opacity:.3;
+    transform:scale(.7)
+  }
+  50%{
+    opacity:1;
+    transform:scale(1)
+  }
 }
 
 /* ================= CODE ================= */
@@ -398,8 +528,12 @@ body.light .header{
 }
 
 @keyframes blink{
-  0%,50%{opacity:1}
-  51%,100%{opacity:0}
+  0%,50%{
+    opacity:1
+  }
+  51%,100%{
+    opacity:0
+  }
 }
 
 /* ================= FILE ================= */
@@ -664,6 +798,25 @@ textarea::placeholder{
   color:var(--muted);
 }
 
+/* ================= ADVERTISEMENT ================= */
+
+#adBtn{
+  position:relative;
+}
+
+#adBtn svg{
+  color:var(--accent);
+}
+
+#adBtn:hover{
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255,121,0,.10),
+      var(--panel2)
+    );
+}
+
 .menuDivider{
   height:1px;
   margin:12px 0;
@@ -798,8 +951,6 @@ textarea::placeholder{
   justify-content:flex-start;
 }
 
-/* SWITCH */
-
 .switch{
   width:49px;
   height:28px;
@@ -828,8 +979,6 @@ textarea::placeholder{
   transform:translateX(-21px);
 }
 
-/* CHOICES */
-
 .choiceGroup{
   display:flex;
   flex-wrap:wrap;
@@ -851,8 +1000,6 @@ textarea::placeholder{
   border-color:var(--accent);
   color:#fff;
 }
-
-/* ACTION SETTINGS */
 
 .settingAction{
   width:100%;
@@ -890,8 +1037,6 @@ textarea::placeholder{
 .settingAction.danger svg{
   color:var(--danger);
 }
-
-/* SOCIAL */
 
 .socialButtons{
   display:grid;
@@ -955,7 +1100,7 @@ textarea::placeholder{
   transform:translate(-50%,0);
 }
 
-/* ================= FONT SIZES ================= */
+/* ================= FONT ================= */
 
 body.font-small .messageText{
   font-size:17px;
@@ -1007,14 +1152,6 @@ html[dir="ltr"] .inputRow{
   direction:ltr;
 }
 
-html[dir="ltr"] .header{
-  direction:ltr;
-}
-
-html[dir="ltr"] .headerSide{
-  direction:ltr;
-}
-
 html[dir="ltr"] .message.user{
   direction:ltr;
 }
@@ -1032,6 +1169,18 @@ html[dir="ltr"] .message.user .messageText{
     height:60px;
     min-height:60px;
     padding:0 8px;
+  }
+
+  .newChatTop{
+    left:8px;
+  }
+
+  .menuTop{
+    right:8px;
+  }
+
+  .brandName{
+    font-size:17px;
   }
 
   .chat{
@@ -1082,13 +1231,17 @@ html[dir="ltr"] .message.user .messageText{
   textarea{
     font-size:17px;
   }
+
+  .generatedImageActions{
+    flex-direction:column;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<!-- SPLASH -->
+<!-- ================= SPLASH ================= -->
 
 <div class="foxSplash" id="foxSplash">
 
@@ -1099,8 +1252,13 @@ html[dir="ltr"] .message.user .messageText{
     <svg class="foxLogo" viewBox="0 0 200 180">
 
       <defs>
-        <linearGradient id="foxGradient"
-          x1="0%" y1="0%" x2="100%" y2="100%">
+        <linearGradient
+          id="foxGradient"
+          x1="0%"
+          y1="0%"
+          x2="100%"
+          y2="100%"
+        >
           <stop offset="0%" stop-color="#ff9a00"/>
           <stop offset="55%" stop-color="#ff6500"/>
           <stop offset="100%" stop-color="#ff2800"/>
@@ -1112,8 +1270,15 @@ html[dir="ltr"] .message.user .messageText{
         fill="url(#foxGradient)"
       />
 
-      <path d="M38 38L68 53L53 80Z" fill="#ffb000"/>
-      <path d="M162 38L132 53L147 80Z" fill="#ff8a00"/>
+      <path
+        d="M38 38L68 53L53 80Z"
+        fill="#ffb000"
+      />
+
+      <path
+        d="M162 38L132 53L147 80Z"
+        fill="#ff8a00"
+      />
 
       <path
         d="M68 86C76 78 86 78 94 86"
@@ -1131,7 +1296,10 @@ html[dir="ltr"] .message.user .messageText{
         stroke-linecap="round"
       />
 
-      <path d="M91 108L100 102L109 108L100 118Z" fill="#171717"/>
+      <path
+        d="M91 108L100 102L109 108L100 118Z"
+        fill="#171717"
+      />
 
       <path
         d="M82 124C91 131 109 131 118 124"
@@ -1145,42 +1313,55 @@ html[dir="ltr"] .message.user .messageText{
 
   </div>
 
-  <div class="splashTitle">FOX AI</div>
+  <div class="splashTitle">
+    FOX AI
+  </div>
+
   <div class="splashLine"></div>
 
 </div>
 
 
-<!-- APP -->
+<!-- ================= APP ================= -->
 
 <div class="app">
 
+  <!-- HEADER -->
+
   <header class="header">
 
-    <div class="headerSide">
-
-      <button class="iconBtn" id="menuBtn" aria-label="Menu">
-
-        <svg viewBox="0 0 24 24">
-          <path d="M4 6h16M4 12h16M4 18h16"/>
-        </svg>
-
-      </button>
-
-      <div class="brandName">Fox AI</div>
-
-    </div>
-
-    <button class="iconBtn" id="newChat" aria-label="New chat">
-
+    <button
+      class="iconBtn newChatTop"
+      id="newChat"
+      aria-label="New chat"
+      title="New chat"
+    >
       <svg viewBox="0 0 24 24">
         <path d="M12 5v14M5 12h14"/>
       </svg>
+    </button>
 
+    <div class="brandName">
+      Fox AI
+    </div>
+
+    <button
+      class="iconBtn menuTop"
+      id="menuBtn"
+      aria-label="Menu"
+      title="Menu"
+    >
+      <svg viewBox="0 0 24 24">
+        <path d="M4 6h16"/>
+        <path d="M4 12h16"/>
+        <path d="M4 18h16"/>
+      </svg>
     </button>
 
   </header>
 
+
+  <!-- CHAT -->
 
   <main class="chat" id="chat">
 
@@ -1188,7 +1369,9 @@ html[dir="ltr"] .message.user .messageText{
 
       <div class="empty" id="empty">
 
-        <h1>Fox AI</h1>
+        <h1>
+          Fox AI
+        </h1>
 
         <p id="welcome">
           چه کاری می‌توانم برایت انجام دهم؟
@@ -1213,27 +1396,39 @@ html[dir="ltr"] .message.user .messageText{
 
         <div class="previewInfo">
 
-          <div class="previewName" id="previewName"></div>
+          <div
+            class="previewName"
+            id="previewName"
+          ></div>
 
-          <div class="previewSize" id="previewSize"></div>
+          <div
+            class="previewSize"
+            id="previewSize"
+          ></div>
 
         </div>
 
-        <button class="removeFile" id="removeFile">
+        <button
+          class="removeFile"
+          id="removeFile"
+        >
           حذف
         </button>
 
       </div>
 
-
       <div class="inputRow">
 
-        <button class="iconBtn" id="attach" aria-label="Attach file">
-
+        <button
+          class="iconBtn"
+          id="attach"
+          aria-label="Attach file"
+        >
           <svg viewBox="0 0 24 24">
-            <path d="M21.4 11.6l-8.9 8.9a6 6 0 01-8.5-8.5l9.2-9.2a4 4 0 015.7 5.7L9.7 17.7a2 2 0 01-2.8-2.8l8.5-8.5"/>
+            <path
+              d="M21.4 11.6l-8.9 8.9a6 6 0 01-8.5-8.5l9.2-9.2a4 4 0 015.7 5.7L9.7 17.7a2 2 0 01-2.8-2.8l8.5-8.5"
+            />
           </svg>
-
         </button>
 
         <input
@@ -1249,13 +1444,15 @@ html[dir="ltr"] .message.user .messageText{
           placeholder="پیامت را بنویس..."
         ></textarea>
 
-        <button class="send" id="send" aria-label="Send">
-
+        <button
+          class="send"
+          id="send"
+          aria-label="Send"
+        >
           <svg viewBox="0 0 24 24">
             <path d="M22 2L11 13"/>
             <path d="M22 2l-7 20-9-4z"/>
           </svg>
-
         </button>
 
       </div>
@@ -1267,11 +1464,17 @@ html[dir="ltr"] .message.user .messageText{
 </div>
 
 
-<!-- MENU -->
+<!-- ================= MENU ================= -->
 
-<div class="overlay" id="overlay"></div>
+<div
+  class="overlay"
+  id="overlay"
+></div>
 
-<aside class="sideMenu" id="menu">
+<aside
+  class="sideMenu"
+  id="menu"
+>
 
   <div class="menuHeader">
 
@@ -1279,12 +1482,15 @@ html[dir="ltr"] .message.user .messageText{
       Fox AI
     </div>
 
-    <button class="iconBtn" id="closeMenu" aria-label="Close">
-
+    <button
+      class="iconBtn"
+      id="closeMenu"
+      aria-label="Close"
+    >
       <svg viewBox="0 0 24 24">
-        <path d="M6 6l12 12M18 6L6 18"/>
+        <path d="M6 6l12 12"/>
+        <path d="M18 6L6 18"/>
       </svg>
-
     </button>
 
   </div>
@@ -1292,10 +1498,14 @@ html[dir="ltr"] .message.user .messageText{
 
   <div class="menuBody">
 
-    <button class="newChatLarge" id="newChatMenu">
+    <button
+      class="newChatLarge"
+      id="newChatMenu"
+    >
 
       <svg viewBox="0 0 24 24">
-        <path d="M12 5v14M5 12h14"/>
+        <path d="M12 5v14"/>
+        <path d="M5 12h14"/>
       </svg>
 
       <span data-i18n="newChat">
@@ -1312,11 +1522,23 @@ html[dir="ltr"] .message.user .messageText{
     >
 
 
-    <button class="menuItem" id="settingsBtn">
+    <button
+      class="menuItem"
+      id="settingsBtn"
+    >
 
       <svg viewBox="0 0 24 24">
-        <circle cx="12" cy="12" r="3"/>
-        <path d="M19 13a7 7 0 000-2l2-1-2-3-2 1a8 8 0 00-2-1l-.3-2h-4l-.3 2a8 8 0 00-2 1l-2-1-2 3 2 1a7 7 0 000 2l-2 1 2 3 2-1a8 8 0 002 1l.3 2h4l.3-2a8 8 0 002-1l2 1 2-3z"/>
+
+        <circle
+          cx="12"
+          cy="12"
+          r="3"
+        />
+
+        <path
+          d="M19 13a7 7 0 000-2l2-1-2-3-2 1a8 8 0 00-2-1l-.3-2h-4l-.3 2a8 8 0 00-2 1l-2-1-2 3 2 1a7 7 0 000 2l-2 1 2 3 2-1a8 8 0 002 1l.3 2h4l.3-2a8 8 0 002-1l2 1 2-3z"
+        />
+
       </svg>
 
       <span data-i18n="settings">
@@ -1326,11 +1548,22 @@ html[dir="ltr"] .message.user .messageText{
     </button>
 
 
-    <button class="menuItem" id="aboutBtn">
+    <button
+      class="menuItem"
+      id="aboutBtn"
+    >
 
       <svg viewBox="0 0 24 24">
-        <circle cx="12" cy="12" r="9"/>
-        <path d="M12 11v5M12 8h.01"/>
+
+        <circle
+          cx="12"
+          cy="12"
+          r="9"
+        />
+
+        <path d="M12 11v5"/>
+        <path d="M12 8h.01"/>
+
       </svg>
 
       <span data-i18n="about">
@@ -1340,12 +1573,42 @@ html[dir="ltr"] .message.user .messageText{
     </button>
 
 
+    <!-- ================= تبلیغات ================= -->
+
+    <button
+      class="menuItem"
+      id="adBtn"
+      type="button"
+    >
+
+      <svg viewBox="0 0 24 24">
+
+        <path d="M4 11v2"/>
+        <path d="M7 9v6"/>
+        <path d="M10 7v10"/>
+        <path d="M14 5v14"/>
+        <path d="M18 8v8"/>
+        <path d="M21 10v4"/>
+
+      </svg>
+
+      <span data-i18n="ad">
+        تبلیغات
+      </span>
+
+    </button>
+
+
     <div class="menuDivider"></div>
 
 
-    <div class="menuLabel" data-i18n="history">
+    <div
+      class="menuLabel"
+      data-i18n="history"
+    >
       سابقه گفتگو
     </div>
+
 
     <div id="history"></div>
 
@@ -1353,10 +1616,19 @@ html[dir="ltr"] .message.user .messageText{
     <div class="menuDivider"></div>
 
 
-    <button class="menuItem" id="deleteAll">
+    <button
+      class="menuItem"
+      id="deleteAll"
+    >
 
       <svg viewBox="0 0 24 24">
-        <path d="M4 7h16M10 11v6M14 11v6M6 7l1 14h10l1-14M9 7V4h6v3"/>
+
+        <path d="M4 7h16"/>
+        <path d="M10 11v6"/>
+        <path d="M14 11v6"/>
+        <path d="M6 7l1 14h10l1-14"/>
+        <path d="M9 7V4h6v3"/>
+
       </svg>
 
       <span data-i18n="deleteAll">
@@ -1370,24 +1642,33 @@ html[dir="ltr"] .message.user .messageText{
 </aside>
 
 
-<!-- SETTINGS -->
+<!-- ================= SETTINGS ================= -->
 
-<div class="modalBack" id="settingsModal">
+<div
+  class="modalBack"
+  id="settingsModal"
+>
 
   <div class="modal">
 
     <div class="modalHeader">
 
-      <div class="modalTitle" data-i18n="settings">
+      <div
+        class="modalTitle"
+        data-i18n="settings"
+      >
         تنظیمات
       </div>
 
-      <button class="iconBtn" id="closeSettings" aria-label="Close">
-
+      <button
+        class="iconBtn"
+        id="closeSettings"
+        aria-label="Close"
+      >
         <svg viewBox="0 0 24 24">
-          <path d="M6 6l12 12M18 6L6 18"/>
+          <path d="M6 6l12 12"/>
+          <path d="M18 6L6 18"/>
         </svg>
-
       </button>
 
     </div>
@@ -1395,7 +1676,10 @@ html[dir="ltr"] .message.user .messageText{
 
     <div class="modalBody">
 
-      <div class="settingsSection" data-i18n="appearance">
+      <div
+        class="settingsSection"
+        data-i18n="appearance"
+      >
         ظاهر برنامه
       </div>
 
@@ -1403,12 +1687,24 @@ html[dir="ltr"] .message.user .messageText{
       <div class="settingRow">
 
         <div class="settingInfo">
-          <strong data-i18n="lightMode">حالت روشن</strong>
-          <small data-i18n="lightModeDesc">تغییر ظاهر Fox AI</small>
+
+          <strong data-i18n="lightMode">
+            حالت روشن
+          </strong>
+
+          <small data-i18n="lightModeDesc">
+            تغییر ظاهر Fox AI
+          </small>
+
         </div>
 
         <div class="settingControl">
-          <button class="switch" id="themeSwitch"></button>
+
+          <button
+            class="switch"
+            id="themeSwitch"
+          ></button>
+
         </div>
 
       </div>
@@ -1417,23 +1713,42 @@ html[dir="ltr"] .message.user .messageText{
       <div class="settingRow">
 
         <div class="settingInfo">
-          <strong data-i18n="fontSize">اندازه متن</strong>
-          <small data-i18n="fontSizeDesc">اندازه نوشته‌های گفتگو</small>
+
+          <strong data-i18n="fontSize">
+            اندازه متن
+          </strong>
+
+          <small data-i18n="fontSizeDesc">
+            اندازه نوشته‌های گفتگو
+          </small>
+
         </div>
 
         <div class="settingControl">
 
           <div class="choiceGroup">
 
-            <button class="choice" data-font="small" data-i18n="small">
+            <button
+              class="choice"
+              data-font="small"
+              data-i18n="small"
+            >
               کوچک
             </button>
 
-            <button class="choice active" data-font="normal" data-i18n="medium">
+            <button
+              class="choice active"
+              data-font="normal"
+              data-i18n="medium"
+            >
               متوسط
             </button>
 
-            <button class="choice" data-font="large" data-i18n="large">
+            <button
+              class="choice"
+              data-font="large"
+              data-i18n="large"
+            >
               بزرگ
             </button>
 
@@ -1447,19 +1762,32 @@ html[dir="ltr"] .message.user .messageText{
       <div class="settingRow">
 
         <div class="settingInfo">
-          <strong data-i18n="language">زبان</strong>
-          <small data-i18n="languageDesc">زبان رابط برنامه</small>
+
+          <strong data-i18n="language">
+            زبان
+          </strong>
+
+          <small data-i18n="languageDesc">
+            زبان رابط برنامه
+          </small>
+
         </div>
 
         <div class="settingControl">
 
           <div class="choiceGroup">
 
-            <button class="choice active" id="faBtn">
+            <button
+              class="choice active"
+              id="faBtn"
+            >
               فارسی
             </button>
 
-            <button class="choice" id="enBtn">
+            <button
+              class="choice"
+              id="enBtn"
+            >
               English
             </button>
 
@@ -1470,7 +1798,10 @@ html[dir="ltr"] .message.user .messageText{
       </div>
 
 
-      <div class="settingsSection" data-i18n="chatSettings">
+      <div
+        class="settingsSection"
+        data-i18n="chatSettings"
+      >
         گفتگو
       </div>
 
@@ -1478,12 +1809,24 @@ html[dir="ltr"] .message.user .messageText{
       <div class="settingRow">
 
         <div class="settingInfo">
-          <strong data-i18n="enterSend">ارسال با Enter</strong>
-          <small data-i18n="enterSendDesc">با Enter پیام ارسال شود</small>
+
+          <strong data-i18n="enterSend">
+            ارسال با Enter
+          </strong>
+
+          <small data-i18n="enterSendDesc">
+            با Enter پیام ارسال شود
+          </small>
+
         </div>
 
         <div class="settingControl">
-          <button class="switch on" id="enterSwitch"></button>
+
+          <button
+            class="switch on"
+            id="enterSwitch"
+          ></button>
+
         </div>
 
       </div>
@@ -1492,12 +1835,24 @@ html[dir="ltr"] .message.user .messageText{
       <div class="settingRow">
 
         <div class="settingInfo">
-          <strong data-i18n="autoScroll">اسکرول خودکار</strong>
-          <small data-i18n="autoScrollDesc">هنگام پاسخ، صفحه پایین بماند</small>
+
+          <strong data-i18n="autoScroll">
+            اسکرول خودکار
+          </strong>
+
+          <small data-i18n="autoScrollDesc">
+            هنگام پاسخ، صفحه پایین بماند
+          </small>
+
         </div>
 
         <div class="settingControl">
-          <button class="switch on" id="scrollSwitch"></button>
+
+          <button
+            class="switch on"
+            id="scrollSwitch"
+          ></button>
+
         </div>
 
       </div>
@@ -1506,23 +1861,41 @@ html[dir="ltr"] .message.user .messageText{
       <div class="settingRow">
 
         <div class="settingInfo">
-          <strong data-i18n="showTime">نمایش زمان پیام</strong>
-          <small data-i18n="showTimeDesc">زمان ارسال پیام‌ها نمایش داده شود</small>
+
+          <strong data-i18n="showTime">
+            نمایش زمان پیام
+          </strong>
+
+          <small data-i18n="showTimeDesc">
+            زمان ارسال پیام‌ها نمایش داده شود
+          </small>
+
         </div>
 
         <div class="settingControl">
-          <button class="switch" id="timeSwitch"></button>
+
+          <button
+            class="switch"
+            id="timeSwitch"
+          ></button>
+
         </div>
 
       </div>
 
 
-      <div class="settingsSection" data-i18n="chatManagement">
+      <div
+        class="settingsSection"
+        data-i18n="chatManagement"
+      >
         مدیریت گفتگوها
       </div>
 
 
-      <button class="settingAction" id="exportChats">
+      <button
+        class="settingAction"
+        id="exportChats"
+      >
 
         <div class="actionRight">
 
@@ -1545,7 +1918,10 @@ html[dir="ltr"] .message.user .messageText{
       </button>
 
 
-      <button class="settingAction" id="importChats">
+      <button
+        class="settingAction"
+        id="importChats"
+      >
 
         <div class="actionRight">
 
@@ -1576,12 +1952,16 @@ html[dir="ltr"] .message.user .messageText{
       >
 
 
-      <button class="settingAction" id="clearCurrent">
+      <button
+        class="settingAction"
+        id="clearCurrent"
+      >
 
         <div class="actionRight">
 
           <svg viewBox="0 0 24 24">
-            <path d="M5 5l14 14M19 5L5 19"/>
+            <path d="M5 5l14 14"/>
+            <path d="M19 5L5 19"/>
           </svg>
 
           <span data-i18n="clearCurrent">
@@ -1597,20 +1977,44 @@ html[dir="ltr"] .message.user .messageText{
       </button>
 
 
-      <div class="settingsSection" data-i18n="sharingSupport">
+      <div
+        class="settingsSection"
+        data-i18n="sharingSupport"
+      >
         اشتراک‌گذاری و پشتیبانی
       </div>
 
 
-      <button class="settingAction" id="shareApp">
+      <button
+        class="settingAction"
+        id="shareApp"
+      >
 
         <div class="actionRight">
 
           <svg viewBox="0 0 24 24">
-            <circle cx="18" cy="5" r="2"/>
-            <circle cx="6" cy="12" r="2"/>
-            <circle cx="18" cy="19" r="2"/>
-            <path d="M8 11l8-5M8 13l8 5"/>
+
+            <circle
+              cx="18"
+              cy="5"
+              r="2"
+            />
+
+            <circle
+              cx="6"
+              cy="12"
+              r="2"
+            />
+
+            <circle
+              cx="18"
+              cy="19"
+              r="2"
+            />
+
+            <path d="M8 11l8-5"/>
+            <path d="M8 13l8 5"/>
+
           </svg>
 
           <span data-i18n="shareFox">
@@ -1628,39 +2032,66 @@ html[dir="ltr"] .message.user .messageText{
 
       <div class="socialButtons">
 
-        <button class="socialBtn whatsappBtn" id="whatsapp">
+        <button
+          class="socialBtn whatsappBtn"
+          id="whatsapp"
+        >
 
           <svg viewBox="0 0 24 24">
-            <path d="M20 11.5a8 8 0 0 1-11.8 7L4 20l1.5-4.1A8 8 0 1 1 20 11.5Z"/>
-            <path d="M8.5 8.5c.3-.4.7-.4 1-.1l1 1c.3.3.3.7.1 1l-.5.6c.8 1.2 1.8 2.2 3 3l.6-.5c.3-.2.7-.2 1 .1l1 1c.3.3.3.7-.1 1-1 .9-2.4.7-4.1-.4-1.6-1-3-2.4-4-4-1.1-1.7-1.3-3.1-.4-4.1Z"/>
+
+            <path
+              d="M20 11.5a8 8 0 0 1-11.8 7L4 20l1.5-4.1A8 8 0 1 1 20 11.5Z"
+            />
+
+            <path
+              d="M8.5 8.5c.3-.4.7-.4 1-.1l1 1c.3.3.3.7.1 1l-.5.6c.8 1.2 1.8 2.2 3 3l.6-.5c.3-.2.7-.2 1 .1l1 1c.3.3.3.7-.1 1-1 .9-2.4.7-4.1-.4-1.6-1-3-2.4-4-4-1.1-1.7-1.3-3.1-.4-4.1Z"
+            />
+
           </svg>
 
-          <span>WhatsApp</span>
+          <span>
+            WhatsApp
+          </span>
 
         </button>
 
 
-        <button class="socialBtn telegramBtn" id="telegram">
+        <button
+          class="socialBtn telegramBtn"
+          id="telegram"
+        >
 
           <svg viewBox="0 0 24 24">
-            <path d="M21 3L3.5 10.2c-.7.3-.7 1.3 0 1.5l4.5 1.5 1.7 5.4c.2.7 1.1.8 1.5.3l2.5-3.1 4.5 3.3c.6.4 1.4.1 1.6-.6L21.9 4c.2-.7-.3-1.3-.9-1Z"/>
+
+            <path
+              d="M21 3L3.5 10.2c-.7.3-.7 1.3 0 1.5l4.5 1.5 1.7 5.4c.2.7 1.1.8 1.5.3l2.5-3.1 4.5 3.3c.6.4 1.4.1 1.6-.6L21.9 4c.2-.7-.3-1.3-.9-1Z"
+            />
+
             <path d="M8 13.2l9.4-7.1"/>
+
           </svg>
 
-          <span>Telegram</span>
+          <span>
+            Telegram
+          </span>
 
         </button>
 
       </div>
 
 
-      <button class="settingAction danger" id="resetSettings">
+      <button
+        class="settingAction danger"
+        id="resetSettings"
+      >
 
         <div class="actionRight">
 
           <svg viewBox="0 0 24 24">
+
             <path d="M4 4v6h6"/>
             <path d="M5 15a8 8 0 1 0 1-8L4 10"/>
+
           </svg>
 
           <span data-i18n="resetSettings">
@@ -1680,9 +2111,13 @@ html[dir="ltr"] .message.user .messageText{
 
         <div class="settingInfo">
 
-          <strong data-i18n="aboutApp">درباره برنامه</strong>
+          <strong data-i18n="aboutApp">
+            درباره برنامه
+          </strong>
 
-          <small>FOX AI V11</small>
+          <small>
+            FOX AI V12 -- Image Generation
+          </small>
 
         </div>
 
@@ -1695,22 +2130,33 @@ html[dir="ltr"] .message.user .messageText{
 </div>
 
 
-<!-- ABOUT -->
+<!-- ================= ABOUT ================= -->
 
-<div class="modalBack" id="aboutModal">
+<div
+  class="modalBack"
+  id="aboutModal"
+>
 
   <div class="modal">
 
     <div class="modalHeader">
 
-      <div class="modalTitle" data-i18n="aboutFox">
+      <div
+        class="modalTitle"
+        data-i18n="aboutFox"
+      >
         درباره Fox AI
       </div>
 
-      <button class="iconBtn" id="closeAbout" aria-label="Close">
+      <button
+        class="iconBtn"
+        id="closeAbout"
+        aria-label="Close"
+      >
 
         <svg viewBox="0 0 24 24">
-          <path d="M6 6l12 12M18 6L6 18"/>
+          <path d="M6 6l12 12"/>
+          <path d="M18 6L6 18"/>
         </svg>
 
       </button>
@@ -1727,14 +2173,14 @@ html[dir="ltr"] .message.user .messageText{
       >
         Fox AI یک دستیار هوش مصنوعی حرفه‌ای
         برای گفتگو، برنامه‌نویسی، تحلیل متن،
-        تصویر و فایل است.
+        تصویر، فایل و ساخت تصویر است.
       </p>
 
       <p
         data-i18n="version"
         style="color:var(--muted);font-size:12px"
       >
-        FOX AI V11
+        FOX AI V12
       </p>
 
     </div>
@@ -1744,18 +2190,33 @@ html[dir="ltr"] .message.user .messageText{
 </div>
 
 
-<div class="toast" id="toast"></div>
+<div
+  class="toast"
+  id="toast"
+></div>
 
 
 <script>
 
-/* ================= API ================= */
+/* =========================================================
+   API
+========================================================= */
 
 const API_KEY="l1jbuNUY6CannGd8nGUTpQiTaZAx2N1C";
-const API_URL="https://api.mistral.ai/v1/chat/completions";
-const TEXT_MODEL="mistral-small-latest";
-const VISION_MODEL="mistral-small-2506";
 
+const API_URL=
+  "https://api.mistral.ai/v1/chat/completions";
+
+const TEXT_MODEL=
+  "mistral-small-latest";
+
+const VISION_MODEL=
+  "mistral-small-2506";
+
+
+/* =========================================================
+   SHARE
+========================================================= */
 
 const SHARE_FOOTER_FA=
 "\n\nبا ما باشید روباه\nhttps://gamengrahman8-dot.github.io/fox-aiii/";
@@ -1764,10 +2225,9 @@ const SHARE_FOOTER_EN=
 "\n\nPowered by FOX AI\nhttps://gamengrahman8-dot.github.io/fox-aiii/";
 
 
-const PHONE="989011268205";
-
-
-/* ================= STATE ================= */
+/* =========================================================
+   STATE
+========================================================= */
 
 let chats=[];
 let currentId=null;
@@ -1777,52 +2237,90 @@ let generating=false;
 let language="fa";
 let userIsNearBottom=true;
 
+
+/* =========================================================
+   SETTINGS
+========================================================= */
+
 let settings={
+
   enter:true,
   scroll:true,
   time:false,
   font:"normal"
+
 };
 
 
-/* ================= ELEMENTS ================= */
+/* =========================================================
+   ELEMENTS
+========================================================= */
 
-const chat=document.getElementById("chat");
-const messages=document.getElementById("messages");
-const empty=document.getElementById("empty");
-const input=document.getElementById("input");
-const send=document.getElementById("send");
-const toast=document.getElementById("toast");
-const menu=document.getElementById("menu");
-const overlay=document.getElementById("overlay");
+const chat=
+  document.getElementById("chat");
+
+const messages=
+  document.getElementById("messages");
+
+const empty=
+  document.getElementById("empty");
+
+const input=
+  document.getElementById("input");
+
+const send=
+  document.getElementById("send");
+
+const toast=
+  document.getElementById("toast");
+
+const menu=
+  document.getElementById("menu");
+
+const overlay=
+  document.getElementById("overlay");
 
 
-/* ================= TRANSLATIONS ================= */
+/* =========================================================
+   TRANSLATIONS
+========================================================= */
 
 const T={
 
 fa:{
 
   welcome:"چه کاری می‌توانم برایت انجام دهم؟",
+
   placeholder:"پیامت را بنویس...",
 
   newChat:"چت جدید",
+
   settings:"تنظیمات",
+
   about:"درباره Fox AI",
+
   aboutFox:"درباره Fox AI",
 
   history:"سابقه گفتگو",
+
   deleteAll:"پاک کردن همه چت‌ها",
+
   searchChats:"جستجوی چت‌ها...",
+
   noChats:"چتی پیدا نشد",
+
   delete:"حذف",
 
   copy:"کپی",
+
   copied:"کپی شد",
+
   share:"اشتراک‌گذاری",
 
   code:"کد",
+
   copyCode:"کپی کد",
+
   codeCopied:"کد کپی شد",
 
   remove:"حذف",
@@ -1830,51 +2328,71 @@ fa:{
   stopped:"پاسخ متوقف شد",
 
   apiKey:"کلید API را داخل کد قرار بده",
+
   invalidKey:"API Key نامعتبر است",
+
   forbidden:"دسترسی API رد شد",
+
   rateLimit:"محدودیت درخواست فعال است",
+
   apiError:"خطا در اتصال به API",
 
   fileSize:"حجم فایل نباید بیشتر از 10MB باشد",
+
   fileSent:"فایل ارسال شد.",
+
   imageAnalyze:"این تصویر را دقیق تحلیل کن.",
+
   emptyFile:"فایل ارسال شده:",
+
   copiedText:"متن کپی شد",
 
   deleteConfirm:"همه گفتگوها حذف شوند؟",
 
   appearance:"ظاهر برنامه",
+
   lightMode:"حالت روشن",
+
   lightModeDesc:"تغییر ظاهر Fox AI",
 
   fontSize:"اندازه متن",
+
   fontSizeDesc:"اندازه نوشته‌های گفتگو",
 
   small:"کوچک",
+
   medium:"متوسط",
+
   large:"بزرگ",
 
   language:"زبان",
+
   languageDesc:"زبان رابط برنامه",
 
   chatSettings:"گفتگو",
 
   enterSend:"ارسال با Enter",
+
   enterSendDesc:"با Enter پیام ارسال شود",
 
   autoScroll:"اسکرول خودکار",
+
   autoScrollDesc:"هنگام پاسخ، صفحه پایین بماند",
 
   showTime:"نمایش زمان پیام",
+
   showTimeDesc:"زمان ارسال پیام‌ها نمایش داده شود",
 
   chatManagement:"مدیریت گفتگوها",
 
   exportChats:"خروجی گرفتن از چت‌ها",
+
   importChats:"وارد کردن چت‌ها",
+
   clearCurrent:"پاک کردن چت فعلی",
 
   sharingSupport:"اشتراک‌گذاری و پشتیبانی",
+
   shareFox:"اشتراک‌گذاری Fox AI",
 
   resetSettings:"بازنشانی تنظیمات",
@@ -1882,40 +2400,68 @@ fa:{
   aboutApp:"درباره برنامه",
 
   aboutText:
-  "Fox AI یک دستیار هوش مصنوعی حرفه‌ای برای گفتگو، برنامه‌نویسی، تحلیل متن، تصویر و فایل است.",
+  "Fox AI یک دستیار هوش مصنوعی حرفه‌ای برای گفتگو، برنامه‌نویسی، تحلیل متن، تصویر، فایل و ساخت تصویر است.",
 
-  version:"FOX AI V11",
+  version:"FOX AI V12",
 
   chatsImported:"چت‌ها وارد شدند",
+
   invalidFile:"فایل نامعتبر است",
+
   currentCleared:"چت فعلی پاک شد",
-  settingsReset:"تنظیمات بازنشانی شد"
+
+  settingsReset:"تنظیمات بازنشانی شد",
+
+  generateImage:"ساخت تصویر",
+
+  imageGenerating:"در حال ساخت تصویر...",
+
+  downloadImage:"ذخیره تصویر",
+
+  openImage:"باز کردن تصویر",
+
+  imageGenerated:"تصویر ساخته شد",
+
+  imageGenerationError:"خطا در ساخت تصویر",
+
+  ad:"تبلیغات"
 
 },
-
 
 en:{
 
   welcome:"How can I help you?",
+
   placeholder:"Write a message...",
 
   newChat:"New chat",
+
   settings:"Settings",
+
   about:"About Fox AI",
+
   aboutFox:"About Fox AI",
 
   history:"Chat history",
+
   deleteAll:"Delete all chats",
+
   searchChats:"Search chats...",
+
   noChats:"No chats found",
+
   delete:"Delete",
 
   copy:"Copy",
+
   copied:"Copied",
+
   share:"Share",
 
   code:"Code",
+
   copyCode:"Copy code",
+
   codeCopied:"Code copied",
 
   remove:"Remove",
@@ -1923,51 +2469,71 @@ en:{
   stopped:"Response stopped",
 
   apiKey:"Add your API key to the code",
+
   invalidKey:"Invalid API Key",
+
   forbidden:"API access was denied",
+
   rateLimit:"Rate limit reached",
+
   apiError:"API connection error",
 
   fileSize:"File size must be less than 10MB",
+
   fileSent:"File sent.",
+
   imageAnalyze:"Analyze this image carefully.",
+
   emptyFile:"File sent:",
+
   copiedText:"Text copied",
 
   deleteConfirm:"Delete all chats?",
 
   appearance:"Appearance",
+
   lightMode:"Light mode",
+
   lightModeDesc:"Change the Fox AI appearance",
 
   fontSize:"Text size",
+
   fontSizeDesc:"Change the chat text size",
 
   small:"Small",
+
   medium:"Medium",
+
   large:"Large",
 
   language:"Language",
+
   languageDesc:"Application interface language",
 
   chatSettings:"Chat",
 
   enterSend:"Send with Enter",
+
   enterSendDesc:"Send messages by pressing Enter",
 
   autoScroll:"Auto scroll",
+
   autoScrollDesc:"Keep the page at the bottom while responding",
 
   showTime:"Show message time",
+
   showTimeDesc:"Display the time messages were sent",
 
   chatManagement:"Chat management",
 
   exportChats:"Export chats",
+
   importChats:"Import chats",
+
   clearCurrent:"Clear current chat",
 
   sharingSupport:"Sharing & Support",
+
   shareFox:"Share Fox AI",
 
   resetSettings:"Reset settings",
@@ -1975,19 +2541,40 @@ en:{
   aboutApp:"About the app",
 
   aboutText:
-  "Fox AI is a professional AI assistant for chatting, programming, text analysis, images and files.",
+  "Fox AI is a professional AI assistant for chatting, programming, text analysis, images, files and image generation.",
 
-  version:"FOX AI V11",
+  version:"FOX AI V12",
 
   chatsImported:"Chats imported",
+
   invalidFile:"Invalid file",
+
   currentCleared:"Current chat cleared",
-  settingsReset:"Settings reset"
+
+  settingsReset:"Settings reset",
+
+  generateImage:"Generate image",
+
+  imageGenerating:"Generating image...",
+
+  downloadImage:"Save image",
+
+  openImage:"Open image",
+
+  imageGenerated:"Image generated",
+
+  imageGenerationError:"Image generation failed",
+
+  ad:"Advertisement"
 
 }
 
 };
 
+
+/* =========================================================
+   TRANSLATION
+========================================================= */
 
 function tr(key){
 
@@ -1998,7 +2585,9 @@ function tr(key){
 }
 
 
-/* ================= STORAGE ================= */
+/* =========================================================
+   STORAGE
+========================================================= */
 
 function save(){
 
@@ -2059,7 +2648,9 @@ function load(){
 }
 
 
-/* ================= HELPERS ================= */
+/* =========================================================
+   HELPERS
+========================================================= */
 
 function createId(){
 
@@ -2071,7 +2662,7 @@ function createId(){
 
 function escapeHTML(text){
 
-  return String(text)
+  return String(text ?? "")
     .replace(/&/g,"&amp;")
     .replace(/</g,"&lt;")
     .replace(/>/g,"&gt;")
@@ -2149,7 +2740,9 @@ async function copyText(text){
 }
 
 
-/* ================= SCROLL ================= */
+/* =========================================================
+   SCROLL
+========================================================= */
 
 function checkScroll(){
 
@@ -2185,11 +2778,14 @@ function smartScroll(){
 }
 
 
-/* ================= MENU ================= */
+/* =========================================================
+   MENU
+========================================================= */
 
 function openMenu(){
 
   menu.classList.add("show");
+
   overlay.classList.add("show");
 
 }
@@ -2198,6 +2794,7 @@ function openMenu(){
 function closeMenu(){
 
   menu.classList.remove("show");
+
   overlay.classList.remove("show");
 
 }
@@ -2216,7 +2813,28 @@ document.getElementById(
 overlay.onclick=closeMenu;
 
 
-/* ================= CHAT ================= */
+/* =========================================================
+   ADVERTISEMENT BUTTON
+========================================================= */
+
+document.getElementById(
+  "adBtn"
+).onclick=()=>{
+
+  closeMenu();
+
+  window.open(
+    "https://splus.ir/Ste1187",
+    "_blank",
+    "noopener,noreferrer"
+  );
+
+};
+
+
+/* =========================================================
+   CHAT
+========================================================= */
 
 function currentChat(){
 
@@ -2293,7 +2911,9 @@ document.getElementById(
 ).onclick=newChat;
 
 
-/* ================= HISTORY ================= */
+/* =========================================================
+   HISTORY
+========================================================= */
 
 function renderHistory(query=""){
 
@@ -2394,6 +3014,7 @@ function renderHistory(query=""){
 
 
     row.appendChild(title);
+
     row.appendChild(del);
 
 
@@ -2427,7 +3048,9 @@ document.getElementById(
 );
 
 
-/* ================= MARKDOWN ================= */
+/* =========================================================
+   MARKDOWN
+========================================================= */
 
 function markdown(text){
 
@@ -2517,7 +3140,9 @@ function markdown(text){
 }
 
 
-/* ================= COPY CODE ================= */
+/* =========================================================
+   COPY CODE
+========================================================= */
 
 document.addEventListener(
   "click",
@@ -2563,7 +3188,475 @@ document.addEventListener(
 );
 
 
-/* ================= MESSAGE ================= */
+/* =========================================================
+   IMAGE GENERATION DETECTION
+========================================================= */
+
+function isImageGenerationRequest(text){
+
+  const s=
+    String(text||"")
+      .trim()
+      .toLowerCase();
+
+
+  if(!s)
+    return false;
+
+
+  const patterns=[
+
+    "تصویر بساز",
+    "عکس بساز",
+    "تصویر درست کن",
+    "عکس درست کن",
+    "تصویر ایجاد کن",
+    "عکس ایجاد کن",
+    "تصویر تولید کن",
+    "عکس تولید کن",
+    "تصویر میخوام",
+    "عکس میخوام",
+    "تصویر بساز برام",
+    "عکس بساز برام",
+    "یه تصویر بساز",
+    "یک تصویر بساز",
+    "یه عکس بساز",
+    "یک عکس بساز",
+    "ساخت تصویر",
+    "ساخت عکس",
+    "تصویرسازی کن",
+    "generate image",
+    "create image",
+    "make image",
+    "generate a picture",
+    "create a picture",
+    "make a picture",
+    "generate photo",
+    "create photo",
+    "make photo",
+    "image generation"
+
+  ];
+
+
+  return patterns.some(
+    p=>s.includes(p)
+  );
+
+}
+
+
+/* =========================================================
+   EXTRACT IMAGE URL
+========================================================= */
+
+function findImageURL(value){
+
+  if(!value)
+    return null;
+
+
+  if(typeof value==="string"){
+
+    const matches=
+      value.match(
+        /https?:\/\/[^\s"'<>]+/g
+      );
+
+    if(matches?.length){
+
+      for(const url of matches){
+
+        if(
+          /\.(png|jpg|jpeg|webp|gif)(\?|$)/i.test(url) ||
+          /image/i.test(url)
+        ){
+
+          return url.replace(
+            /[)\],.]+$/,
+            ""
+          );
+
+        }
+
+      }
+
+      return matches[0].replace(
+        /[)\],.]+$/,
+        ""
+      );
+
+    }
+
+    return null;
+
+  }
+
+
+  if(Array.isArray(value)){
+
+    for(const item of value){
+
+      const found=
+        findImageURL(item);
+
+      if(found)
+        return found;
+
+    }
+
+    return null;
+
+  }
+
+
+  if(typeof value==="object"){
+
+    const directKeys=[
+
+      "url",
+      "image_url",
+      "imageUrl",
+      "download_url",
+      "downloadUrl",
+      "file_url",
+      "fileUrl"
+
+    ];
+
+
+    for(const key of directKeys){
+
+      if(value[key]){
+
+        const found=
+          findImageURL(
+            value[key]
+          );
+
+        if(found)
+          return found;
+
+      }
+
+    }
+
+
+    for(const key of Object.keys(value)){
+
+      const found=
+        findImageURL(
+          value[key]
+        );
+
+      if(found)
+        return found;
+
+    }
+
+  }
+
+
+  return null;
+
+}
+
+
+/* =========================================================
+   GENERATE IMAGE
+========================================================= */
+
+async function generateImage(prompt){
+
+  if(
+    API_KEY==="YOUR_MISTRAL_API_KEY" ||
+    !API_KEY.trim()
+  ){
+
+    toastMessage(
+      tr("apiKey")
+    );
+
+    return;
+
+  }
+
+
+  ensureChat();
+
+
+  const c=
+    currentChat();
+
+  if(!c)
+    return;
+
+
+  generating=true;
+
+  controller=
+    new AbortController();
+
+
+  send.classList.add("stop");
+
+
+  send.innerHTML=`
+
+    <svg viewBox="0 0 24 24">
+      <path d="M7 7h10v10H7z"/>
+    </svg>
+
+  `;
+
+
+  const ai={
+
+    role:"assistant",
+
+    content:"",
+
+    imageLoading:true,
+
+    time:Date.now()
+
+  };
+
+
+  c.messages.push(ai);
+
+
+  save();
+
+  render();
+
+
+  try{
+
+    const response=
+      await fetch(
+        API_URL,
+        {
+
+          method:"POST",
+
+          headers:{
+
+            "Content-Type":
+              "application/json",
+
+            "Authorization":
+              "Bearer "+
+              API_KEY
+
+          },
+
+          body:
+            JSON.stringify({
+
+              model:
+                TEXT_MODEL,
+
+              messages:[
+
+                {
+
+                  role:"system",
+
+                  content:
+                    language==="fa"
+
+                    ?
+
+                    "تو ابزار ساخت تصویر Fox AI هستی. درخواست کاربر را به یک تصویر با کیفیت تبدیل کن."
+
+                    :
+
+                    "You are the Fox AI image generation assistant. Turn the user's request into a high quality image."
+
+                },
+
+                {
+
+                  role:"user",
+
+                  content:prompt
+
+                }
+
+              ],
+
+              tools:[
+
+                {
+
+                  type:
+                    "image_generation"
+
+                }
+
+              ],
+
+              tool_choice:"any"
+
+            }),
+
+          signal:
+            controller.signal
+
+        }
+      );
+
+
+    if(!response.ok){
+
+      let errorText="";
+
+
+      try{
+
+        const data=
+          await response.json();
+
+        errorText=
+          data?.message||
+          data?.error?.message||
+          "";
+
+      }catch(e){}
+
+
+      throw new Error(
+        response.status+
+        " "+
+        errorText
+      );
+
+    }
+
+
+    const result=
+      await response.json();
+
+
+    let imageURL=
+      findImageURL(result);
+
+
+    if(!imageURL){
+
+      const choices=
+        result?.choices||[];
+
+
+      for(
+        const choice of choices
+      ){
+
+        imageURL=
+          findImageURL(
+            choice
+          );
+
+        if(imageURL)
+          break;
+
+      }
+
+    }
+
+
+    if(!imageURL){
+
+      throw new Error(
+        "IMAGE_URL_NOT_FOUND"
+      );
+
+    }
+
+
+    ai.image=
+      imageURL;
+
+    ai.imagePrompt=
+      prompt;
+
+    ai.imageLoading=
+      false;
+
+    ai.content=
+      tr("imageGenerated");
+
+
+    save();
+
+    render();
+
+
+  }catch(e){
+
+    if(
+      e.name==="AbortError"
+    ){
+
+      c.messages=
+        c.messages.filter(
+          m=>m!==ai
+        );
+
+
+      toastMessage(
+        tr("stopped")
+      );
+
+    }else{
+
+      ai.imageLoading=false;
+
+      ai.content=
+        tr("imageGenerationError");
+
+
+      render();
+
+      toastMessage(
+        tr("imageGenerationError")
+      );
+
+    }
+
+
+    save();
+
+  }finally{
+
+    generating=false;
+
+    controller=null;
+
+    send.classList.remove(
+      "stop"
+    );
+
+    send.innerHTML=`
+
+      <svg viewBox="0 0 24 24">
+
+        <path d="M22 2L11 13"/>
+        <path d="M22 2l-7 20-9-4z"/>
+
+      </svg>
+
+    `;
+
+  }
+
+}
+
+
+/* =========================================================
+   MESSAGE
+========================================================= */
 
 function createMessageElement(
   msg,
@@ -2597,17 +3690,177 @@ function createMessageElement(
   if(msg.role==="assistant"){
 
     text.innerHTML=
-      markdown(msg.content);
+      markdown(
+        msg.content||""
+      );
 
   }else{
 
     text.textContent=
-      msg.content;
+      msg.content||"";
 
   }
 
 
   inner.appendChild(text);
+
+
+  if(msg.imageLoading){
+
+    const loading=
+      document.createElement("div");
+
+    loading.className=
+      "imageGenerating";
+
+
+    loading.innerHTML=`
+
+      <span class="imageGeneratingDot"></span>
+
+      <span>
+        ${escapeHTML(
+          tr("imageGenerating")
+        )}
+      </span>
+
+    `;
+
+
+    inner.appendChild(
+      loading
+    );
+
+  }
+
+
+  if(msg.image){
+
+    const imageCard=
+      document.createElement("div");
+
+    imageCard.className=
+      "generatedImageCard";
+
+
+    const img=
+      document.createElement("img");
+
+    img.className=
+      "generatedImage";
+
+    img.alt=
+      msg.imagePrompt ||
+      "FOX AI generated image";
+
+    img.loading="lazy";
+
+    img.src=
+      msg.image;
+
+
+    imageCard.appendChild(img);
+
+
+    const imageActions=
+      document.createElement("div");
+
+    imageActions.className=
+      "generatedImageActions";
+
+
+    const download=
+      document.createElement("button");
+
+    download.className=
+      "primary";
+
+    download.textContent=
+      tr("downloadImage");
+
+
+    download.onclick=
+      async()=>{
+
+        try{
+
+          const response=
+            await fetch(
+              msg.image
+            );
+
+          const blob=
+            await response.blob();
+
+          const url=
+            URL.createObjectURL(
+              blob
+            );
+
+          const a=
+            document.createElement("a");
+
+          a.href=url;
+
+          a.download=
+            "fox-ai-image.png";
+
+          document.body.appendChild(a);
+
+          a.click();
+
+          a.remove();
+
+          URL.revokeObjectURL(url);
+
+        }catch(e){
+
+          window.open(
+            msg.image,
+            "_blank"
+          );
+
+        }
+
+      };
+
+
+    const open=
+      document.createElement("button");
+
+    open.textContent=
+      tr("openImage");
+
+
+    open.onclick=()=>{
+
+      window.open(
+        msg.image,
+        "_blank"
+      );
+
+    };
+
+
+    imageActions.appendChild(
+      download
+    );
+
+    imageActions.appendChild(
+      open
+    );
+
+
+    imageCard.appendChild(
+      imageActions
+    );
+
+
+    inner.appendChild(
+      imageCard
+    );
+
+  }
 
 
   if(msg.file){
@@ -2661,6 +3914,7 @@ function createMessageElement(
 
 
     info.appendChild(fileName);
+
     info.appendChild(fileType);
 
     card.appendChild(info);
@@ -2688,7 +3942,7 @@ function createMessageElement(
 
     if(
       await copyText(
-        msg.content
+        msg.content||""
       )
     ){
 
@@ -2720,8 +3974,9 @@ function createMessageElement(
         ?SHARE_FOOTER_FA
         :SHARE_FOOTER_EN;
 
+
       const shareText=
-        msg.content+
+        (msg.content||"")+
         footer;
 
 
@@ -2754,7 +4009,9 @@ function createMessageElement(
     };
 
 
-    actions.appendChild(share);
+    actions.appendChild(
+      share
+    );
 
   }
 
@@ -2773,12 +4030,14 @@ function createMessageElement(
     edit.onclick=()=>{
 
       input.value=
-        msg.content;
+        msg.content||"";
 
       autoResize();
 
+
       const c=
         currentChat();
+
 
       if(c){
 
@@ -2790,6 +4049,7 @@ function createMessageElement(
 
       }
 
+
       save();
 
       render();
@@ -2799,7 +4059,9 @@ function createMessageElement(
     };
 
 
-    actions.appendChild(edit);
+    actions.appendChild(
+      edit
+    );
 
   }
 
@@ -2828,7 +4090,9 @@ function createMessageElement(
         }
       );
 
-    actions.appendChild(time);
+    actions.appendChild(
+      time
+    );
 
   }
 
@@ -2842,7 +4106,9 @@ function createMessageElement(
 }
 
 
-/* ================= RENDER ================= */
+/* =========================================================
+   RENDER
+========================================================= */
 
 function render(){
 
@@ -2875,10 +4141,12 @@ function render(){
 
   c.messages.forEach(
     (m,i)=>{
+
       createMessageElement(
         m,
         i
       );
+
     }
   );
 
@@ -2890,7 +4158,9 @@ function render(){
 }
 
 
-/* ================= STREAM UPDATE ================= */
+/* =========================================================
+   STREAM UPDATE
+========================================================= */
 
 function updateLastAI(){
 
@@ -2934,7 +4204,9 @@ function updateLastAI(){
 
 
   text.innerHTML=
-    markdown(ai.content)+
+    markdown(
+      ai.content||""
+    )+
     '<span class="cursor"></span>';
 
   smartScroll();
@@ -2942,7 +4214,9 @@ function updateLastAI(){
 }
 
 
-/* ================= FILE ================= */
+/* =========================================================
+   FILE
+========================================================= */
 
 document.getElementById(
   "attach"
@@ -3128,7 +4402,9 @@ document.getElementById(
 };
 
 
-/* ================= API CONTENT ================= */
+/* =========================================================
+   API CONTENT
+========================================================= */
 
 async function makeContent(
   text,
@@ -3202,18 +4478,11 @@ async function makeContent(
 }
 
 
-/* ================= SEND ================= */
+/* =========================================================
+   NORMAL CHAT
+========================================================= */
 
-async function sendMessage(){
-
-  if(generating){
-
-    controller?.abort();
-
-    return;
-
-  }
-
+async function normalChat(){
 
   const text=
     input.value.trim();
@@ -3221,20 +4490,6 @@ async function sendMessage(){
 
   if(!text && !attached)
     return;
-
-
-  if(
-    API_KEY==="YOUR_MISTRAL_API_KEY" ||
-    !API_KEY.trim()
-  ){
-
-    toastMessage(
-      tr("apiKey")
-    );
-
-    return;
-
-  }
 
 
   ensureChat();
@@ -3343,8 +4598,7 @@ async function sendMessage(){
   render();
 
 
-  generating=
-    true;
+  generating=true;
 
 
   controller=
@@ -3359,7 +4613,9 @@ async function sendMessage(){
   send.innerHTML=`
 
     <svg viewBox="0 0 24 24">
+
       <path d="M7 7h10v10H7z"/>
+
     </svg>
 
   `;
@@ -3386,6 +4642,7 @@ async function sendMessage(){
     const apiMessages=[
 
       {
+
         role:"system",
 
         content:
@@ -3676,8 +4933,10 @@ async function sendMessage(){
     send.innerHTML=`
 
       <svg viewBox="0 0 24 24">
+
         <path d="M22 2L11 13"/>
         <path d="M22 2l-7 20-9-4z"/>
+
       </svg>
 
     `;
@@ -3690,7 +4949,86 @@ async function sendMessage(){
 }
 
 
-/* ================= INPUT ================= */
+/* =========================================================
+   SEND MESSAGE
+========================================================= */
+
+async function sendMessage(){
+
+  if(generating){
+
+    controller?.abort();
+
+    return;
+
+  }
+
+
+  const text=
+    input.value.trim();
+
+
+  if(!text && !attached)
+    return;
+
+
+  if(
+    text &&
+    !attached &&
+    isImageGenerationRequest(text)
+  ){
+
+    if(
+      API_KEY==="YOUR_MISTRAL_API_KEY" ||
+      !API_KEY.trim()
+    ){
+
+      toastMessage(
+        tr("apiKey")
+      );
+
+      return;
+
+    }
+
+
+    input.value="";
+
+    autoResize();
+
+
+    await generateImage(
+      text
+    );
+
+
+    return;
+
+  }
+
+
+  if(
+    API_KEY==="YOUR_MISTRAL_API_KEY" ||
+    !API_KEY.trim()
+  ){
+
+    toastMessage(
+      tr("apiKey")
+    );
+
+    return;
+
+  }
+
+
+  await normalChat();
+
+}
+
+
+/* =========================================================
+   INPUT
+========================================================= */
 
 function autoResize(){
 
@@ -3736,7 +5074,9 @@ send.onclick=
   sendMessage;
 
 
-/* ================= THEME ================= */
+/* =========================================================
+   THEME
+========================================================= */
 
 const themeSwitch=
   document.getElementById(
@@ -3803,7 +5143,9 @@ themeSwitch.onclick=()=>{
 };
 
 
-/* ================= SETTINGS ================= */
+/* =========================================================
+   SETTINGS MODAL
+========================================================= */
 
 const settingsModal=
   document.getElementById(
@@ -3853,7 +5195,9 @@ settingsModal.onclick=e=>{
 };
 
 
-/* ================= SWITCHES ================= */
+/* =========================================================
+   SWITCHES
+========================================================= */
 
 function setupSwitch(
   id,
@@ -3907,7 +5251,9 @@ setupSwitch(
 );
 
 
-/* ================= FONT ================= */
+/* =========================================================
+   FONT
+========================================================= */
 
 function applyFont(){
 
@@ -3937,12 +5283,17 @@ function applyFont(){
           settings.font
       );
 
+
       btn.textContent=
-        tr(btn.dataset.font==="small"
+        tr(
+          btn.dataset.font==="small"
           ?"small"
-          :btn.dataset.font==="large"
+          :
+          btn.dataset.font==="large"
           ?"large"
-          :"medium");
+          :
+          "medium"
+        );
 
     });
 
@@ -3969,7 +5320,9 @@ document
   });
 
 
-/* ================= LANGUAGE ================= */
+/* =========================================================
+   LANGUAGE
+========================================================= */
 
 document.getElementById(
   "faBtn"
@@ -4077,7 +5430,13 @@ function setLanguage(lang){
 }
 
 
-/* ================= SUPPORT ================= */
+/* =========================================================
+   SUPPORT
+========================================================= */
+
+const PHONE=
+  "989011268205";
+
 
 document.getElementById(
   "whatsapp"
@@ -4105,7 +5464,9 @@ document.getElementById(
 };
 
 
-/* ================= SHARE APP ================= */
+/* =========================================================
+   SHARE APP
+========================================================= */
 
 document.getElementById(
   "shareApp"
@@ -4151,7 +5512,9 @@ document.getElementById(
 };
 
 
-/* ================= EXPORT ================= */
+/* =========================================================
+   EXPORT
+========================================================= */
 
 document.getElementById(
   "exportChats"
@@ -4215,7 +5578,9 @@ document.getElementById(
 };
 
 
-/* ================= IMPORT ================= */
+/* =========================================================
+   IMPORT
+========================================================= */
 
 document.getElementById(
   "importChats"
@@ -4298,7 +5663,9 @@ document.getElementById(
 };
 
 
-/* ================= CLEAR CURRENT ================= */
+/* =========================================================
+   CLEAR CURRENT
+========================================================= */
 
 document.getElementById(
   "clearCurrent"
@@ -4334,7 +5701,9 @@ document.getElementById(
 };
 
 
-/* ================= RESET SETTINGS ================= */
+/* =========================================================
+   RESET SETTINGS
+========================================================= */
 
 document.getElementById(
   "resetSettings"
@@ -4417,7 +5786,9 @@ document.getElementById(
 };
 
 
-/* ================= DELETE ALL ================= */
+/* =========================================================
+   DELETE ALL
+========================================================= */
 
 document.getElementById(
   "deleteAll"
@@ -4447,7 +5818,9 @@ document.getElementById(
 };
 
 
-/* ================= ABOUT ================= */
+/* =========================================================
+   ABOUT
+========================================================= */
 
 const aboutModal=
   document.getElementById(
@@ -4497,7 +5870,9 @@ aboutModal.onclick=e=>{
 };
 
 
-/* ================= INIT ================= */
+/* =========================================================
+   INIT
+========================================================= */
 
 try{
 
