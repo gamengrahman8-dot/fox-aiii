@@ -3,5921 +3,2030 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="theme-color" content="#080808">
-<meta name="description" content="FOX AI - Intelligent AI Assistant">
 <title>FOX AI</title>
+
+<link rel="stylesheet"
+href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 
 <style>
 *{
-  box-sizing:border-box;
-  -webkit-tap-highlight-color:transparent;
+ box-sizing:border-box;
+ -webkit-tap-highlight-color:transparent;
 }
 
 :root{
-  --bg:#080809;
-  --panel:#111113;
-  --panel2:#19191c;
-  --panel3:#242428;
-  --border:#2c2c31;
-  --text:#f7f7f8;
-  --muted:#9999a2;
-  --accent:#ff7900;
-  --accent2:#ff3d00;
-  --danger:#ef4444;
-}
-
-body.light{
-  --bg:#f7f7f8;
-  --panel:#fff;
-  --panel2:#f0f0f2;
-  --panel3:#e3e3e7;
-  --border:#d3d3d8;
-  --text:#171719;
-  --muted:#6f6f78;
+ --bg:#090909;
+ --panel:#111111;
+ --panel2:#171717;
+ --border:#292929;
+ --text:#f5f5f5;
+ --muted:#999;
+ --orange:#ff7900;
+ --orange2:#ff3d00;
+ --danger:#ff4545;
 }
 
 html,body{
-  width:100%;
-  height:100%;
-  margin:0;
-  overflow:hidden;
-  background:var(--bg);
-  color:var(--text);
-  font-family:Arial,"Segoe UI",Tahoma,sans-serif;
-}
-
-body{
-  transition:.25s;
+ margin:0;
+ width:100%;
+ height:100%;
+ background:var(--bg);
+ color:var(--text);
+ font-family:Arial,sans-serif;
+ overflow:hidden;
 }
 
 button,input,textarea{
-  font:inherit;
+ font:inherit;
 }
 
 button{
-  border:0;
-  cursor:pointer;
+ border:0;
+ cursor:pointer;
 }
-
-svg{
-  width:21px;
-  height:21px;
-  fill:none;
-  stroke:currentColor;
-  stroke-width:1.8;
-  stroke-linecap:round;
-  stroke-linejoin:round;
-}
-
-/* ================= SPLASH ================= */
-
-.foxSplash{
-  position:fixed;
-  inset:0;
-  z-index:99999;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  background:
-    radial-gradient(circle at 50% 45%,rgba(255,90,0,.22),transparent 34%),
-    #060607;
-  animation:splashOut .65s ease 1.55s forwards;
-}
-
-.splashGlow{
-  position:absolute;
-  width:300px;
-  height:300px;
-  border-radius:50%;
-  background:rgba(255,80,0,.18);
-  filter:blur(75px);
-  animation:pulse 1.2s infinite;
-}
-
-.foxLogoWrap{
-  position:relative;
-  width:155px;
-  height:155px;
-  animation:foxIn .9s cubic-bezier(.2,.9,.2,1);
-}
-
-.foxLogo{
-  width:100%;
-  height:100%;
-  filter:drop-shadow(0 0 13px rgba(255,100,0,.7))
-         drop-shadow(0 0 40px rgba(255,70,0,.3));
-}
-
-.splashTitle{
-  position:relative;
-  margin-top:17px;
-  color:#fff;
-  font-size:34px;
-  font-weight:900;
-  letter-spacing:8px;
-  opacity:0;
-  animation:titleIn .7s ease .35s forwards;
-}
-
-.splashLine{
-  width:0;
-  height:2px;
-  margin-top:13px;
-  background:linear-gradient(90deg,#ff9a00,#ff3d00);
-  box-shadow:0 0 15px rgba(255,100,0,.8);
-  animation:lineIn .7s ease .55s forwards;
-}
-
-@keyframes foxIn{
-  0%{
-    opacity:0;
-    transform:scale(.3) translateY(35px) rotate(-10deg)
-  }
-  65%{
-    opacity:1;
-    transform:scale(1.08) translateY(-4px) rotate(2deg)
-  }
-  100%{
-    opacity:1;
-    transform:scale(1)
-  }
-}
-
-@keyframes titleIn{
-  to{
-    opacity:1;
-    transform:translateY(0)
-  }
-}
-
-@keyframes lineIn{
-  to{
-    width:125px
-  }
-}
-
-@keyframes pulse{
-  0%,100%{
-    transform:scale(.8);
-    opacity:.4
-  }
-  50%{
-    transform:scale(1.25);
-    opacity:.8
-  }
-}
-
-@keyframes splashOut{
-  to{
-    opacity:0;
-    visibility:hidden;
-    pointer-events:none;
-    transform:scale(1.03);
-  }
-}
-
-/* ================= APP ================= */
 
 .app{
-  width:100%;
-  height:100dvh;
-  display:flex;
-  flex-direction:column;
-  background:
-    radial-gradient(circle at 50% -20%,rgba(255,121,0,.13),transparent 35%),
-    var(--bg);
+ width:100%;
+ height:100%;
+ display:flex;
+ flex-direction:column;
 }
 
-/* ================= HEADER ================= */
-
-.header{
-  position:relative;
-  height:64px;
-  min-height:64px;
-  padding:0 11px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  direction:ltr;
-  border-bottom:1px solid var(--border);
-  background:rgba(8,8,9,.88);
-  backdrop-filter:blur(20px);
-  z-index:10;
+header{
+ height:62px;
+ flex-shrink:0;
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ padding:0 15px;
+ background:rgba(10,10,10,.94);
+ border-bottom:1px solid var(--border);
+ z-index:20;
 }
 
-body.light .header{
-  background:rgba(255,255,255,.9);
+.logo{
+ color:var(--orange);
+ font-size:20px;
+ font-weight:800;
+ letter-spacing:1px;
 }
 
-.headerSide{
-  display:none;
+.header-btn{
+ width:42px;
+ height:42px;
+ border-radius:13px;
+ background:#181818;
+ color:white;
+ border:1px solid #292929;
+ font-size:22px;
 }
 
-.iconBtn{
-  width:43px;
-  height:43px;
-  border-radius:13px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:var(--text);
-  background:transparent;
-  transition:.15s;
+.content{
+ flex:1;
+ min-height:0;
+ position:relative;
 }
 
-.iconBtn:hover{
-  background:var(--panel2);
+.tab{
+ display:none;
+ width:100%;
+ height:100%;
+ overflow:auto;
 }
 
-.iconBtn:active{
-  transform:scale(.91);
+.tab.active{
+ display:block;
 }
 
-/* چت جدید سمت چپ */
-
-.newChatTop{
-  position:absolute;
-  left:11px;
-  top:50%;
-  transform:translateY(-50%);
+.bottom-nav{
+ height:70px;
+ flex-shrink:0;
+ display:grid;
+ grid-template-columns:repeat(4,1fr);
+ background:#0d0d0d;
+ border-top:1px solid var(--border);
+ z-index:20;
 }
 
-/* منو سمت راست */
-
-.menuTop{
-  position:absolute;
-  right:11px;
-  top:50%;
-  transform:translateY(-50%);
+.nav-btn{
+ background:transparent;
+ color:#777;
+ display:flex;
+ flex-direction:column;
+ align-items:center;
+ justify-content:center;
+ gap:5px;
+ font-size:12px;
 }
 
-.newChatTop:active,
-.menuTop:active{
-  transform:translateY(-50%) scale(.91);
+.nav-btn.active{
+ color:var(--orange);
 }
 
-/* FOX AI وسط */
-
-.brandName{
-  position:absolute;
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-50%);
-  font-size:18px;
-  font-weight:850;
-  white-space:nowrap;
+.nav-icon{
+ font-size:21px;
+ line-height:1;
 }
 
-/* ================= CHAT ================= */
-
-.chat{
-  flex:1;
-  overflow-y:auto;
-  overflow-x:hidden;
-  padding:28px 15px 150px;
-  overscroll-behavior:contain;
-  -webkit-overflow-scrolling:touch;
+/* MUSIC */
+.music-wrap{
+ padding:18px 15px 30px;
 }
 
-.messages{
-  width:min(900px,100%);
-  margin:auto;
+.cover{
+ width:min(330px,80vw);
+ aspect-ratio:1;
+ margin:5px auto 18px;
+ border-radius:28px;
+ overflow:hidden;
+ background:
+ linear-gradient(145deg,#242424,#0e0e0e);
+ border:1px solid #303030;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ box-shadow:0 20px 50px rgba(0,0,0,.45);
 }
 
-.empty{
-  min-height:65vh;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
+.cover img{
+ width:100%;
+ height:100%;
+ object-fit:cover;
+ display:none;
 }
 
-.empty h1{
-  margin:0 0 10px;
-  font-size:42px;
-  font-weight:900;
-  background:linear-gradient(135deg,#ff9a00,#ff3d00);
-  -webkit-background-clip:text;
-  background-clip:text;
-  color:transparent;
-  letter-spacing:-1px;
+.cover .default-cover{
+ font-size:70px;
+ color:#555;
 }
 
-.empty p{
-  margin:0;
-  color:var(--muted);
-  font-size:17px;
+.song-title{
+ text-align:center;
+ font-size:21px;
+ font-weight:700;
+ margin:10px 0 4px;
 }
 
-/* ================= MESSAGE ================= */
-
-.message{
-  width:100%;
-  margin:0 0 35px;
-  animation:messageIn .16s ease;
+.song-meta{
+ text-align:center;
+ color:var(--muted);
+ font-size:13px;
 }
 
-@keyframes messageIn{
-  from{
-    opacity:0;
-    transform:translateY(6px)
-  }
-  to{
-    opacity:1;
-    transform:none
-  }
+.audio{
+ width:100%;
+ margin-top:15px;
 }
 
-.message.ai{
-  display:flex;
-  justify-content:flex-start;
-  direction:ltr;
+.music-actions{
+ display:flex;
+ justify-content:center;
+ gap:12px;
+ margin:14px 0 20px;
 }
 
-.message.user{
-  display:flex;
-  justify-content:flex-end;
-  direction:rtl;
+.circle-btn{
+ width:54px;
+ height:54px;
+ border-radius:50%;
+ background:#1a1a1a;
+ color:white;
+ border:1px solid #303030;
+ font-size:20px;
 }
 
-.messageInner{
-  max-width:90%;
+.circle-btn.main{
+ width:64px;
+ height:64px;
+ background:var(--orange);
+ color:#000;
+ font-weight:bold;
 }
 
-.message.user .messageInner{
-  max-width:86%;
+.file-picker{
+ display:block;
+ width:100%;
+ padding:15px;
+ text-align:center;
+ border-radius:17px;
+ border:1px dashed #444;
+ background:#141414;
+ color:#ddd;
+ margin-bottom:18px;
 }
 
-.messageText{
-  font-size:20px;
-  line-height:1.9;
-  overflow-wrap:anywhere;
-  white-space:pre-wrap;
+.track-list{
+ display:flex;
+ flex-direction:column;
+ gap:9px;
 }
 
-.message.ai .messageText{
-  direction:rtl;
-  text-align:right;
-  background:transparent;
+.track{
+ display:flex;
+ align-items:center;
+ gap:11px;
+ padding:10px;
+ border:1px solid #242424;
+ background:#111;
+ border-radius:16px;
 }
 
-.message.user .messageText{
-  direction:rtl;
-  text-align:right;
-  padding:12px 17px;
-  border-radius:20px;
-  background:var(--panel2);
-  border:1px solid var(--border);
+.track.active{
+ border-color:var(--orange);
 }
 
-/* ================= ACTIONS ================= */
-
-.actions{
-  display:flex;
-  gap:3px;
-  margin-top:8px;
-  align-items:center;
-  flex-wrap:wrap;
+.track-cover{
+ width:52px;
+ height:52px;
+ border-radius:12px;
+ object-fit:cover;
+ background:#222;
+ flex-shrink:0;
 }
 
-.actions button{
-  padding:6px 8px;
-  border-radius:8px;
-  background:transparent;
-  color:var(--muted);
-  font-size:12px;
+.track-info{
+ min-width:0;
+ flex:1;
 }
 
-.actions button:hover{
-  color:var(--text);
-  background:var(--panel2);
+.track-name{
+ font-size:15px;
+ white-space:nowrap;
+ overflow:hidden;
+ text-overflow:ellipsis;
 }
 
-/* ================= GENERATED IMAGE ================= */
-
-.generatedImageCard{
-  margin-top:14px;
-  max-width:100%;
-  border:1px solid var(--border);
-  border-radius:18px;
-  overflow:hidden;
-  background:var(--panel);
-  box-shadow:0 10px 35px rgba(0,0,0,.25);
+.track-duration{
+ font-size:12px;
+ color:#777;
+ margin-top:4px;
 }
 
-.generatedImage{
-  display:block;
-  width:100%;
-  max-width:720px;
-  height:auto;
-  object-fit:contain;
-  background:#090909;
+/* CALCULATOR */
+.calc{
+ padding:15px;
+ height:100%;
+ display:flex;
+ flex-direction:column;
 }
 
-.generatedImageActions{
-  display:flex;
-  gap:7px;
-  padding:9px;
-  border-top:1px solid var(--border);
+.calc-display{
+ width:100%;
+ min-height:100px;
+ border-radius:20px;
+ background:#101010;
+ border:1px solid #292929;
+ padding:20px;
+ font-size:36px;
+ text-align:left;
+ direction:ltr;
+ overflow:auto;
+ display:flex;
+ align-items:flex-end;
+ justify-content:flex-end;
+ margin-bottom:12px;
 }
 
-.generatedImageActions button{
-  flex:1;
-  min-height:42px;
-  border-radius:11px;
-  background:var(--panel2);
-  color:var(--text);
-  font-size:12px;
+.calc-grid{
+ flex:1;
+ display:grid;
+ grid-template-columns:repeat(4,1fr);
+ gap:9px;
 }
 
-.generatedImageActions button.primary{
-  color:#fff;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
+.calc-btn{
+ border-radius:17px;
+ background:#181818;
+ color:white;
+ border:1px solid #272727;
+ font-size:21px;
 }
 
-.imageGenerating{
-  margin-top:12px;
-  padding:16px;
-  border:1px solid var(--border);
-  border-radius:15px;
-  background:var(--panel);
-  color:var(--muted);
-  display:flex;
-  align-items:center;
-  gap:9px;
-  font-size:13px;
+.calc-btn.op{
+ color:var(--orange);
 }
 
-.imageGeneratingDot{
-  width:8px;
-  height:8px;
-  border-radius:50%;
-  background:var(--accent);
-  animation:imagePulse 1s infinite;
+.calc-btn.equal{
+ background:var(--orange);
+ color:#000;
 }
 
-@keyframes imagePulse{
-  0%,100%{
-    opacity:.3;
-    transform:scale(.7)
-  }
-  50%{
-    opacity:1;
-    transform:scale(1)
-  }
+/* MAP */
+.map-wrap{
+ width:100%;
+ height:100%;
+ display:flex;
+ flex-direction:column;
 }
 
-/* ================= CODE ================= */
-
-.codeBlock{
-  direction:ltr;
-  margin:16px 0;
-  overflow:hidden;
-  border:1px solid #303035;
-  border-radius:15px;
-  background:#0b0b0d;
+.map-tools{
+ padding:10px;
+ display:flex;
+ gap:8px;
+ background:#0d0d0d;
+ z-index:10;
 }
 
-.codeHeader{
-  height:43px;
-  padding:0 10px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  border-bottom:1px solid #303035;
-  color:#aaa;
-  font-size:11px;
+.map-search{
+ flex:1;
+ min-width:0;
+ padding:13px;
+ border-radius:14px;
+ border:1px solid #303030;
+ background:#171717;
+ color:white;
+ outline:none;
 }
 
-.copyCode{
-  padding:7px 11px;
-  border-radius:8px;
-  background:#252529;
-  color:#fff;
-  font-size:11px;
+.map-btn{
+ width:48px;
+ border-radius:14px;
+ background:#1a1a1a;
+ color:white;
+ border:1px solid #303030;
 }
 
-.codeContent{
-  margin:0;
-  padding:15px;
-  overflow:auto;
-  color:#eee;
-  font:14px/1.7 Consolas,Monaco,monospace;
-  white-space:pre;
+.map-btn.location{
+ color:var(--orange);
 }
 
-.inlineCode{
-  direction:ltr;
-  display:inline-block;
-  padding:1px 6px;
-  border-radius:6px;
-  background:var(--panel2);
-  font-family:monospace;
+#map{
+ flex:1;
+ min-height:0;
 }
 
-.cursor{
-  display:inline-block;
-  width:2px;
-  height:21px;
-  margin-right:4px;
-  vertical-align:-3px;
-  background:var(--accent);
-  animation:blink .7s infinite;
+.coordinates{
+ padding:10px 13px;
+ background:#101010;
+ color:#bbb;
+ font-size:12px;
+ border-top:1px solid #292929;
 }
 
-@keyframes blink{
-  0%,50%{
-    opacity:1
-  }
-  51%,100%{
-    opacity:0
-  }
+/* AI */
+.ai-tab{
+ display:flex;
+ flex-direction:column;
+ height:100%;
 }
 
-/* ================= FILE ================= */
-
-.fileCard{
-  margin-top:10px;
-  padding:9px;
-  display:flex;
-  align-items:center;
-  gap:10px;
-  border:1px solid var(--border);
-  border-radius:13px;
-  background:var(--panel);
+.ai-messages{
+ flex:1;
+ overflow:auto;
+ padding:18px 13px 12px;
 }
 
-.fileCard img{
-  width:58px;
-  height:58px;
-  object-fit:cover;
-  border-radius:9px;
+.welcome{
+ text-align:center;
+ padding:45px 15px;
 }
 
-.fileName{
-  max-width:240px;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
-  font-size:13px;
+.welcome h1{
+ color:var(--orange);
+ font-size:30px;
+ margin:0 0 10px;
 }
 
-.fileType{
-  margin-top:4px;
-  color:var(--muted);
-  font-size:10px;
+.welcome p{
+ color:#888;
+ line-height:1.8;
 }
 
-/* ================= COMPOSER ================= */
-
-.composerArea{
-  position:absolute;
-  left:0;
-  right:0;
-  bottom:0;
-  z-index:12;
-  display:flex;
-  justify-content:center;
-  padding:8px 10px 13px;
-  background:linear-gradient(to top,var(--bg) 65%,transparent);
+.msg{
+ margin:0 0 20px;
+ display:flex;
+ flex-direction:column;
 }
 
-.composer{
-  width:min(900px,100%);
-  margin:0;
-  overflow:hidden;
-  border:1px solid var(--border);
-  border-radius:23px;
-  background:var(--panel);
-  box-shadow:0 12px 50px rgba(0,0,0,.3);
+.msg.user{
+ align-items:flex-end;
 }
 
-.preview{
-  display:none;
-  align-items:center;
-  gap:10px;
-  padding:9px 12px;
-  border-bottom:1px solid var(--border);
+.msg.ai{
+ align-items:flex-start;
 }
 
-.preview.show{
-  display:flex;
+.msg-name{
+ font-size:11px;
+ color:#777;
+ margin:0 7px 5px;
 }
 
-.preview img{
-  width:46px;
-  height:46px;
-  display:none;
-  object-fit:cover;
-  border-radius:9px;
+.msg-text{
+ max-width:92%;
+ font-size:18px;
+ line-height:1.9;
+ white-space:pre-wrap;
+ word-break:break-word;
 }
 
-.previewInfo{
-  flex:1;
-  min-width:0;
+.user .msg-text{
+ background:#1b1b1b;
+ border:1px solid #292929;
+ padding:10px 14px;
+ border-radius:17px 17px 4px 17px;
 }
 
-.previewName{
-  overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
-  font-size:12px;
+.ai .msg-text{
+ padding:2px 7px;
 }
 
-.previewSize{
-  margin-top:3px;
-  color:var(--muted);
-  font-size:10px;
+.msg-actions{
+ display:flex;
+ gap:7px;
+ margin-top:7px;
 }
 
-.removeFile{
-  background:transparent;
-  color:var(--danger);
-  font-size:12px;
+.msg-action{
+ background:#171717;
+ color:#999;
+ border:1px solid #292929;
+ padding:6px 9px;
+ border-radius:9px;
+ font-size:11px;
 }
 
-.inputRow{
-  display:flex;
-  align-items:flex-end;
-  gap:5px;
-  padding:8px;
-  direction:rtl;
+.code{
+ direction:ltr;
+ text-align:left;
+ background:#050505;
+ border:1px solid #292929;
+ border-radius:13px;
+ padding:13px;
+ margin:10px 0;
+ overflow:auto;
+ position:relative;
+ font-family:monospace;
+ white-space:pre;
+ font-size:13px;
 }
 
-#attach{
-  order:1;
+.code-copy{
+ position:absolute;
+ top:7px;
+ right:7px;
+ background:#222;
+ color:#ddd;
+ border:1px solid #333;
+ padding:5px 8px;
+ border-radius:7px;
+ font-size:10px;
 }
 
-#input{
-  order:2;
+.ai-input-area{
+ padding:9px 10px 11px;
+ border-top:1px solid #252525;
+ background:#0b0b0b;
 }
 
-#send{
-  order:3;
+.ai-input-box{
+ display:flex;
+ align-items:flex-end;
+ gap:8px;
+ background:#151515;
+ border:1px solid #303030;
+ border-radius:18px;
+ padding:8px;
 }
 
-textarea{
-  flex:1;
-  min-width:0;
-  min-height:45px;
-  max-height:160px;
-  resize:none;
-  outline:0;
-  border:0;
-  background:transparent;
-  color:var(--text);
-  padding:9px 6px;
-  font-size:18px;
-  line-height:1.7;
-}
-
-textarea::placeholder{
-  color:var(--muted);
+#aiInput{
+ flex:1;
+ resize:none;
+ min-height:44px;
+ max-height:140px;
+ background:transparent;
+ border:0;
+ outline:none;
+ color:white;
+ font-size:17px;
+ line-height:1.6;
+ padding:5px 7px;
 }
 
 .send{
-  width:45px;
-  height:45px;
-  flex-shrink:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border-radius:14px;
-  color:#fff;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
+ width:46px;
+ height:46px;
+ flex-shrink:0;
+ border-radius:14px;
+ background:var(--orange);
+ color:#000;
+ font-size:20px;
+ font-weight:bold;
 }
 
-.send.stop{
-  background:#303035;
+.send:disabled{
+ opacity:.45;
 }
 
-/* ================= MENU ================= */
+.typing{
+ color:#888;
+ font-size:14px;
+ padding:5px;
+}
 
+/* SIDE MENU */
 .overlay{
-  position:fixed;
-  inset:0;
-  z-index:30;
-  background:rgba(0,0,0,.62);
-  opacity:0;
-  pointer-events:none;
-  transition:.2s;
+ position:fixed;
+ inset:0;
+ background:rgba(0,0,0,.65);
+ z-index:50;
+ display:none;
 }
 
 .overlay.show{
-  opacity:1;
-  pointer-events:auto;
+ display:block;
 }
 
-.sideMenu{
-  position:fixed;
-  top:0;
-  right:0;
-  bottom:0;
-  z-index:40;
-  width:min(350px,90vw);
-  display:flex;
-  flex-direction:column;
-  background:var(--panel);
-  border-left:1px solid var(--border);
-  transform:translateX(105%);
-  transition:transform .23s cubic-bezier(.2,.8,.2,1);
-  box-shadow:-18px 0 50px rgba(0,0,0,.35);
+.side{
+ position:fixed;
+ top:0;
+ right:0;
+ width:min(330px,88vw);
+ height:100%;
+ background:#111;
+ border-left:1px solid #303030;
+ z-index:60;
+ transform:translateX(105%);
+ transition:.25s;
+ padding:18px;
+ overflow:auto;
 }
 
-.sideMenu.show{
-  transform:translateX(0);
+.side.show{
+ transform:translateX(0);
 }
 
-.menuHeader{
-  height:70px;
-  min-height:70px;
-  padding:0 13px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  border-bottom:1px solid var(--border);
+.side-head{
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ padding-bottom:18px;
+ border-bottom:1px solid #292929;
 }
 
-.menuTitle{
-  font-size:20px;
-  font-weight:850;
+.side-title{
+ color:var(--orange);
+ font-weight:bold;
+ font-size:19px;
 }
 
-.menuBody{
-  flex:1;
-  overflow:auto;
-  padding:12px;
+.side-close{
+ background:#202020;
+ color:white;
+ width:40px;
+ height:40px;
+ border-radius:12px;
 }
 
-.newChatLarge{
-  width:100%;
-  padding:13px;
-  margin-bottom:13px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
-  border-radius:13px;
-  color:#fff;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  font-weight:750;
+.side-item{
+ width:100%;
+ padding:15px;
+ margin-top:10px;
+ text-align:right;
+ background:#171717;
+ color:white;
+ border:1px solid #292929;
+ border-radius:14px;
 }
 
-.menuSearch{
-  width:100%;
-  height:43px;
-  margin-bottom:12px;
-  padding:0 12px;
-  outline:0;
-  border:1px solid var(--border);
-  border-radius:11px;
-  background:var(--panel2);
-  color:var(--text);
+.history-title{
+ margin-top:22px;
+ color:#888;
+ font-size:12px;
 }
 
-.menuItem{
-  width:100%;
-  min-height:48px;
-  padding:11px 12px;
-  display:flex;
-  align-items:center;
-  gap:11px;
-  border-radius:11px;
-  background:transparent;
-  color:var(--text);
-  text-align:right;
+.history-item{
+ padding:12px;
+ margin-top:8px;
+ border-radius:12px;
+ background:#161616;
+ color:#ddd;
+ font-size:13px;
+ white-space:nowrap;
+ overflow:hidden;
+ text-overflow:ellipsis;
 }
 
-.menuItem:hover{
-  background:var(--panel2);
-}
-
-.menuItem svg{
-  color:var(--muted);
-}
-
-/* ================= ADVERTISEMENT ================= */
-
-#adBtn{
-  position:relative;
-}
-
-#adBtn svg{
-  color:var(--accent);
-}
-
-#adBtn:hover{
-  background:
-    linear-gradient(
-      90deg,
-      rgba(255,121,0,.10),
-      var(--panel2)
-    );
-}
-
-.menuDivider{
-  height:1px;
-  margin:12px 0;
-  background:var(--border);
-}
-
-.menuLabel{
-  padding:4px 11px 8px;
-  color:var(--muted);
-  font-size:11px;
-}
-
-.historyItem{
-  padding:10px;
-  display:flex;
-  align-items:center;
-  gap:7px;
-  border-radius:11px;
-  color:var(--muted);
-}
-
-.historyItem:hover{
-  background:var(--panel2);
-  color:var(--text);
-}
-
-.historyTitle{
-  flex:1;
-  min-width:0;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
-  font-size:12px;
-}
-
-.historyDelete{
-  background:transparent;
-  color:var(--danger);
-  font-size:10px;
-}
-
-/* ================= MODALS ================= */
-
-.modalBack{
-  position:fixed;
-  inset:0;
-  z-index:80;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  padding:14px;
-  background:rgba(0,0,0,.68);
-}
-
-.modalBack.show{
-  display:flex;
-}
-
+/* MODAL */
 .modal{
-  width:min(470px,100%);
-  max-height:90vh;
-  overflow:auto;
-  border:1px solid var(--border);
-  border-radius:23px;
-  background:var(--panel);
-  box-shadow:0 25px 80px rgba(0,0,0,.45);
+ position:fixed;
+ inset:0;
+ background:rgba(0,0,0,.72);
+ z-index:100;
+ display:none;
+ align-items:center;
+ justify-content:center;
+ padding:20px;
 }
 
-.modalHeader{
-  position:sticky;
-  top:0;
-  z-index:2;
-  padding:16px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  border-bottom:1px solid var(--border);
-  background:var(--panel);
+.modal.show{
+ display:flex;
 }
 
-.modalTitle{
-  font-size:19px;
-  font-weight:850;
+.modal-box{
+ width:min(430px,100%);
+ background:#141414;
+ border:1px solid #333;
+ border-radius:22px;
+ padding:20px;
 }
 
-.modalBody{
-  padding:10px 16px 18px;
+.modal-box h2{
+ margin-top:0;
+ color:var(--orange);
 }
 
-/* ================= SETTINGS ================= */
-
-.settingsSection{
-  margin:10px 0 7px;
-  padding:8px 4px;
-  color:var(--muted);
-  font-size:11px;
-  font-weight:700;
+.modal-text{
+ color:#aaa;
+ line-height:1.8;
+ font-size:14px;
 }
 
-.settingRow{
-  min-height:64px;
-  padding:12px 3px;
-  display:flex;
-  flex-direction:row;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  border-bottom:1px solid var(--border);
+.modal-btn{
+ width:100%;
+ padding:13px;
+ border-radius:13px;
+ margin-top:10px;
+ background:#202020;
+ color:white;
 }
 
-.settingInfo{
-  flex:1;
-  text-align:right;
+.modal-btn.primary{
+ background:var(--orange);
+ color:#000;
 }
 
-.settingInfo strong{
-  display:block;
-  font-size:14px;
+.status{
+ margin-top:10px;
+ padding:10px;
+ border-radius:10px;
+ background:#101010;
+ color:#999;
+ font-size:12px;
+ word-break:break-word;
 }
 
-.settingInfo small{
-  display:block;
-  margin-top:4px;
-  color:var(--muted);
-  font-size:10px;
-}
-
-.settingControl{
-  flex-shrink:0;
-  display:flex;
-  align-items:center;
-  justify-content:flex-start;
-}
-
-.switch{
-  width:49px;
-  height:28px;
-  position:relative;
-  border-radius:20px;
-  background:#3f3f46;
-}
-
-.switch:after{
-  content:"";
-  position:absolute;
-  top:3px;
-  right:3px;
-  width:22px;
-  height:22px;
-  border-radius:50%;
-  background:#fff;
-  transition:.2s;
-}
-
-.switch.on{
-  background:var(--accent);
-}
-
-.switch.on:after{
-  transform:translateX(-21px);
-}
-
-.choiceGroup{
-  display:flex;
-  flex-wrap:wrap;
-  gap:6px;
-}
-
-.choice{
-  min-width:62px;
-  padding:8px 10px;
-  border:1px solid var(--border);
-  border-radius:9px;
-  background:var(--panel2);
-  color:var(--text);
-  font-size:11px;
-}
-
-.choice.active{
-  background:var(--accent);
-  border-color:var(--accent);
-  color:#fff;
-}
-
-.settingAction{
-  width:100%;
-  min-height:50px;
-  padding:11px 12px;
-  display:flex;
-  flex-direction:row;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
-  border-bottom:1px solid var(--border);
-  background:transparent;
-  color:var(--text);
-  text-align:right;
-}
-
-.settingAction:last-child{
-  border-bottom:0;
-}
-
-.settingAction .actionRight{
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-
-.settingAction svg{
-  color:var(--muted);
-}
-
-.settingAction.danger{
-  color:var(--danger);
-}
-
-.settingAction.danger svg{
-  color:var(--danger);
-}
-
-.socialButtons{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:9px;
-  padding:8px 0 5px;
-}
-
-.socialBtn{
-  min-height:55px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:9px;
-  border:1px solid var(--border);
-  border-radius:14px;
-  background:var(--panel2);
-  color:var(--text);
-  font-weight:700;
-  transition:.15s;
-}
-
-.socialBtn svg{
-  width:25px;
-  height:25px;
-}
-
-.whatsappBtn svg{
-  color:#25D366;
-}
-
-.telegramBtn svg{
-  color:#229ED9;
-}
-
-.socialBtn:active{
-  transform:scale(.95);
-}
-
-/* ================= TOAST ================= */
-
-.toast{
-  position:fixed;
-  left:50%;
-  bottom:105px;
-  z-index:100;
-  padding:10px 15px;
-  border:1px solid #3b3b40;
-  border-radius:11px;
-  background:#222225;
-  color:#fff;
-  font-size:12px;
-  opacity:0;
-  pointer-events:none;
-  transform:translate(-50%,15px);
-  transition:.2s;
-}
-
-.toast.show{
-  opacity:1;
-  transform:translate(-50%,0);
-}
-
-/* ================= FONT ================= */
-
-body.font-small .messageText{
-  font-size:17px;
-}
-
-body.font-normal .messageText{
-  font-size:20px;
-}
-
-body.font-large .messageText{
-  font-size:23px;
-}
-
-body.font-small textarea{
-  font-size:16px;
-}
-
-body.font-large textarea{
-  font-size:20px;
-}
-
-/* ================= LTR ================= */
-
-html[dir="ltr"] .sideMenu{
-  right:auto;
-  left:0;
-  transform:translateX(-105%);
-  border-left:0;
-  border-right:1px solid var(--border);
-  box-shadow:18px 0 50px rgba(0,0,0,.35);
-}
-
-html[dir="ltr"] .sideMenu.show{
-  transform:translateX(0);
-}
-
-html[dir="ltr"] .messageText{
-  direction:ltr!important;
-  text-align:left!important;
-}
-
-html[dir="ltr"] .menuItem,
-html[dir="ltr"] .settingInfo,
-html[dir="ltr"] .settingAction{
-  text-align:left;
-}
-
-html[dir="ltr"] .inputRow{
-  direction:ltr;
-}
-
-html[dir="ltr"] .message.user{
-  direction:ltr;
-}
-
-html[dir="ltr"] .message.user .messageText{
-  direction:ltr;
-  text-align:left;
-}
-
-/* ================= MOBILE ================= */
-
-@media(max-width:600px){
-
-  .header{
-    height:60px;
-    min-height:60px;
-    padding:0 8px;
-  }
-
-  .newChatTop{
-    left:8px;
-  }
-
-  .menuTop{
-    right:8px;
-  }
-
-  .brandName{
-    font-size:17px;
-  }
-
-  .chat{
-    padding:22px 13px 145px;
-  }
-
-  .messageInner,
-  .message.user .messageInner{
-    max-width:95%;
-  }
-
-  .messageText{
-    font-size:19px;
-  }
-
-  .empty h1{
-    font-size:36px;
-  }
-
-  .splashTitle{
-    font-size:30px;
-  }
-
-  .modal{
-    max-height:92vh;
-    border-radius:21px;
-  }
-
-  .composerArea{
-    padding:7px 8px 10px;
-  }
-
-  .inputRow{
-    padding:7px;
-    gap:4px;
-  }
-
-  .iconBtn{
-    width:42px;
-    height:42px;
-  }
-
-  .send{
-    width:44px;
-    height:44px;
-  }
-
-  textarea{
-    font-size:17px;
-  }
-
-  .generatedImageActions{
-    flex-direction:column;
-  }
+@media(max-width:380px){
+ .msg-text{font-size:16px}
+ .calc-display{font-size:30px}
 }
 </style>
 </head>
 
 <body>
 
-<!-- ================= SPLASH ================= -->
-
-<div class="foxSplash" id="foxSplash">
-
-  <div class="splashGlow"></div>
-
-  <div class="foxLogoWrap">
-
-    <svg class="foxLogo" viewBox="0 0 200 180">
-
-      <defs>
-        <linearGradient
-          id="foxGradient"
-          x1="0%"
-          y1="0%"
-          x2="100%"
-          y2="100%"
-        >
-          <stop offset="0%" stop-color="#ff9a00"/>
-          <stop offset="55%" stop-color="#ff6500"/>
-          <stop offset="100%" stop-color="#ff2800"/>
-        </linearGradient>
-      </defs>
-
-      <path
-        d="M38 38L68 53L100 43L132 53L162 38L158 88C155 125 133 151 100 158C67 151 45 125 42 88Z"
-        fill="url(#foxGradient)"
-      />
-
-      <path
-        d="M38 38L68 53L53 80Z"
-        fill="#ffb000"
-      />
-
-      <path
-        d="M162 38L132 53L147 80Z"
-        fill="#ff8a00"
-      />
-
-      <path
-        d="M68 86C76 78 86 78 94 86"
-        fill="none"
-        stroke="#171717"
-        stroke-width="7"
-        stroke-linecap="round"
-      />
-
-      <path
-        d="M106 86C114 78 124 78 132 86"
-        fill="none"
-        stroke="#171717"
-        stroke-width="7"
-        stroke-linecap="round"
-      />
-
-      <path
-        d="M91 108L100 102L109 108L100 118Z"
-        fill="#171717"
-      />
-
-      <path
-        d="M82 124C91 131 109 131 118 124"
-        fill="none"
-        stroke="#171717"
-        stroke-width="5"
-        stroke-linecap="round"
-      />
-
-    </svg>
-
-  </div>
-
-  <div class="splashTitle">
-    FOX AI
-  </div>
-
-  <div class="splashLine"></div>
-
-</div>
-
-
-<!-- ================= APP ================= -->
-
 <div class="app">
 
-  <!-- HEADER -->
+<header>
+ <button class="header-btn" onclick="newChat()">+</button>
+ <div class="logo">FOX AI</div>
+ <button class="header-btn" onclick="openMenu()">☰</button>
+</header>
 
-  <header class="header">
+<div class="content">
 
-    <button
-      class="iconBtn newChatTop"
-      id="newChat"
-      aria-label="New chat"
-      title="New chat"
-    >
-      <svg viewBox="0 0 24 24">
-        <path d="M12 5v14M5 12h14"/>
-      </svg>
-    </button>
+<!-- MUSIC -->
+<section id="musicTab" class="tab active">
+ <div class="music-wrap">
 
-    <div class="brandName">
-      Fox AI
-    </div>
-
-    <button
-      class="iconBtn menuTop"
-      id="menuBtn"
-      aria-label="Menu"
-      title="Menu"
-    >
-      <svg viewBox="0 0 24 24">
-        <path d="M4 6h16"/>
-        <path d="M4 12h16"/>
-        <path d="M4 18h16"/>
-      </svg>
-    </button>
-
-  </header>
-
-
-  <!-- CHAT -->
-
-  <main class="chat" id="chat">
-
-    <div class="messages" id="messages">
-
-      <div class="empty" id="empty">
-
-        <h1>
-          Fox AI
-        </h1>
-
-        <p id="welcome">
-          چه کاری می‌توانم برایت انجام دهم؟
-        </p>
-
-      </div>
-
-    </div>
-
-  </main>
-
-
-  <!-- COMPOSER -->
-
-  <div class="composerArea">
-
-    <div class="composer">
-
-      <div class="preview" id="preview">
-
-        <img id="previewImage">
-
-        <div class="previewInfo">
-
-          <div
-            class="previewName"
-            id="previewName"
-          ></div>
-
-          <div
-            class="previewSize"
-            id="previewSize"
-          ></div>
-
-        </div>
-
-        <button
-          class="removeFile"
-          id="removeFile"
-        >
-          حذف
-        </button>
-
-      </div>
-
-      <div class="inputRow">
-
-        <button
-          class="iconBtn"
-          id="attach"
-          aria-label="Attach file"
-        >
-          <svg viewBox="0 0 24 24">
-            <path
-              d="M21.4 11.6l-8.9 8.9a6 6 0 01-8.5-8.5l9.2-9.2a4 4 0 015.7 5.7L9.7 17.7a2 2 0 01-2.8-2.8l8.5-8.5"
-            />
-          </svg>
-        </button>
-
-        <input
-          type="file"
-          id="file"
-          hidden
-          accept="image/*,.txt,.js,.html,.css,.json,.md,.csv"
-        >
-
-        <textarea
-          id="input"
-          rows="1"
-          placeholder="پیامت را بنویس..."
-        ></textarea>
-
-        <button
-          class="send"
-          id="send"
-          aria-label="Send"
-        >
-          <svg viewBox="0 0 24 24">
-            <path d="M22 2L11 13"/>
-            <path d="M22 2l-7 20-9-4z"/>
-          </svg>
-        </button>
-
-      </div>
-
-    </div>
-
+  <div class="cover">
+   <img id="mainCover">
+   <div id="defaultCover" class="default-cover">♪</div>
   </div>
+
+  <div id="songTitle" class="song-title">هنوز آهنگی انتخاب نشده</div>
+  <div id="songMeta" class="song-meta">آهنگ‌های گوشی خود را اضافه کنید</div>
+
+  <audio id="audio" class="audio" controls></audio>
+
+  <div class="music-actions">
+   <button class="circle-btn" onclick="previousTrack()">‹</button>
+   <button class="circle-btn main" onclick="togglePlay()" id="playBtn">▶</button>
+   <button class="circle-btn" onclick="nextTrack()">›</button>
+  </div>
+
+  <label class="file-picker">
+   انتخاب آهنگ از گوشی
+   <input id="musicInput" type="file" accept="audio/*" multiple hidden>
+  </label>
+
+  <div id="trackList" class="track-list"></div>
+
+ </div>
+</section>
+
+<!-- CALCULATOR -->
+<section id="calcTab" class="tab">
+ <div class="calc">
+
+  <div id="calcDisplay" class="calc-display">0</div>
+
+  <div class="calc-grid">
+   <button class="calc-btn op" onclick="clearCalc()">AC</button>
+   <button class="calc-btn op" onclick="backCalc()">⌫</button>
+   <button class="calc-btn op" onclick="calcInput('%')">%</button>
+   <button class="calc-btn op" onclick="calcInput('/')">÷</button>
+
+   <button class="calc-btn" onclick="calcInput('7')">7</button>
+   <button class="calc-btn" onclick="calcInput('8')">8</button>
+   <button class="calc-btn" onclick="calcInput('9')">9</button>
+   <button class="calc-btn op" onclick="calcInput('*')">×</button>
+
+   <button class="calc-btn" onclick="calcInput('4')">4</button>
+   <button class="calc-btn" onclick="calcInput('5')">5</button>
+   <button class="calc-btn" onclick="calcInput('6')">6</button>
+   <button class="calc-btn op" onclick="calcInput('-')">−</button>
+
+   <button class="calc-btn" onclick="calcInput('1')">1</button>
+   <button class="calc-btn" onclick="calcInput('2')">2</button>
+   <button class="calc-btn" onclick="calcInput('3')">3</button>
+   <button class="calc-btn op" onclick="calcInput('+')">+</button>
+
+   <button class="calc-btn" onclick="calcInput('0')">0</button>
+   <button class="calc-btn" onclick="calcInput('.')">.</button>
+   <button class="calc-btn equal" style="grid-column:span 2" onclick="calculate()">=</button>
+  </div>
+
+ </div>
+</section>
+
+<!-- MAP -->
+<section id="mapTab" class="tab">
+ <div class="map-wrap">
+
+  <div class="map-tools">
+   <input id="mapSearch"
+          class="map-search"
+          placeholder="جستجوی مکان...">
+   <button class="map-btn" onclick="searchMap()">جستجو</button>
+   <button class="map-btn location" onclick="myLocation()">●</button>
+  </div>
+
+  <div id="map"></div>
+
+  <div id="coordinates" class="coordinates">
+   مختصات: انتخاب نشده
+  </div>
+
+ </div>
+</section>
+
+<!-- AI -->
+<section id="aiTab" class="tab ai-tab">
+
+ <div id="aiMessages" class="ai-messages">
+
+  <div class="welcome" id="welcome">
+   <h1>FOX AI</h1>
+   <p>
+    آماده پاسخ‌گویی با Gemini
+   </p>
+  </div>
+
+ </div>
+
+ <div class="ai-input-area">
+  <div class="ai-input-box">
+   <textarea id="aiInput"
+             placeholder="پیام خود را بنویسید..."
+             rows="1"></textarea>
+
+   <button id="sendBtn"
+           class="send"
+           onclick="sendAI()">↑</button>
+  </div>
+ </div>
+
+</section>
 
 </div>
 
+<nav class="bottom-nav">
 
-<!-- ================= MENU ================= -->
+ <button class="nav-btn active" onclick="showTab('music',this)">
+  <span class="nav-icon">♫</span>
+  <span>موزیک</span>
+ </button>
 
-<div
-  class="overlay"
-  id="overlay"
-></div>
+ <button class="nav-btn" onclick="showTab('calc',this)">
+  <span class="nav-icon">＋</span>
+  <span>ماشین‌حساب</span>
+ </button>
 
-<aside
-  class="sideMenu"
-  id="menu"
->
+ <button class="nav-btn" onclick="showTab('map',this)">
+  <span class="nav-icon">⌖</span>
+  <span>نقشه</span>
+ </button>
 
-  <div class="menuHeader">
+ <button class="nav-btn" onclick="showTab('ai',this)">
+  <span class="nav-icon">AI</span>
+  <span>هوش مصنوعی</span>
+ </button>
 
-    <div class="menuTitle">
-      Fox AI
-    </div>
+</nav>
 
-    <button
-      class="iconBtn"
-      id="closeMenu"
-      aria-label="Close"
-    >
-      <svg viewBox="0 0 24 24">
-        <path d="M6 6l12 12"/>
-        <path d="M18 6L6 18"/>
-      </svg>
-    </button>
+</div>
 
-  </div>
+<div id="overlay" class="overlay" onclick="closeMenu()"></div>
 
+<aside id="side" class="side">
 
-  <div class="menuBody">
+ <div class="side-head">
+  <div class="side-title">FOX AI</div>
+  <button class="side-close" onclick="closeMenu()">×</button>
+ </div>
 
-    <button
-      class="newChatLarge"
-      id="newChatMenu"
-    >
+ <button class="side-item" onclick="newChat();closeMenu()">
+  گفتگوی جدید
+ </button>
 
-      <svg viewBox="0 0 24 24">
-        <path d="M12 5v14"/>
-        <path d="M5 12h14"/>
-      </svg>
+ <button class="side-item" onclick="testGemini()">
+  تست اتصال Gemini
+ </button>
 
-      <span data-i18n="newChat">
-        چت جدید
-      </span>
+ <button class="side-item" onclick="clearHistory()">
+  پاک کردن سابقه چت
+ </button>
 
-    </button>
+ <button class="side-item" onclick="showAbout()">
+  درباره برنامه
+ </button>
 
+ <div class="history-title">سابقه گفتگو</div>
 
-    <input
-      class="menuSearch"
-      id="historySearch"
-      placeholder="جستجوی چت‌ها..."
-    >
-
-
-    <button
-      class="menuItem"
-      id="settingsBtn"
-    >
-
-      <svg viewBox="0 0 24 24">
-
-        <circle
-          cx="12"
-          cy="12"
-          r="3"
-        />
-
-        <path
-          d="M19 13a7 7 0 000-2l2-1-2-3-2 1a8 8 0 00-2-1l-.3-2h-4l-.3 2a8 8 0 00-2 1l-2-1-2 3 2 1a7 7 0 000 2l-2 1 2 3 2-1a8 8 0 002 1l.3 2h4l.3-2a8 8 0 002-1l2 1 2-3z"
-        />
-
-      </svg>
-
-      <span data-i18n="settings">
-        تنظیمات
-      </span>
-
-    </button>
-
-
-    <button
-      class="menuItem"
-      id="aboutBtn"
-    >
-
-      <svg viewBox="0 0 24 24">
-
-        <circle
-          cx="12"
-          cy="12"
-          r="9"
-        />
-
-        <path d="M12 11v5"/>
-        <path d="M12 8h.01"/>
-
-      </svg>
-
-      <span data-i18n="about">
-        درباره Fox AI
-      </span>
-
-    </button>
-
-
-    <!-- ================= تبلیغات ================= -->
-
-    <button
-      class="menuItem"
-      id="adBtn"
-      type="button"
-    >
-
-      <svg viewBox="0 0 24 24">
-
-        <path d="M4 11v2"/>
-        <path d="M7 9v6"/>
-        <path d="M10 7v10"/>
-        <path d="M14 5v14"/>
-        <path d="M18 8v8"/>
-        <path d="M21 10v4"/>
-
-      </svg>
-
-      <span data-i18n="ad">
-        تبلیغات
-      </span>
-
-    </button>
-
-
-    <div class="menuDivider"></div>
-
-
-    <div
-      class="menuLabel"
-      data-i18n="history"
-    >
-      سابقه گفتگو
-    </div>
-
-
-    <div id="history"></div>
-
-
-    <div class="menuDivider"></div>
-
-
-    <button
-      class="menuItem"
-      id="deleteAll"
-    >
-
-      <svg viewBox="0 0 24 24">
-
-        <path d="M4 7h16"/>
-        <path d="M10 11v6"/>
-        <path d="M14 11v6"/>
-        <path d="M6 7l1 14h10l1-14"/>
-        <path d="M9 7V4h6v3"/>
-
-      </svg>
-
-      <span data-i18n="deleteAll">
-        پاک کردن همه چت‌ها
-      </span>
-
-    </button>
-
-  </div>
+ <div id="historyList"></div>
 
 </aside>
 
-
-<!-- ================= SETTINGS ================= -->
-
-<div
-  class="modalBack"
-  id="settingsModal"
->
-
-  <div class="modal">
-
-    <div class="modalHeader">
-
-      <div
-        class="modalTitle"
-        data-i18n="settings"
-      >
-        تنظیمات
-      </div>
-
-      <button
-        class="iconBtn"
-        id="closeSettings"
-        aria-label="Close"
-      >
-        <svg viewBox="0 0 24 24">
-          <path d="M6 6l12 12"/>
-          <path d="M18 6L6 18"/>
-        </svg>
-      </button>
-
-    </div>
-
-
-    <div class="modalBody">
-
-      <div
-        class="settingsSection"
-        data-i18n="appearance"
-      >
-        ظاهر برنامه
-      </div>
-
-
-      <div class="settingRow">
-
-        <div class="settingInfo">
-
-          <strong data-i18n="lightMode">
-            حالت روشن
-          </strong>
-
-          <small data-i18n="lightModeDesc">
-            تغییر ظاهر Fox AI
-          </small>
-
-        </div>
-
-        <div class="settingControl">
-
-          <button
-            class="switch"
-            id="themeSwitch"
-          ></button>
-
-        </div>
-
-      </div>
-
-
-      <div class="settingRow">
-
-        <div class="settingInfo">
-
-          <strong data-i18n="fontSize">
-            اندازه متن
-          </strong>
-
-          <small data-i18n="fontSizeDesc">
-            اندازه نوشته‌های گفتگو
-          </small>
-
-        </div>
-
-        <div class="settingControl">
-
-          <div class="choiceGroup">
-
-            <button
-              class="choice"
-              data-font="small"
-              data-i18n="small"
-            >
-              کوچک
-            </button>
-
-            <button
-              class="choice active"
-              data-font="normal"
-              data-i18n="medium"
-            >
-              متوسط
-            </button>
-
-            <button
-              class="choice"
-              data-font="large"
-              data-i18n="large"
-            >
-              بزرگ
-            </button>
-
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <div class="settingRow">
-
-        <div class="settingInfo">
-
-          <strong data-i18n="language">
-            زبان
-          </strong>
-
-          <small data-i18n="languageDesc">
-            زبان رابط برنامه
-          </small>
-
-        </div>
-
-        <div class="settingControl">
-
-          <div class="choiceGroup">
-
-            <button
-              class="choice active"
-              id="faBtn"
-            >
-              فارسی
-            </button>
-
-            <button
-              class="choice"
-              id="enBtn"
-            >
-              English
-            </button>
-
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <div
-        class="settingsSection"
-        data-i18n="chatSettings"
-      >
-        گفتگو
-      </div>
-
-
-      <div class="settingRow">
-
-        <div class="settingInfo">
-
-          <strong data-i18n="enterSend">
-            ارسال با Enter
-          </strong>
-
-          <small data-i18n="enterSendDesc">
-            با Enter پیام ارسال شود
-          </small>
-
-        </div>
-
-        <div class="settingControl">
-
-          <button
-            class="switch on"
-            id="enterSwitch"
-          ></button>
-
-        </div>
-
-      </div>
-
-
-      <div class="settingRow">
-
-        <div class="settingInfo">
-
-          <strong data-i18n="autoScroll">
-            اسکرول خودکار
-          </strong>
-
-          <small data-i18n="autoScrollDesc">
-            هنگام پاسخ، صفحه پایین بماند
-          </small>
-
-        </div>
-
-        <div class="settingControl">
-
-          <button
-            class="switch on"
-            id="scrollSwitch"
-          ></button>
-
-        </div>
-
-      </div>
-
-
-      <div class="settingRow">
-
-        <div class="settingInfo">
-
-          <strong data-i18n="showTime">
-            نمایش زمان پیام
-          </strong>
-
-          <small data-i18n="showTimeDesc">
-            زمان ارسال پیام‌ها نمایش داده شود
-          </small>
-
-        </div>
-
-        <div class="settingControl">
-
-          <button
-            class="switch"
-            id="timeSwitch"
-          ></button>
-
-        </div>
-
-      </div>
-
-
-      <div
-        class="settingsSection"
-        data-i18n="chatManagement"
-      >
-        مدیریت گفتگوها
-      </div>
-
-
-      <button
-        class="settingAction"
-        id="exportChats"
-      >
-
-        <div class="actionRight">
-
-          <svg viewBox="0 0 24 24">
-            <path d="M12 3v12"/>
-            <path d="M7 10l5 5 5-5"/>
-            <path d="M4 20h16"/>
-          </svg>
-
-          <span data-i18n="exportChats">
-            خروجی گرفتن از چت‌ها
-          </span>
-
-        </div>
-
-        <svg viewBox="0 0 24 24">
-          <path d="M9 18l6-6-6-6"/>
-        </svg>
-
-      </button>
-
-
-      <button
-        class="settingAction"
-        id="importChats"
-      >
-
-        <div class="actionRight">
-
-          <svg viewBox="0 0 24 24">
-            <path d="M12 21V9"/>
-            <path d="M7 14l5-5 5 5"/>
-            <path d="M4 4h16"/>
-          </svg>
-
-          <span data-i18n="importChats">
-            وارد کردن چت‌ها
-          </span>
-
-        </div>
-
-        <svg viewBox="0 0 24 24">
-          <path d="M9 18l6-6-6-6"/>
-        </svg>
-
-      </button>
-
-
-      <input
-        type="file"
-        id="importFile"
-        hidden
-        accept=".json,application/json"
-      >
-
-
-      <button
-        class="settingAction"
-        id="clearCurrent"
-      >
-
-        <div class="actionRight">
-
-          <svg viewBox="0 0 24 24">
-            <path d="M5 5l14 14"/>
-            <path d="M19 5L5 19"/>
-          </svg>
-
-          <span data-i18n="clearCurrent">
-            پاک کردن چت فعلی
-          </span>
-
-        </div>
-
-        <svg viewBox="0 0 24 24">
-          <path d="M9 18l6-6-6-6"/>
-        </svg>
-
-      </button>
-
-
-      <div
-        class="settingsSection"
-        data-i18n="sharingSupport"
-      >
-        اشتراک‌گذاری و پشتیبانی
-      </div>
-
-
-      <button
-        class="settingAction"
-        id="shareApp"
-      >
-
-        <div class="actionRight">
-
-          <svg viewBox="0 0 24 24">
-
-            <circle
-              cx="18"
-              cy="5"
-              r="2"
-            />
-
-            <circle
-              cx="6"
-              cy="12"
-              r="2"
-            />
-
-            <circle
-              cx="18"
-              cy="19"
-              r="2"
-            />
-
-            <path d="M8 11l8-5"/>
-            <path d="M8 13l8 5"/>
-
-          </svg>
-
-          <span data-i18n="shareFox">
-            اشتراک‌گذاری Fox AI
-          </span>
-
-        </div>
-
-        <svg viewBox="0 0 24 24">
-          <path d="M9 18l6-6-6-6"/>
-        </svg>
-
-      </button>
-
-
-      <div class="socialButtons">
-
-        <button
-          class="socialBtn whatsappBtn"
-          id="whatsapp"
-        >
-
-          <svg viewBox="0 0 24 24">
-
-            <path
-              d="M20 11.5a8 8 0 0 1-11.8 7L4 20l1.5-4.1A8 8 0 1 1 20 11.5Z"
-            />
-
-            <path
-              d="M8.5 8.5c.3-.4.7-.4 1-.1l1 1c.3.3.3.7.1 1l-.5.6c.8 1.2 1.8 2.2 3 3l.6-.5c.3-.2.7-.2 1 .1l1 1c.3.3.3.7-.1 1-1 .9-2.4.7-4.1-.4-1.6-1-3-2.4-4-4-1.1-1.7-1.3-3.1-.4-4.1Z"
-            />
-
-          </svg>
-
-          <span>
-            WhatsApp
-          </span>
-
-        </button>
-
-
-        <button
-          class="socialBtn telegramBtn"
-          id="telegram"
-        >
-
-          <svg viewBox="0 0 24 24">
-
-            <path
-              d="M21 3L3.5 10.2c-.7.3-.7 1.3 0 1.5l4.5 1.5 1.7 5.4c.2.7 1.1.8 1.5.3l2.5-3.1 4.5 3.3c.6.4 1.4.1 1.6-.6L21.9 4c.2-.7-.3-1.3-.9-1Z"
-            />
-
-            <path d="M8 13.2l9.4-7.1"/>
-
-          </svg>
-
-          <span>
-            Telegram
-          </span>
-
-        </button>
-
-      </div>
-
-
-      <button
-        class="settingAction danger"
-        id="resetSettings"
-      >
-
-        <div class="actionRight">
-
-          <svg viewBox="0 0 24 24">
-
-            <path d="M4 4v6h6"/>
-            <path d="M5 15a8 8 0 1 0 1-8L4 10"/>
-
-          </svg>
-
-          <span data-i18n="resetSettings">
-            بازنشانی تنظیمات
-          </span>
-
-        </div>
-
-        <svg viewBox="0 0 24 24">
-          <path d="M9 18l6-6-6-6"/>
-        </svg>
-
-      </button>
-
-
-      <div class="settingRow">
-
-        <div class="settingInfo">
-
-          <strong data-i18n="aboutApp">
-            درباره برنامه
-          </strong>
-
-          <small>
-            FOX AI V12 -- Image Generation
-          </small>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-
+<div id="modal" class="modal" onclick="closeModal(event)">
+ <div class="modal-box">
+  <h2 id="modalTitle">FOX AI</h2>
+  <div id="modalText" class="modal-text"></div>
+  <div id="modalStatus" class="status"></div>
+  <button class="modal-btn primary" onclick="hideModal()">بستن</button>
+ </div>
 </div>
 
-
-<!-- ================= ABOUT ================= -->
-
-<div
-  class="modalBack"
-  id="aboutModal"
->
-
-  <div class="modal">
-
-    <div class="modalHeader">
-
-      <div
-        class="modalTitle"
-        data-i18n="aboutFox"
-      >
-        درباره Fox AI
-      </div>
-
-      <button
-        class="iconBtn"
-        id="closeAbout"
-        aria-label="Close"
-      >
-
-        <svg viewBox="0 0 24 24">
-          <path d="M6 6l12 12"/>
-          <path d="M18 6L6 18"/>
-        </svg>
-
-      </button>
-
-    </div>
-
-
-    <div class="modalBody">
-
-      <p
-        id="aboutText"
-        data-i18n="aboutText"
-        style="font-size:16px;line-height:2"
-      >
-        Fox AI یک دستیار هوش مصنوعی حرفه‌ای
-        برای گفتگو، برنامه‌نویسی، تحلیل متن،
-        تصویر، فایل و ساخت تصویر است.
-      </p>
-
-      <p
-        data-i18n="version"
-        style="color:var(--muted);font-size:12px"
-      >
-        FOX AI V12
-      </p>
-
-    </div>
-
-  </div>
-
-</div>
-
-
-<div
-  class="toast"
-  id="toast"
-></div>
-
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
 
-/* =========================================================
-   API
-========================================================= */
+/* =====================================================
+   GEMINI
+   فقط کلید خودت را اینجا قرار بده
+   ===================================================== */
 
-const API_KEY="cohere_zgBaNilgd86ZHtiEpKTVQjaqgelXzpjJnMcrNUIL4RElo7";
+const GEMINI_API_KEY = "AQ.Ab8RN6IsGtbb-7VNXMlcvAIdTtV2gq3WmAaiBVuc6Wa4bUFmkg";
 
-const API_URL=
-  "https://api.mistral.ai/v1/chat/completions";
+/*
+  نام مدل را مطابق مدل موجود در Google AI Studio قرار بده.
+  مقدار پیش‌فرض فعلی:
+*/
+const GEMINI_MODEL = "gemini-3.6-flash";
 
-const TEXT_MODEL=
-  "mistral-small-latest";
+const GEMINI_URL =
+ "https://generativelanguage.googleapis.com/v1beta/models/"
+ + GEMINI_MODEL
+ + ":generateContent";
 
-const VISION_MODEL=
-  "mistral-small-2506";
 
+/* =====================================================
+   TAB SYSTEM
+   ===================================================== */
 
-/* =========================================================
-   SHARE
-========================================================= */
+function showTab(name,btn){
 
-const SHARE_FOOTER_FA=
-"\n\nبا ما باشید روباه\nhttps://gamengrahman8-dot.github.io/fox-aiii/";
+ document.querySelectorAll(".tab")
+   .forEach(x=>x.classList.remove("active"));
 
-const SHARE_FOOTER_EN=
-"\n\nPowered by FOX AI\nhttps://gamengrahman8-dot.github.io/fox-aiii/";
+ document.querySelectorAll(".nav-btn")
+   .forEach(x=>x.classList.remove("active"));
 
+ document.getElementById(name+"Tab")
+   .classList.add("active");
 
-/* =========================================================
-   STATE
-========================================================= */
+ if(btn) btn.classList.add("active");
 
-let chats=[];
-let currentId=null;
-let attached=null;
-let controller=null;
-let generating=false;
-let language="fa";
-let userIsNearBottom=true;
-
-
-/* =========================================================
-   SETTINGS
-========================================================= */
-
-let settings={
-
-  enter:true,
-  scroll:true,
-  time:false,
-  font:"normal"
-
-};
-
-
-/* =========================================================
-   ELEMENTS
-========================================================= */
-
-const chat=
-  document.getElementById("chat");
-
-const messages=
-  document.getElementById("messages");
-
-const empty=
-  document.getElementById("empty");
-
-const input=
-  document.getElementById("input");
-
-const send=
-  document.getElementById("send");
-
-const toast=
-  document.getElementById("toast");
-
-const menu=
-  document.getElementById("menu");
-
-const overlay=
-  document.getElementById("overlay");
-
-
-/* =========================================================
-   TRANSLATIONS
-========================================================= */
-
-const T={
-
-fa:{
-
-  welcome:"چه کاری می‌توانم برایت انجام دهم؟",
-
-  placeholder:"پیامت را بنویس...",
-
-  newChat:"چت جدید",
-
-  settings:"تنظیمات",
-
-  about:"درباره Fox AI",
-
-  aboutFox:"درباره Fox AI",
-
-  history:"سابقه گفتگو",
-
-  deleteAll:"پاک کردن همه چت‌ها",
-
-  searchChats:"جستجوی چت‌ها...",
-
-  noChats:"چتی پیدا نشد",
-
-  delete:"حذف",
-
-  copy:"کپی",
-
-  copied:"کپی شد",
-
-  share:"اشتراک‌گذاری",
-
-  code:"کد",
-
-  copyCode:"کپی کد",
-
-  codeCopied:"کد کپی شد",
-
-  remove:"حذف",
-
-  stopped:"پاسخ متوقف شد",
-
-  apiKey:"کلید API را داخل کد قرار بده",
-
-  invalidKey:"API Key نامعتبر است",
-
-  forbidden:"دسترسی API رد شد",
-
-  rateLimit:"محدودیت درخواست فعال است",
-
-  apiError:"خطا در اتصال به API",
-
-  fileSize:"حجم فایل نباید بیشتر از 10MB باشد",
-
-  fileSent:"فایل ارسال شد.",
-
-  imageAnalyze:"این تصویر را دقیق تحلیل کن.",
-
-  emptyFile:"فایل ارسال شده:",
-
-  copiedText:"متن کپی شد",
-
-  deleteConfirm:"همه گفتگوها حذف شوند؟",
-
-  appearance:"ظاهر برنامه",
-
-  lightMode:"حالت روشن",
-
-  lightModeDesc:"تغییر ظاهر Fox AI",
-
-  fontSize:"اندازه متن",
-
-  fontSizeDesc:"اندازه نوشته‌های گفتگو",
-
-  small:"کوچک",
-
-  medium:"متوسط",
-
-  large:"بزرگ",
-
-  language:"زبان",
-
-  languageDesc:"زبان رابط برنامه",
-
-  chatSettings:"گفتگو",
-
-  enterSend:"ارسال با Enter",
-
-  enterSendDesc:"با Enter پیام ارسال شود",
-
-  autoScroll:"اسکرول خودکار",
-
-  autoScrollDesc:"هنگام پاسخ، صفحه پایین بماند",
-
-  showTime:"نمایش زمان پیام",
-
-  showTimeDesc:"زمان ارسال پیام‌ها نمایش داده شود",
-
-  chatManagement:"مدیریت گفتگوها",
-
-  exportChats:"خروجی گرفتن از چت‌ها",
-
-  importChats:"وارد کردن چت‌ها",
-
-  clearCurrent:"پاک کردن چت فعلی",
-
-  sharingSupport:"اشتراک‌گذاری و پشتیبانی",
-
-  shareFox:"اشتراک‌گذاری Fox AI",
-
-  resetSettings:"بازنشانی تنظیمات",
-
-  aboutApp:"درباره برنامه",
-
-  aboutText:
-  "Fox AI یک دستیار هوش مصنوعی حرفه‌ای برای گفتگو، برنامه‌نویسی، تحلیل متن، تصویر، فایل و ساخت تصویر است.",
-
-  version:"FOX AI V12",
-
-  chatsImported:"چت‌ها وارد شدند",
-
-  invalidFile:"فایل نامعتبر است",
-
-  currentCleared:"چت فعلی پاک شد",
-
-  settingsReset:"تنظیمات بازنشانی شد",
-
-  generateImage:"ساخت تصویر",
-
-  imageGenerating:"در حال ساخت تصویر...",
-
-  downloadImage:"ذخیره تصویر",
-
-  openImage:"باز کردن تصویر",
-
-  imageGenerated:"تصویر ساخته شد",
-
-  imageGenerationError:"خطا در ساخت تصویر",
-
-  ad:"تبلیغات"
-
-},
-
-en:{
-
-  welcome:"How can I help you?",
-
-  placeholder:"Write a message...",
-
-  newChat:"New chat",
-
-  settings:"Settings",
-
-  about:"About Fox AI",
-
-  aboutFox:"About Fox AI",
-
-  history:"Chat history",
-
-  deleteAll:"Delete all chats",
-
-  searchChats:"Search chats...",
-
-  noChats:"No chats found",
-
-  delete:"Delete",
-
-  copy:"Copy",
-
-  copied:"Copied",
-
-  share:"Share",
-
-  code:"Code",
-
-  copyCode:"Copy code",
-
-  codeCopied:"Code copied",
-
-  remove:"Remove",
-
-  stopped:"Response stopped",
-
-  apiKey:"Add your API key to the code",
-
-  invalidKey:"Invalid API Key",
-
-  forbidden:"API access was denied",
-
-  rateLimit:"Rate limit reached",
-
-  apiError:"API connection error",
-
-  fileSize:"File size must be less than 10MB",
-
-  fileSent:"File sent.",
-
-  imageAnalyze:"Analyze this image carefully.",
-
-  emptyFile:"File sent:",
-
-  copiedText:"Text copied",
-
-  deleteConfirm:"Delete all chats?",
-
-  appearance:"Appearance",
-
-  lightMode:"Light mode",
-
-  lightModeDesc:"Change the Fox AI appearance",
-
-  fontSize:"Text size",
-
-  fontSizeDesc:"Change the chat text size",
-
-  small:"Small",
-
-  medium:"Medium",
-
-  large:"Large",
-
-  language:"Language",
-
-  languageDesc:"Application interface language",
-
-  chatSettings:"Chat",
-
-  enterSend:"Send with Enter",
-
-  enterSendDesc:"Send messages by pressing Enter",
-
-  autoScroll:"Auto scroll",
-
-  autoScrollDesc:"Keep the page at the bottom while responding",
-
-  showTime:"Show message time",
-
-  showTimeDesc:"Display the time messages were sent",
-
-  chatManagement:"Chat management",
-
-  exportChats:"Export chats",
-
-  importChats:"Import chats",
-
-  clearCurrent:"Clear current chat",
-
-  sharingSupport:"Sharing & Support",
-
-  shareFox:"Share Fox AI",
-
-  resetSettings:"Reset settings",
-
-  aboutApp:"About the app",
-
-  aboutText:
-  "Fox AI is a professional AI assistant for chatting, programming, text analysis, images, files and image generation.",
-
-  version:"FOX AI V12",
-
-  chatsImported:"Chats imported",
-
-  invalidFile:"Invalid file",
-
-  currentCleared:"Current chat cleared",
-
-  settingsReset:"Settings reset",
-
-  generateImage:"Generate image",
-
-  imageGenerating:"Generating image...",
-
-  downloadImage:"Save image",
-
-  openImage:"Open image",
-
-  imageGenerated:"Image generated",
-
-  imageGenerationError:"Image generation failed",
-
-  ad:"Advertisement"
-
-}
-
-};
-
-
-/* =========================================================
-   TRANSLATION
-========================================================= */
-
-function tr(key){
-
-  return T[language]?.[key] ||
-         T.fa[key] ||
-         key;
-
+ if(name==="map"){
+   setTimeout(()=>{
+     if(window.map) map.invalidateSize();
+   },100);
+ }
 }
 
 
-/* =========================================================
-   STORAGE
-========================================================= */
+/* =====================================================
+   MUSIC PLAYER
+   ===================================================== */
 
-function save(){
+const musicInput =
+ document.getElementById("musicInput");
+
+const audio =
+ document.getElementById("audio");
+
+const trackList =
+ document.getElementById("trackList");
+
+const mainCover =
+ document.getElementById("mainCover");
+
+const defaultCover =
+ document.getElementById("defaultCover");
+
+const songTitle =
+ document.getElementById("songTitle");
+
+const songMeta =
+ document.getElementById("songMeta");
+
+let tracks=[];
+let currentTrack=0;
+
+musicInput.addEventListener("change",async e=>{
+
+ const files=[...e.target.files];
+
+ for(const file of files){
+
+  let cover=null;
 
   try{
+   cover=await extractMP3Cover(file);
+  }catch(err){}
 
-    localStorage.setItem(
-      "fox_ai_v10",
-      JSON.stringify(chats)
-    );
+  tracks.push({
+   file:file,
+   name:file.name.replace(/\.[^/.]+$/,""),
+   cover:cover,
+   url:URL.createObjectURL(file)
+  });
+ }
 
-    localStorage.setItem(
-      "fox_settings",
-      JSON.stringify(settings)
-    );
+ renderTracks();
 
-  }catch(e){}
-
-}
+ if(tracks.length && !audio.src){
+  loadTrack(0);
+ }
+});
 
 
-function load(){
+function renderTracks(){
 
-  try{
+ trackList.innerHTML="";
 
-    chats=
-      JSON.parse(
-        localStorage.getItem(
-          "fox_ai_v10"
-        ) || "[]"
-      );
+ tracks.forEach((track,index)=>{
 
-    if(!Array.isArray(chats))
-      chats=[];
+  const item=document.createElement("div");
+  item.className="track";
 
-  }catch(e){
+  if(index===currentTrack)
+   item.classList.add("active");
 
-    chats=[];
+  const img=document.createElement("img");
+  img.className="track-cover";
 
+  if(track.cover){
+   img.src=track.cover;
+  }else{
+   img.src="";
   }
 
+  const info=document.createElement("div");
+  info.className="track-info";
 
-  try{
+  const name=document.createElement("div");
+  name.className="track-name";
+  name.textContent=track.name;
 
-    const s=
-      JSON.parse(
-        localStorage.getItem(
-          "fox_settings"
-        ) || "{}"
-      );
+  const duration=document.createElement("div");
+  duration.className="track-duration";
+  duration.textContent="آهنگ";
 
-    settings={
-      ...settings,
-      ...s
-    };
+  info.appendChild(name);
+  info.appendChild(duration);
 
-  }catch(e){}
+  item.appendChild(img);
+  item.appendChild(info);
+
+  item.onclick=()=>loadTrack(index);
+
+  trackList.appendChild(item);
+
+ });
+}
+
+
+function loadTrack(index){
+
+ if(!tracks[index]) return;
+
+ currentTrack=index;
+
+ const track=tracks[index];
+
+ audio.src=track.url;
+
+ songTitle.textContent=track.name;
+
+ songMeta.textContent=
+   `${index+1} از ${tracks.length} آهنگ`;
+
+ if(track.cover){
+
+  mainCover.src=track.cover;
+  mainCover.style.display="block";
+  defaultCover.style.display="none";
+
+ }else{
+
+  mainCover.style.display="none";
+  defaultCover.style.display="block";
+
+ }
+
+ audio.play().catch(()=>{});
+
+ document.getElementById("playBtn")
+   .textContent="❚❚";
+
+ renderTracks();
+}
+
+
+function togglePlay(){
+
+ if(!audio.src) return;
+
+ if(audio.paused){
+
+  audio.play();
+  document.getElementById("playBtn").textContent="❚❚";
+
+ }else{
+
+  audio.pause();
+  document.getElementById("playBtn").textContent="▶";
+
+ }
+}
+
+
+audio.addEventListener("play",()=>{
+ document.getElementById("playBtn").textContent="❚❚";
+});
+
+audio.addEventListener("pause",()=>{
+ document.getElementById("playBtn").textContent="▶";
+});
+
+audio.addEventListener("ended",()=>{
+ nextTrack();
+});
+
+
+function nextTrack(){
+
+ if(!tracks.length) return;
+
+ let next=currentTrack+1;
+
+ if(next>=tracks.length)
+  next=0;
+
+ loadTrack(next);
+}
+
+
+function previousTrack(){
+
+ if(!tracks.length) return;
+
+ let prev=currentTrack-1;
+
+ if(prev<0)
+  prev=tracks.length-1;
+
+ loadTrack(prev);
+}
+
+
+/* =====================================================
+   MP3 ID3 APIC COVER
+   ===================================================== */
+
+async function extractMP3Cover(file){
+
+ if(!file.name.toLowerCase().endsWith(".mp3"))
+  return null;
+
+ const buffer=await file.arrayBuffer();
+
+ const bytes=new Uint8Array(buffer);
+
+ if(
+  bytes.length<10 ||
+  bytes[0]!==0x49 ||
+  bytes[1]!==0x44 ||
+  bytes[2]!==0x33
+ ) return null;
+
+ const tagSize=
+   ((bytes[6]&0x7f)<<21) |
+   ((bytes[7]&0x7f)<<14) |
+   ((bytes[8]&0x7f)<<7) |
+   (bytes[9]&0x7f);
+
+ let pos=10;
+ const end=Math.min(bytes.length,10+tagSize);
+
+ while(pos+10<=end){
+
+  const id=
+   String.fromCharCode(
+    bytes[pos],
+    bytes[pos+1],
+    bytes[pos+2],
+    bytes[pos+3]
+   );
+
+  if(!id.trim()) break;
+
+  const size=
+   (bytes[pos+4]<<24) |
+   (bytes[pos+5]<<16) |
+   (bytes[pos+6]<<8) |
+   bytes[pos+7];
+
+  if(size<=0) break;
+
+  if(id==="APIC"){
+
+   const start=pos+10;
+   const frameEnd=Math.min(start+size,end);
+
+   let p=start;
+
+   p++;
+
+   while(p<frameEnd && bytes[p]!==0)
+    p++;
+
+   p++;
+
+   if(p>=frameEnd) return null;
+
+   p++;
+
+   while(p<frameEnd && bytes[p]!==0)
+    p++;
+
+   p++;
+
+   if(p>=frameEnd) return null;
+
+   const imageBytes=bytes.slice(p,frameEnd);
+
+   let type="image/jpeg";
+
+   if(
+    imageBytes[0]===0x89 &&
+    imageBytes[1]===0x50
+   ){
+    type="image/png";
+   }
+
+   const blob=new Blob(
+    [imageBytes],
+    {type:type}
+   );
+
+   return URL.createObjectURL(blob);
+  }
+
+  pos+=10+size;
+ }
+
+ return null;
+}
+
+
+/* =====================================================
+   CALCULATOR
+   ===================================================== */
+
+let calcValue="";
+
+function calcInput(value){
+
+ if(calcValue==="ERROR")
+  calcValue="";
+
+ calcValue+=value;
+
+ document.getElementById("calcDisplay")
+   .textContent=calcValue || "0";
+}
+
+
+function clearCalc(){
+
+ calcValue="";
+
+ document.getElementById("calcDisplay")
+   .textContent="0";
+}
+
+
+function backCalc(){
+
+ calcValue=calcValue.slice(0,-1);
+
+ document.getElementById("calcDisplay")
+   .textContent=calcValue || "0";
+}
+
+
+function calculate(){
+
+ if(!calcValue) return;
+
+ try{
+
+  if(!/^[0-9+\-*/%.() ]+$/.test(calcValue))
+   throw new Error();
+
+  let expression=
+   calcValue.replace(/%/g,"/100");
+
+  let result=Function(
+   '"use strict";return ('+
+   expression+
+   ')'
+  )();
+
+  if(!Number.isFinite(result))
+   throw new Error();
+
+  calcValue=String(result);
+
+  document.getElementById("calcDisplay")
+   .textContent=calcValue;
+
+ }catch(e){
+
+  calcValue="ERROR";
+
+  document.getElementById("calcDisplay")
+   .textContent="ERROR";
+ }
+}
+
+
+/* =====================================================
+   MAP
+   ===================================================== */
+
+let map;
+let marker=null;
+
+function initMap(){
+
+ map=L.map("map",{
+  zoomControl:false
+ }).setView([35.6892,51.3890],10);
+
+ L.tileLayer(
+  "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+  {
+   maxZoom:19,
+   attribution:"© OpenStreetMap"
+  }
+ ).addTo(map);
+
+ L.control.zoom({
+  position:"bottomright"
+ }).addTo(map);
+
+ map.on("click",e=>{
+  setMarker(e.latlng.lat,e.latlng.lng);
+ });
 
 }
 
 
-/* =========================================================
-   HELPERS
-========================================================= */
+function setMarker(lat,lng){
 
-function createId(){
+ if(marker)
+  map.removeLayer(marker);
 
-  return Date.now().toString(36)+
-    Math.random().toString(36).slice(2);
+ marker=L.marker([lat,lng]).addTo(map);
 
+ document.getElementById("coordinates")
+  .textContent=
+  "مختصات: "+
+  lat.toFixed(6)+
+  " , "+
+  lng.toFixed(6);
+
+ map.setView([lat,lng],15);
 }
 
 
-function escapeHTML(text){
+async function searchMap(){
 
-  return String(text ?? "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+ const input=
+  document.getElementById("mapSearch");
 
-}
+ const query=input.value.trim();
 
+ if(!query) return;
 
-function toastMessage(text){
+ try{
 
-  toast.textContent=text;
-
-  toast.classList.add("show");
-
-  clearTimeout(
-    toastMessage.timer
-  );
-
-  toastMessage.timer=
-    setTimeout(()=>{
-
-      toast.classList.remove("show");
-
-    },1800);
-
-}
-
-
-async function copyText(text){
-
-  try{
-
-    if(
-      navigator.clipboard &&
-      window.isSecureContext
-    ){
-
-      await navigator.clipboard.writeText(text);
-
-      return true;
-
+  const response=await fetch(
+   "https://nominatim.openstreetmap.org/search?format=json&limit=1&q="+
+   encodeURIComponent(query),
+   {
+    headers:{
+     "Accept":"application/json"
     }
+   }
+  );
 
-  }catch(e){}
+  const data=await response.json();
 
+  if(!data.length){
 
-  try{
+   showModal(
+    "نقشه",
+    "مکان موردنظر پیدا نشد.",
+    "لطفاً نام مکان را دقیق‌تر وارد کنید."
+   );
 
-    const area=
-      document.createElement("textarea");
-
-    area.value=text;
-
-    area.style.position="fixed";
-    area.style.opacity="0";
-
-    document.body.appendChild(area);
-
-    area.focus();
-    area.select();
-
-    document.execCommand("copy");
-
-    area.remove();
-
-    return true;
-
-  }catch(e){
-
-    return false;
-
+   return;
   }
 
+  const lat=parseFloat(data[0].lat);
+  const lon=parseFloat(data[0].lon);
+
+  setMarker(lat,lon);
+
+ }catch(e){
+
+  showModal(
+   "خطای نقشه",
+   "جستجو انجام نشد.",
+   "اتصال اینترنت را بررسی کنید."
+  );
+ }
 }
 
 
-/* =========================================================
-   SCROLL
-========================================================= */
+function myLocation(){
 
-function checkScroll(){
+ if(!navigator.geolocation){
 
-  const distance=
-    chat.scrollHeight-
-    chat.scrollTop-
-    chat.clientHeight;
-
-  userIsNearBottom=
-    distance<140;
-
-}
-
-
-chat.addEventListener(
-  "scroll",
-  checkScroll,
-  {passive:true}
-);
-
-
-function smartScroll(){
-
-  if(!settings.scroll)
-    return;
-
-  if(!userIsNearBottom)
-    return;
-
-  chat.scrollTop=
-    chat.scrollHeight;
-
-}
-
-
-/* =========================================================
-   MENU
-========================================================= */
-
-function openMenu(){
-
-  menu.classList.add("show");
-
-  overlay.classList.add("show");
-
-}
-
-
-function closeMenu(){
-
-  menu.classList.remove("show");
-
-  overlay.classList.remove("show");
-
-}
-
-
-document.getElementById(
-  "menuBtn"
-).onclick=openMenu;
-
-
-document.getElementById(
-  "closeMenu"
-).onclick=closeMenu;
-
-
-overlay.onclick=closeMenu;
-
-
-/* =========================================================
-   ADVERTISEMENT BUTTON
-========================================================= */
-
-document.getElementById(
-  "adBtn"
-).onclick=()=>{
-
-  closeMenu();
-
-  window.open(
-    "https://splus.ir/Ste1187",
-    "_blank",
-    "noopener,noreferrer"
+  showModal(
+   "موقعیت مکانی",
+   "مرورگر شما از موقعیت مکانی پشتیبانی نمی‌کند.",
+   ""
   );
 
-};
+  return;
+ }
+
+ navigator.geolocation.getCurrentPosition(
+  position=>{
+
+   const lat=position.coords.latitude;
+   const lng=position.coords.longitude;
+
+   setMarker(lat,lng);
+
+  },
+  ()=>{
+   showModal(
+    "موقعیت مکانی",
+    "دسترسی به موقعیت مکانی داده نشد.",
+    "مجوز Location را برای مرورگر فعال کنید."
+   );
+  },
+  {
+   enableHighAccuracy:true,
+   timeout:10000
+  }
+ );
+}
 
 
-/* =========================================================
-   CHAT
-========================================================= */
+/* =====================================================
+   GEMINI CHAT
+   ===================================================== */
 
-function currentChat(){
+let chatHistory=[];
 
-  return chats.find(
-    c=>c.id===currentId
+function addMessage(role,text){
+
+ const container=
+  document.getElementById("aiMessages");
+
+ const welcome=
+  document.getElementById("welcome");
+
+ if(welcome)
+  welcome.remove();
+
+ const msg=document.createElement("div");
+ msg.className="msg "+role;
+
+ const name=document.createElement("div");
+ name.className="msg-name";
+ name.textContent=
+  role==="user" ? "شما" : "FOX AI";
+
+ const body=document.createElement("div");
+ body.className="msg-text";
+
+ body.innerHTML=formatAIText(text);
+
+ const actions=document.createElement("div");
+ actions.className="msg-actions";
+
+ const copy=document.createElement("button");
+ copy.className="msg-action";
+ copy.textContent="کپی";
+
+ copy.onclick=()=>{
+  navigator.clipboard.writeText(text);
+ };
+
+ const share=document.createElement("button");
+ share.className="msg-action";
+ share.textContent="اشتراک‌گذاری";
+
+ share.onclick=()=>{
+  shareText(text);
+ };
+
+ actions.appendChild(copy);
+ actions.appendChild(share);
+
+ msg.appendChild(name);
+ msg.appendChild(body);
+ msg.appendChild(actions);
+
+ container.appendChild(msg);
+
+ container.scrollTop=container.scrollHeight;
+}
+
+
+function formatAIText(text){
+
+ const escaped=text
+  .replace(/&/g,"&amp;")
+  .replace(/</g,"&lt;")
+  .replace(/>/g,"&gt;");
+
+ let html=escaped;
+
+ html=html.replace(
+  /```([\s\S]*?)```/g,
+  (match,code)=>{
+
+   const safe=code.trim()
+    .replace(/"/g,"&quot;");
+
+   return `
+    <div class="code">
+      <button class="code-copy"
+      onclick="copyCode(this)">کپی</button>
+      ${code.trim()}
+    </div>
+   `;
+  }
+ );
+
+ html=html.replace(
+  /\n/g,
+  "<br>"
+ );
+
+ return html;
+}
+
+
+function copyCode(btn){
+
+ const code=
+  btn.parentElement
+   .innerText
+   .replace("کپی","")
+   .trim();
+
+ navigator.clipboard.writeText(code);
+
+ btn.textContent="کپی شد";
+
+ setTimeout(()=>{
+  btn.textContent="کپی";
+ },1000);
+}
+
+
+async function sendAI(){
+
+ const input=
+  document.getElementById("aiInput");
+
+ const sendBtn=
+  document.getElementById("sendBtn");
+
+ const text=input.value.trim();
+
+ if(!text) return;
+
+ if(
+  !GEMINI_API_KEY ||
+  GEMINI_API_KEY==="کلید_جیمینای_خودت"
+ ){
+
+  showModal(
+   "کلید Gemini",
+   "کلید API هنوز وارد نشده است.",
+   "در کد، مقدار GEMINI_API_KEY را با کلید خودت جایگزین کن."
   );
 
+  return;
+ }
+
+ addMessage("user",text);
+
+ input.value="";
+ input.style.height="auto";
+
+ sendBtn.disabled=true;
+
+ const container=
+  document.getElementById("aiMessages");
+
+ const typing=document.createElement("div");
+
+ typing.className="typing";
+ typing.id="typing";
+
+ typing.textContent="FOX AI در حال پاسخ‌گویی...";
+
+ container.appendChild(typing);
+
+ container.scrollTop=container.scrollHeight;
+
+ try{
+
+  /*
+   درخواست رسمی Gemini REST
+  */
+
+  const contents=[
+   {
+    role:"user",
+    parts:[
+     {
+      text:text
+     }
+    ]
+   }
+  ];
+
+  const response=await fetch(
+   GEMINI_URL,
+   {
+    method:"POST",
+
+    headers:{
+     "Content-Type":"application/json",
+     "x-goog-api-key":GEMINI_API_KEY
+    },
+
+    body:JSON.stringify({
+     contents:contents,
+
+     generationConfig:{
+      temperature:0.7,
+      maxOutputTokens:2048
+     }
+    })
+   }
+  );
+
+  const raw=await response.text();
+
+  let data={};
+
+  try{
+   data=JSON.parse(raw);
+  }catch(e){}
+
+  if(!response.ok){
+
+   let errorText=
+    data?.error?.message ||
+    raw ||
+    "خطای نامشخص از Gemini";
+
+   throw new Error(
+    "HTTP "+response.status+
+    ": "+errorText
+   );
+  }
+
+  let answer="";
+
+  if(
+   data.candidates &&
+   data.candidates[0] &&
+   data.candidates[0].content &&
+   data.candidates[0].content.parts
+  ){
+
+   answer=
+    data.candidates[0].content.parts
+     .map(p=>p.text || "")
+     .join("");
+  }
+
+  if(!answer){
+
+   answer="Gemini پاسخی برنگرداند.";
+  }
+
+  if(typing)
+   typing.remove();
+
+  addMessage("ai",answer);
+
+  chatHistory.push({
+   user:text,
+   ai:answer,
+   time:Date.now()
+  });
+
+  saveHistory();
+
+ }catch(error){
+
+  if(typing)
+   typing.remove();
+
+  addMessage(
+   "ai",
+   "اتصال به Gemini انجام نشد.\n\n"+
+   error.message
+  );
+
+ }finally{
+
+  sendBtn.disabled=false;
+  input.focus();
+ }
+}
+
+
+/* =====================================================
+   CHAT HISTORY
+   ===================================================== */
+
+function saveHistory(){
+
+ localStorage.setItem(
+  "fox_gemini_history",
+  JSON.stringify(chatHistory)
+ );
+
+ renderHistory();
+}
+
+
+function loadHistory(){
+
+ try{
+
+  chatHistory=
+   JSON.parse(
+    localStorage.getItem(
+     "fox_gemini_history"
+    ) || "[]"
+   );
+
+ }catch(e){
+
+  chatHistory=[];
+ }
+
+ renderHistory();
+}
+
+
+function renderHistory(){
+
+ const box=
+  document.getElementById("historyList");
+
+ box.innerHTML="";
+
+ [...chatHistory]
+ .reverse()
+ .slice(0,30)
+ .forEach((item,index)=>{
+
+  const div=
+   document.createElement("div");
+
+  div.className="history-item";
+
+  div.textContent=item.user;
+
+  div.onclick=()=>{
+   showTab("ai",
+    document.querySelectorAll(".nav-btn")[3]
+   );
+
+   addMessage("user",item.user);
+   addMessage("ai",item.ai);
+
+   closeMenu();
+  };
+
+  box.appendChild(div);
+ });
+}
+
+
+function clearHistory(){
+
+ chatHistory=[];
+
+ localStorage.removeItem(
+  "fox_gemini_history"
+ );
+
+ renderHistory();
+
+ showModal(
+  "سابقه گفتگو",
+  "سابقه گفتگو پاک شد.",
+  ""
+ );
 }
 
 
 function newChat(){
 
-  const c={
+ document.getElementById("aiMessages").innerHTML=`
+  <div class="welcome" id="welcome">
+   <h1>FOX AI</h1>
+   <p>آماده پاسخ‌گویی با Gemini</p>
+  </div>
+ `;
 
-    id:createId(),
-
-    title:
-      language==="fa"
-      ?"گفتگوی جدید"
-      :"New chat",
-
-    messages:[],
-
-    createdAt:Date.now()
-
-  };
-
-  chats.unshift(c);
-
-  currentId=c.id;
-
-  save();
-
-  render();
-
-  renderHistory();
-
-  closeMenu();
-
-  input.focus();
-
+ showTab(
+  "ai",
+  document.querySelectorAll(".nav-btn")[3]
+ );
 }
 
 
-function ensureChat(){
-
-  if(
-    currentId &&
-    currentChat()
-  )
-    return;
-
-  if(chats.length){
-
-    currentId=
-      chats[0].id;
-
-  }else{
-
-    newChat();
-
-  }
-
-}
-
-
-document.getElementById(
-  "newChat"
-).onclick=newChat;
-
-
-document.getElementById(
-  "newChatMenu"
-).onclick=newChat;
-
-
-/* =========================================================
-   HISTORY
-========================================================= */
-
-function renderHistory(query=""){
-
-  const history=
-    document.getElementById(
-      "history"
-    );
-
-  history.innerHTML="";
-
-  const q=
-    query.trim().toLowerCase();
-
-  const list=
-    chats.filter(c=>
-      !q ||
-      String(c.title)
-        .toLowerCase()
-        .includes(q)
-    );
-
-
-  if(!list.length){
-
-    history.innerHTML=`
-
-      <div style="
-        color:var(--muted);
-        font-size:11px;
-        padding:10px
-      ">
-
-        ${escapeHTML(
-          tr("noChats")
-        )}
-
-      </div>
-
-    `;
-
-    return;
-
-  }
-
-
-  list.forEach(c=>{
-
-    const row=
-      document.createElement("div");
-
-    row.className=
-      "historyItem";
-
-
-    const title=
-      document.createElement("div");
-
-    title.className=
-      "historyTitle";
-
-    title.textContent=
-      c.title;
-
-
-    const del=
-      document.createElement("button");
-
-    del.className=
-      "historyDelete";
-
-    del.textContent=
-      tr("delete");
-
-
-    del.onclick=e=>{
-
-      e.stopPropagation();
-
-      chats=
-        chats.filter(
-          x=>x.id!==c.id
-        );
-
-      if(currentId===c.id){
-
-        currentId=
-          chats[0]?.id||null;
-
-      }
-
-      save();
-
-      render();
-
-      renderHistory();
-
-    };
-
-
-    row.appendChild(title);
-
-    row.appendChild(del);
-
-
-    row.onclick=()=>{
-
-      currentId=c.id;
-
-      render();
-
-      closeMenu();
-
-    };
-
-
-    history.appendChild(row);
-
-  });
-
-}
-
-
-document.getElementById(
-  "historySearch"
-).addEventListener(
-  "input",
-  e=>{
-    renderHistory(
-      e.target.value
-    );
-  }
-);
-
-
-/* =========================================================
-   MARKDOWN
-========================================================= */
-
-function markdown(text){
-
-  let source=
-    escapeHTML(text);
-
-  const blocks=[];
-
-
-  source=
-    source.replace(
-      /```([\w+-]*)\n?([\s\S]*?)```/g,
-      (_,lang,code)=>{
-
-        const id=
-          blocks.length;
-
-        blocks.push(`
-
-          <div class="codeBlock">
-
-            <div class="codeHeader">
-
-              <span>
-                ${escapeHTML(
-                  lang || tr("code")
-                )}
-              </span>
-
-              <button
-                class="copyCode"
-                type="button"
-              >
-                ${tr("copyCode")}
-              </button>
-
-            </div>
-
-            <pre class="codeContent">${code}</pre>
-
-          </div>
-
-        `);
-
-        return `___FOX_CODE_${id}___`;
-
-      }
-    );
-
-
-  source=
-    source.replace(
-      /`([^`]+)`/g,
-      '<code class="inlineCode">$1</code>'
-    );
-
-
-  source=
-    source.replace(
-      /\*\*(.*?)\*\*/g,
-      "<strong>$1</strong>"
-    );
-
-
-  source=
-    source.replace(
-      /\n/g,
-      "<br>"
-    );
-
-
-  blocks.forEach(
-    (block,i)=>{
-
-      source=
-        source.replace(
-          `___FOX_CODE_${i}___`,
-          block
-        );
-
-    }
+/* =====================================================
+   GEMINI TEST
+   ===================================================== */
+
+async function testGemini(){
+
+ closeMenu();
+
+ if(
+  !GEMINI_API_KEY ||
+  GEMINI_API_KEY==="کلید_جیمینای_خودت"
+ ){
+
+  showModal(
+   "تست Gemini",
+   "کلید وارد نشده است.",
+   "GEMINI_API_KEY را در کد پر کن."
   );
 
-
-  return source;
-
-}
-
-
-/* =========================================================
-   COPY CODE
-========================================================= */
-
-document.addEventListener(
-  "click",
-  async e=>{
-
-    const button=
-      e.target.closest(".copyCode");
-
-    if(!button)
-      return;
-
-    const block=
-      button.closest(".codeBlock");
-
-    const code=
-      block?.querySelector(
-        ".codeContent"
-      );
-
-    if(!code)
-      return;
-
-    const ok=
-      await copyText(
-        code.textContent
-      );
-
-    if(ok){
-
-      button.textContent=
-        tr("codeCopied");
-
-      setTimeout(()=>{
-
-        button.textContent=
-          tr("copyCode");
-
-      },1200);
-
-    }
-
-  }
-);
-
-
-/* =========================================================
-   IMAGE GENERATION DETECTION
-========================================================= */
-
-function isImageGenerationRequest(text){
-
-  const s=
-    String(text||"")
-      .trim()
-      .toLowerCase();
-
-
-  if(!s)
-    return false;
-
-
-  const patterns=[
-
-    "تصویر بساز",
-    "عکس بساز",
-    "تصویر درست کن",
-    "عکس درست کن",
-    "تصویر ایجاد کن",
-    "عکس ایجاد کن",
-    "تصویر تولید کن",
-    "عکس تولید کن",
-    "تصویر میخوام",
-    "عکس میخوام",
-    "تصویر بساز برام",
-    "عکس بساز برام",
-    "یه تصویر بساز",
-    "یک تصویر بساز",
-    "یه عکس بساز",
-    "یک عکس بساز",
-    "ساخت تصویر",
-    "ساخت عکس",
-    "تصویرسازی کن",
-    "generate image",
-    "create image",
-    "make image",
-    "generate a picture",
-    "create a picture",
-    "make a picture",
-    "generate photo",
-    "create photo",
-    "make photo",
-    "image generation"
-
-  ];
-
-
-  return patterns.some(
-    p=>s.includes(p)
-  );
-
-}
-
-
-/* =========================================================
-   EXTRACT IMAGE URL
-========================================================= */
-
-function findImageURL(value){
-
-  if(!value)
-    return null;
-
-
-  if(typeof value==="string"){
-
-    const matches=
-      value.match(
-        /https?:\/\/[^\s"'<>]+/g
-      );
-
-    if(matches?.length){
-
-      for(const url of matches){
-
-        if(
-          /\.(png|jpg|jpeg|webp|gif)(\?|$)/i.test(url) ||
-          /image/i.test(url)
-        ){
-
-          return url.replace(
-            /[)\],.]+$/,
-            ""
-          );
-
-        }
-
-      }
-
-      return matches[0].replace(
-        /[)\],.]+$/,
-        ""
-      );
-
-    }
-
-    return null;
-
-  }
-
-
-  if(Array.isArray(value)){
-
-    for(const item of value){
-
-      const found=
-        findImageURL(item);
-
-      if(found)
-        return found;
-
-    }
-
-    return null;
-
-  }
-
-
-  if(typeof value==="object"){
-
-    const directKeys=[
-
-      "url",
-      "image_url",
-      "imageUrl",
-      "download_url",
-      "downloadUrl",
-      "file_url",
-      "fileUrl"
-
-    ];
-
-
-    for(const key of directKeys){
-
-      if(value[key]){
-
-        const found=
-          findImageURL(
-            value[key]
-          );
-
-        if(found)
-          return found;
-
-      }
-
-    }
-
-
-    for(const key of Object.keys(value)){
-
-      const found=
-        findImageURL(
-          value[key]
-        );
-
-      if(found)
-        return found;
-
-    }
-
-  }
-
-
-  return null;
-
-}
-
-
-/* =========================================================
-   GENERATE IMAGE
-========================================================= */
-
-async function generateImage(prompt){
-
-  if(
-    API_KEY==="YOUR_MISTRAL_API_KEY" ||
-    !API_KEY.trim()
-  ){
-
-    toastMessage(
-      tr("apiKey")
-    );
-
-    return;
-
-  }
-
-
-  ensureChat();
-
-
-  const c=
-    currentChat();
-
-  if(!c)
-    return;
-
-
-  generating=true;
-
-  controller=
-    new AbortController();
-
-
-  send.classList.add("stop");
-
-
-  send.innerHTML=`
-
-    <svg viewBox="0 0 24 24">
-      <path d="M7 7h10v10H7z"/>
-    </svg>
-
-  `;
-
-
-  const ai={
-
-    role:"assistant",
-
-    content:"",
-
-    imageLoading:true,
-
-    time:Date.now()
-
-  };
-
-
-  c.messages.push(ai);
-
-
-  save();
-
-  render();
-
-
-  try{
-
-    const response=
-      await fetch(
-        API_URL,
+  return;
+ }
+
+ showModal(
+  "تست Gemini",
+  "در حال بررسی اتصال...",
+  "لطفاً چند لحظه صبر کنید."
+ );
+
+ try{
+
+  const response=await fetch(
+   GEMINI_URL,
+   {
+    method:"POST",
+
+    headers:{
+     "Content-Type":"application/json",
+     "x-goog-api-key":GEMINI_API_KEY
+    },
+
+    body:JSON.stringify({
+     contents:[
+      {
+       role:"user",
+       parts:[
         {
-
-          method:"POST",
-
-          headers:{
-
-            "Content-Type":
-              "application/json",
-
-            "Authorization":
-              "Bearer "+
-              API_KEY
-
-          },
-
-          body:
-            JSON.stringify({
-
-              model:
-                TEXT_MODEL,
-
-              messages:[
-
-                {
-
-                  role:"system",
-
-                  content:
-                    language==="fa"
-
-                    ?
-
-                    "تو ابزار ساخت تصویر Fox AI هستی. درخواست کاربر را به یک تصویر با کیفیت تبدیل کن."
-
-                    :
-
-                    "You are the Fox AI image generation assistant. Turn the user's request into a high quality image."
-
-                },
-
-                {
-
-                  role:"user",
-
-                  content:prompt
-
-                }
-
-              ],
-
-              tools:[
-
-                {
-
-                  type:
-                    "image_generation"
-
-                }
-
-              ],
-
-              tool_choice:"any"
-
-            }),
-
-          signal:
-            controller.signal
-
+         text:"فقط بنویس: اتصال موفق است"
         }
-      );
-
-
-    if(!response.ok){
-
-      let errorText="";
-
-
-      try{
-
-        const data=
-          await response.json();
-
-        errorText=
-          data?.message||
-          data?.error?.message||
-          "";
-
-      }catch(e){}
-
-
-      throw new Error(
-        response.status+
-        " "+
-        errorText
-      );
-
-    }
-
-
-    const result=
-      await response.json();
-
-
-    let imageURL=
-      findImageURL(result);
-
-
-    if(!imageURL){
-
-      const choices=
-        result?.choices||[];
-
-
-      for(
-        const choice of choices
-      ){
-
-        imageURL=
-          findImageURL(
-            choice
-          );
-
-        if(imageURL)
-          break;
-
+       ]
       }
-
-    }
-
-
-    if(!imageURL){
-
-      throw new Error(
-        "IMAGE_URL_NOT_FOUND"
-      );
-
-    }
-
-
-    ai.image=
-      imageURL;
-
-    ai.imagePrompt=
-      prompt;
-
-    ai.imageLoading=
-      false;
-
-    ai.content=
-      tr("imageGenerated");
-
-
-    save();
-
-    render();
-
-
-  }catch(e){
-
-    if(
-      e.name==="AbortError"
-    ){
-
-      c.messages=
-        c.messages.filter(
-          m=>m!==ai
-        );
-
-
-      toastMessage(
-        tr("stopped")
-      );
-
-    }else{
-
-      ai.imageLoading=false;
-
-      ai.content=
-        tr("imageGenerationError");
-
-
-      render();
-
-      toastMessage(
-        tr("imageGenerationError")
-      );
-
-    }
-
-
-    save();
-
-  }finally{
-
-    generating=false;
-
-    controller=null;
-
-    send.classList.remove(
-      "stop"
-    );
-
-    send.innerHTML=`
-
-      <svg viewBox="0 0 24 24">
-
-        <path d="M22 2L11 13"/>
-        <path d="M22 2l-7 20-9-4z"/>
-
-      </svg>
-
-    `;
-
-  }
-
-}
-
-
-/* =========================================================
-   MESSAGE
-========================================================= */
-
-function createMessageElement(
-  msg,
-  index
-){
-
-  const wrapper=
-    document.createElement("div");
-
-  wrapper.className=
-    "message "+
-    (msg.role==="user"
-      ?"user"
-      :"ai");
-
-
-  const inner=
-    document.createElement("div");
-
-  inner.className=
-    "messageInner";
-
-
-  const text=
-    document.createElement("div");
-
-  text.className=
-    "messageText";
-
-
-  if(msg.role==="assistant"){
-
-    text.innerHTML=
-      markdown(
-        msg.content||""
-      );
-
-  }else{
-
-    text.textContent=
-      msg.content||"";
-
-  }
-
-
-  inner.appendChild(text);
-
-
-  if(msg.imageLoading){
-
-    const loading=
-      document.createElement("div");
-
-    loading.className=
-      "imageGenerating";
-
-
-    loading.innerHTML=`
-
-      <span class="imageGeneratingDot"></span>
-
-      <span>
-        ${escapeHTML(
-          tr("imageGenerating")
-        )}
-      </span>
-
-    `;
-
-
-    inner.appendChild(
-      loading
-    );
-
-  }
-
-
-  if(msg.image){
-
-    const imageCard=
-      document.createElement("div");
-
-    imageCard.className=
-      "generatedImageCard";
-
-
-    const img=
-      document.createElement("img");
-
-    img.className=
-      "generatedImage";
-
-    img.alt=
-      msg.imagePrompt ||
-      "FOX AI generated image";
-
-    img.loading="lazy";
-
-    img.src=
-      msg.image;
-
-
-    imageCard.appendChild(img);
-
-
-    const imageActions=
-      document.createElement("div");
-
-    imageActions.className=
-      "generatedImageActions";
-
-
-    const download=
-      document.createElement("button");
-
-    download.className=
-      "primary";
-
-    download.textContent=
-      tr("downloadImage");
-
-
-    download.onclick=
-      async()=>{
-
-        try{
-
-          const response=
-            await fetch(
-              msg.image
-            );
-
-          const blob=
-            await response.blob();
-
-          const url=
-            URL.createObjectURL(
-              blob
-            );
-
-          const a=
-            document.createElement("a");
-
-          a.href=url;
-
-          a.download=
-            "fox-ai-image.png";
-
-          document.body.appendChild(a);
-
-          a.click();
-
-          a.remove();
-
-          URL.revokeObjectURL(url);
-
-        }catch(e){
-
-          window.open(
-            msg.image,
-            "_blank"
-          );
-
-        }
-
-      };
-
-
-    const open=
-      document.createElement("button");
-
-    open.textContent=
-      tr("openImage");
-
-
-    open.onclick=()=>{
-
-      window.open(
-        msg.image,
-        "_blank"
-      );
-
-    };
-
-
-    imageActions.appendChild(
-      download
-    );
-
-    imageActions.appendChild(
-      open
-    );
-
-
-    imageCard.appendChild(
-      imageActions
-    );
-
-
-    inner.appendChild(
-      imageCard
-    );
-
-  }
-
-
-  if(msg.file){
-
-    const card=
-      document.createElement("div");
-
-    card.className=
-      "fileCard";
-
-
-    if(
-      msg.file.type?.startsWith(
-        "image/"
-      )
-    ){
-
-      const img=
-        document.createElement("img");
-
-      img.src=
-        msg.file.data;
-
-      card.appendChild(img);
-
-    }
-
-
-    const info=
-      document.createElement("div");
-
-
-    const fileName=
-      document.createElement("div");
-
-    fileName.className=
-      "fileName";
-
-    fileName.textContent=
-      msg.file.name;
-
-
-    const fileType=
-      document.createElement("div");
-
-    fileType.className=
-      "fileType";
-
-    fileType.textContent=
-      msg.file.type||"file";
-
-
-    info.appendChild(fileName);
-
-    info.appendChild(fileType);
-
-    card.appendChild(info);
-
-    inner.appendChild(card);
-
-  }
-
-
-  const actions=
-    document.createElement("div");
-
-  actions.className=
-    "actions";
-
-
-  const copy=
-    document.createElement("button");
-
-  copy.textContent=
-    tr("copy");
-
-
-  copy.onclick=async()=>{
-
-    if(
-      await copyText(
-        msg.content||""
-      )
-    ){
-
-      toastMessage(
-        tr("copied")
-      );
-
-    }
-
-  };
-
-
-  actions.appendChild(copy);
-
-
-  if(msg.role==="assistant"){
-
-    const share=
-      document.createElement("button");
-
-    share.textContent=
-      tr("share");
-
-
-    share.onclick=async()=>{
-
-      const footer=
-        language==="fa"
-        ?SHARE_FOOTER_FA
-        :SHARE_FOOTER_EN;
-
-
-      const shareText=
-        (msg.content||"")+
-        footer;
-
-
-      try{
-
-        if(navigator.share){
-
-          await navigator.share({
-
-            title:"FOX AI",
-
-            text:shareText
-
-          });
-
-        }else{
-
-          await copyText(
-            shareText
-          );
-
-          toastMessage(
-            tr("copiedText")
-          );
-
-        }
-
-      }catch(e){}
-
-    };
-
-
-    actions.appendChild(
-      share
-    );
-
-  }
-
-
-  if(msg.role==="user"){
-
-    const edit=
-      document.createElement("button");
-
-    edit.textContent=
-      language==="fa"
-      ?"ویرایش"
-      :"Edit";
-
-
-    edit.onclick=()=>{
-
-      input.value=
-        msg.content||"";
-
-      autoResize();
-
-
-      const c=
-        currentChat();
-
-
-      if(c){
-
-        c.messages=
-          c.messages.slice(
-            0,
-            index
-          );
-
-      }
-
-
-      save();
-
-      render();
-
-      input.focus();
-
-    };
-
-
-    actions.appendChild(
-      edit
-    );
-
-  }
-
-
-  if(
-    settings.time &&
-    msg.time
-  ){
-
-    const time=
-      document.createElement("span");
-
-    time.style.cssText=
-      "font-size:9px;color:var(--muted);padding:7px";
-
-    time.textContent=
-      new Date(
-        msg.time
-      ).toLocaleTimeString(
-        language==="fa"
-        ?"fa-IR"
-        :"en-US",
-        {
-          hour:"2-digit",
-          minute:"2-digit"
-        }
-      );
-
-    actions.appendChild(
-      time
-    );
-
-  }
-
-
-  inner.appendChild(actions);
-
-  wrapper.appendChild(inner);
-
-  messages.appendChild(wrapper);
-
-}
-
-
-/* =========================================================
-   RENDER
-========================================================= */
-
-function render(){
-
-  messages.innerHTML="";
-
-  const c=
-    currentChat();
-
-
-  if(
-    !c ||
-    !c.messages.length
-  ){
-
-    messages.appendChild(
-      empty
-    );
-
-    empty.style.display=
-      "flex";
-
-    return;
-
-  }
-
-
-  empty.style.display=
-    "none";
-
-
-  c.messages.forEach(
-    (m,i)=>{
-
-      createMessageElement(
-        m,
-        i
-      );
-
-    }
+     ],
+
+     generationConfig:{
+      maxOutputTokens:30,
+      temperature:0
+     }
+    })
+   }
   );
 
+  const raw=await response.text();
 
-  requestAnimationFrame(
-    smartScroll
-  );
-
-}
-
-
-/* =========================================================
-   STREAM UPDATE
-========================================================= */
-
-function updateLastAI(){
-
-  const c=
-    currentChat();
-
-  if(!c)
-    return;
-
-
-  const aiMessages=
-    messages.querySelectorAll(
-      ".message.ai"
-    );
-
-
-  const wrapper=
-    aiMessages[
-      aiMessages.length-1
-    ];
-
-
-  if(!wrapper)
-    return;
-
-
-  const text=
-    wrapper.querySelector(
-      ".messageText"
-    );
-
-
-  if(!text)
-    return;
-
-
-  const ai=
-    c.messages[
-      c.messages.length-1
-    ];
-
-
-  text.innerHTML=
-    markdown(
-      ai.content||""
-    )+
-    '<span class="cursor"></span>';
-
-  smartScroll();
-
-}
-
-
-/* =========================================================
-   FILE
-========================================================= */
-
-document.getElementById(
-  "attach"
-).onclick=()=>{
-
-  document.getElementById(
-    "file"
-  ).click();
-
-};
-
-
-document.getElementById(
-  "file"
-).onchange=
-  async e=>{
-
-    const file=
-      e.target.files?.[0];
-
-    if(!file)
-      return;
-
-
-    if(
-      file.size>
-      10*1024*1024
-    ){
-
-      toastMessage(
-        tr("fileSize")
-      );
-
-      e.target.value="";
-
-      return;
-
-    }
-
-
-    attached=file;
-
-
-    document.getElementById(
-      "preview"
-    ).classList.add("show");
-
-
-    document.getElementById(
-      "previewName"
-    ).textContent=
-      file.name;
-
-
-    document.getElementById(
-      "previewSize"
-    ).textContent=
-      formatBytes(
-        file.size
-      );
-
-
-    const img=
-      document.getElementById(
-        "previewImage"
-      );
-
-
-    if(
-      file.type.startsWith(
-        "image/"
-      )
-    ){
-
-      img.style.display=
-        "block";
-
-      img.src=
-        await readDataURL(
-          file
-        );
-
-    }else{
-
-      img.style.display=
-        "none";
-
-      img.src="";
-
-    }
-
-  };
-
-
-function formatBytes(bytes){
-
-  if(bytes<1024)
-    return bytes+" B";
-
-  if(bytes<1024*1024)
-    return(
-      bytes/1024
-    ).toFixed(1)+" KB";
-
-  return(
-    bytes/
-    (1024*1024)
-  ).toFixed(1)+" MB";
-
-}
-
-
-function readDataURL(file){
-
-  return new Promise(
-    (resolve,reject)=>{
-
-      const r=
-        new FileReader();
-
-      r.onload=
-        ()=>resolve(
-          r.result
-        );
-
-      r.onerror=
-        reject;
-
-      r.readAsDataURL(
-        file
-      );
-
-    }
-  );
-
-}
-
-
-function readText(file){
-
-  return new Promise(
-    (resolve,reject)=>{
-
-      const r=
-        new FileReader();
-
-      r.onload=
-        ()=>resolve(
-          r.result
-        );
-
-      r.onerror=
-        reject;
-
-      r.readAsText(
-        file
-      );
-
-    }
-  );
-
-}
-
-
-document.getElementById(
-  "removeFile"
-).onclick=()=>{
-
-  attached=null;
-
-  document.getElementById(
-    "file"
-  ).value="";
-
-  document.getElementById(
-    "preview"
-  ).classList.remove("show");
-
-  document.getElementById(
-    "previewImage"
-  ).src="";
-
-};
-
-
-/* =========================================================
-   API CONTENT
-========================================================= */
-
-async function makeContent(
-  text,
-  file
-){
-
-  if(!file)
-    return text;
-
-
-  if(
-    file.type.startsWith(
-      "image/"
-    )
-  ){
-
-    const data=
-      await readDataURL(
-        file
-      );
-
-    return [
-
-      {
-        type:"text",
-
-        text:
-          text||
-          tr("imageAnalyze")
-      },
-
-      {
-        type:"image_url",
-
-        image_url:data
-
-      }
-
-    ];
-
-  }
-
-
-  if(
-    /\.(txt|js|html|css|json|md|csv)$/i
-      .test(file.name)
-  ){
-
-    const content=
-      await readText(file);
-
-    return(
-      text+
-      "\n\n--- FILE ---\n"+
-      file.name+
-      "\n\n"+
-      content+
-      "\n\n--- END FILE ---"
-    );
-
-  }
-
-
-  return(
-    text+
-    "\n\n"+
-    tr("emptyFile")+" "+
-    file.name
-  );
-
-}
-
-
-/* =========================================================
-   NORMAL CHAT
-========================================================= */
-
-async function normalChat(){
-
-  const text=
-    input.value.trim();
-
-
-  if(!text && !attached)
-    return;
-
-
-  ensureChat();
-
-
-  const c=
-    currentChat();
-
-  if(!c)
-    return;
-
-
-  const file=
-    attached;
-
-
-  const content=
-    await makeContent(
-      text,
-      file
-    );
-
-
-  let savedFile=null;
-
-
-  if(file){
-
-    savedFile={
-
-      name:file.name,
-
-      type:file.type,
-
-      data:
-        file.type.startsWith(
-          "image/"
-        )
-        ?await readDataURL(file)
-        :""
-
-    };
-
-  }
-
-
-  c.messages.push({
-
-    role:"user",
-
-    content:
-      text||
-      tr("fileSent"),
-
-    apiContent:content,
-
-    file:savedFile,
-
-    time:Date.now()
-
-  });
-
-
-  if(
-    c.title==="گفتگوی جدید" ||
-    c.title==="New chat"
-  ){
-
-    c.title=
-      text||
-      file?.name||
-      "Fox AI";
-
-  }
-
-
-  input.value="";
-
-  autoResize();
-
-
-  attached=null;
-
-
-  document.getElementById(
-    "file"
-  ).value="";
-
-
-  document.getElementById(
-    "preview"
-  ).classList.remove(
-    "show"
-  );
-
-
-  save();
-
-  renderHistory();
-
-
-  userIsNearBottom=
-    true;
-
-
-  render();
-
-
-  generating=true;
-
-
-  controller=
-    new AbortController();
-
-
-  send.classList.add(
-    "stop"
-  );
-
-
-  send.innerHTML=`
-
-    <svg viewBox="0 0 24 24">
-
-      <path d="M7 7h10v10H7z"/>
-
-    </svg>
-
-  `;
-
+  let data={};
 
   try{
-
-    const hasImage=
-      c.messages.some(
-        m=>
-          m.file?.type
-            ?.startsWith(
-              "image/"
-            )
-      );
-
-
-    const model=
-      hasImage
-      ?VISION_MODEL
-      :TEXT_MODEL;
-
-
-    const apiMessages=[
-
-      {
-
-        role:"system",
-
-        content:
-          language==="fa"
-
-          ?
-
-          "تو Fox AI هستی. پاسخ‌های دقیق، حرفه‌ای، روان و کاربردی بده. اگر کاربر کد یا اپلیکیشن خواست، کد کامل و قابل اجرا ارائه کن. متن و کد را واضح و مرتب جدا کن."
-
-          :
-
-          "You are Fox AI. Give accurate, professional and useful answers. When the user asks for code or an application, provide complete runnable code. Clearly separate normal text and code."
-
-      },
-
-
-      ...c.messages.map(
-        m=>({
-
-          role:m.role,
-
-          content:
-            m.apiContent ??
-            m.content
-
-        })
-      )
-
-    ];
-
-
-    const response=
-      await fetch(
-        API_URL,
-        {
-
-          method:"POST",
-
-          headers:{
-
-            "Content-Type":
-              "application/json",
-
-            "Authorization":
-              "Bearer "+
-              API_KEY
-
-          },
-
-          body:
-            JSON.stringify({
-
-              model,
-
-              messages:
-                apiMessages,
-
-              stream:true,
-
-              temperature:.6,
-
-              max_tokens:4096
-
-            }),
-
-          signal:
-            controller.signal
-
-        }
-      );
-
-
-    if(!response.ok){
-
-      let errorText="";
-
-
-      try{
-
-        const data=
-          await response.json();
-
-        errorText=
-          data?.message||
-          data?.error?.message||
-          "";
-
-      }catch(e){}
-
-
-      throw new Error(
-        response.status+
-        " "+
-        errorText
-      );
-
-    }
-
-
-    const ai={
-
-      role:"assistant",
-
-      content:"",
-
-      time:Date.now()
-
-    };
-
-
-    c.messages.push(ai);
-
-
-    createMessageElement(
-      ai,
-      c.messages.length-1
-    );
-
-
-    const reader=
-      response.body.getReader();
-
-
-    const decoder=
-      new TextDecoder();
-
-
-    let buffer="";
-
-
-    while(true){
-
-      const {
-        value,
-        done
-      }=
-        await reader.read();
-
-
-      if(done)
-        break;
-
-
-      buffer+=
-        decoder.decode(
-          value,
-          {stream:true}
-        );
-
-
-      const lines=
-        buffer.split("\n");
-
-
-      buffer=
-        lines.pop()||"";
-
-
-      for(
-        const raw of lines
-      ){
-
-        const line=
-          raw.trim();
-
-
-        if(
-          !line ||
-          !line.startsWith(
-            "data:"
-          )
-        )
-          continue;
-
-
-        const data=
-          line.slice(5).trim();
-
-
-        if(
-          data==="[DONE]"
-        )
-          continue;
-
-
-        try{
-
-          const json=
-            JSON.parse(data);
-
-
-          const delta=
-            json
-              ?.choices?.[0]
-              ?.delta?.content;
-
-
-          if(
-            typeof delta==="string"
-          ){
-
-            ai.content+=
-              delta;
-
-            updateLastAI();
-
-          }
-
-        }catch(e){}
-
-      }
-
-    }
-
-
-    save();
-
-
-  }catch(e){
-
-    if(
-      e.name==="AbortError"
-    ){
-
-      toastMessage(
-        tr("stopped")
-      );
-
-    }else{
-
-      let msg=
-        tr("apiError");
-
-
-      if(
-        String(e.message)
-          .includes("401")
-      )
-        msg=
-          tr("invalidKey");
-
-      else if(
-        String(e.message)
-          .includes("403")
-      )
-        msg=
-          tr("forbidden");
-
-      else if(
-        String(e.message)
-          .includes("429")
-      )
-        msg=
-          tr("rateLimit");
-
-
-      c.messages.push({
-
-        role:"assistant",
-
-        content:msg,
-
-        time:Date.now()
-
-      });
-
-
-      render();
-
-      toastMessage(msg);
-
-    }
-
-  }finally{
-
-    generating=
-      false;
-
-    controller=
-      null;
-
-
-    send.classList.remove(
-      "stop"
-    );
-
-
-    send.innerHTML=`
-
-      <svg viewBox="0 0 24 24">
-
-        <path d="M22 2L11 13"/>
-        <path d="M22 2l-7 20-9-4z"/>
-
-      </svg>
-
-    `;
-
-
-    save();
-
-  }
-
-}
-
-
-/* =========================================================
-   SEND MESSAGE
-========================================================= */
-
-async function sendMessage(){
-
-  if(generating){
-
-    controller?.abort();
-
-    return;
-
-  }
-
-
-  const text=
-    input.value.trim();
-
-
-  if(!text && !attached)
-    return;
-
-
-  if(
-    text &&
-    !attached &&
-    isImageGenerationRequest(text)
-  ){
-
-    if(
-      API_KEY==="YOUR_MISTRAL_API_KEY" ||
-      !API_KEY.trim()
-    ){
-
-      toastMessage(
-        tr("apiKey")
-      );
-
-      return;
-
-    }
-
-
-    input.value="";
-
-    autoResize();
-
-
-    await generateImage(
-      text
-    );
-
-
-    return;
-
-  }
-
-
-  if(
-    API_KEY==="YOUR_MISTRAL_API_KEY" ||
-    !API_KEY.trim()
-  ){
-
-    toastMessage(
-      tr("apiKey")
-    );
-
-    return;
-
-  }
-
-
-  await normalChat();
-
-}
-
-
-/* =========================================================
-   INPUT
-========================================================= */
-
-function autoResize(){
-
-  input.style.height=
-    "auto";
-
-  input.style.height=
-    Math.min(
-      input.scrollHeight,
-      160
-    )+"px";
-
-}
-
-
-input.addEventListener(
-  "input",
-  autoResize
-);
-
-
-input.addEventListener(
-  "keydown",
-  e=>{
-
-    if(
-      e.key==="Enter" &&
-      !e.shiftKey &&
-      settings.enter
-    ){
-
-      e.preventDefault();
-
-      sendMessage();
-
-    }
-
-  }
-);
-
-
-send.onclick=
-  sendMessage;
-
-
-/* =========================================================
-   THEME
-========================================================= */
-
-const themeSwitch=
-  document.getElementById(
-    "themeSwitch"
-  );
-
-
-function loadTheme(){
-
-  try{
-
-    if(
-      localStorage.getItem(
-        "fox_theme"
-      )==="light"
-    ){
-
-      document.body
-        .classList.add(
-          "light"
-        );
-
-      themeSwitch
-        .classList.add(
-          "on"
-        );
-
-    }
-
+   data=JSON.parse(raw);
   }catch(e){}
 
-}
+  if(!response.ok){
 
-
-loadTheme();
-
-
-themeSwitch.onclick=()=>{
-
-  const light=
-    document.body
-      .classList.toggle(
-        "light"
-      );
-
-
-  themeSwitch.classList.toggle(
-    "on",
-    light
-  );
-
-
-  try{
-
-    localStorage.setItem(
-      "fox_theme",
-      light
-        ?"light"
-        :"dark"
-    );
-
-  }catch(e){}
-
-};
-
-
-/* =========================================================
-   SETTINGS MODAL
-========================================================= */
-
-const settingsModal=
-  document.getElementById(
-    "settingsModal"
-  );
-
-
-document.getElementById(
-  "settingsBtn"
-).onclick=()=>{
-
-  closeMenu();
-
-  settingsModal
-    .classList.add(
-      "show"
-    );
-
-};
-
-
-document.getElementById(
-  "closeSettings"
-).onclick=()=>{
-
-  settingsModal
-    .classList.remove(
-      "show"
-    );
-
-};
-
-
-settingsModal.onclick=e=>{
-
-  if(
-    e.target===settingsModal
-  ){
-
-    settingsModal
-      .classList.remove(
-        "show"
-      );
-
+   throw new Error(
+    "HTTP "+response.status+
+    ": "+
+    (data?.error?.message || raw)
+   );
   }
 
-};
+  const answer=
+   data?.candidates?.[0]?.content?.parts
+   ?.map(p=>p.text||"")
+   .join("") || "اتصال برقرار شد.";
 
-
-/* =========================================================
-   SWITCHES
-========================================================= */
-
-function setupSwitch(
-  id,
-  key
-){
-
-  const el=
-    document.getElementById(
-      id
-    );
-
-
-  el.classList.toggle(
-    "on",
-    !!settings[key]
+  showModal(
+   "تست Gemini",
+   "اتصال موفق است.",
+   answer
   );
 
+ }catch(e){
 
-  el.onclick=()=>{
-
-    settings[key]=
-      !settings[key];
-
-
-    el.classList.toggle(
-      "on",
-      settings[key]
-    );
-
-
-    save();
-
-  };
-
+  showModal(
+   "تست Gemini",
+   "اتصال موفق نبود.",
+   e.message
+  );
+ }
 }
 
 
-setupSwitch(
-  "enterSwitch",
-  "enter"
-);
+/* =====================================================
+   SHARE
+   ===================================================== */
 
-setupSwitch(
-  "scrollSwitch",
-  "scroll"
-);
+async function shareText(text){
 
-setupSwitch(
-  "timeSwitch",
-  "time"
-);
-
-
-/* =========================================================
-   FONT
-========================================================= */
-
-function applyFont(){
-
-  document.body
-    .classList.remove(
-      "font-small",
-      "font-normal",
-      "font-large"
-    );
-
-
-  document.body
-    .classList.add(
-      "font-"+settings.font
-    );
-
-
-  document
-    .querySelectorAll(
-      "[data-font]"
-    )
-    .forEach(btn=>{
-
-      btn.classList.toggle(
-        "active",
-        btn.dataset.font===
-          settings.font
-      );
-
-
-      btn.textContent=
-        tr(
-          btn.dataset.font==="small"
-          ?"small"
-          :
-          btn.dataset.font==="large"
-          ?"large"
-          :
-          "medium"
-        );
-
-    });
-
-}
-
-
-document
-  .querySelectorAll(
-    "[data-font]"
-  )
-  .forEach(btn=>{
-
-    btn.onclick=()=>{
-
-      settings.font=
-        btn.dataset.font;
-
-      applyFont();
-
-      save();
-
-    };
-
-  });
-
-
-/* =========================================================
-   LANGUAGE
-========================================================= */
-
-document.getElementById(
-  "faBtn"
-).onclick=()=>{
-
-  setLanguage("fa");
-
-};
-
-
-document.getElementById(
-  "enBtn"
-).onclick=()=>{
-
-  setLanguage("en");
-
-};
-
-
-function setLanguage(lang){
-
-  language=lang;
-
+ if(navigator.share){
 
   try{
-
-    localStorage.setItem(
-      "fox_language",
-      lang
-    );
-
+   await navigator.share({
+    title:"FOX AI",
+    text:text
+   });
   }catch(e){}
 
+ }else{
 
-  document.documentElement.lang=
-    lang;
+  await navigator.clipboard.writeText(text);
 
-
-  document.documentElement.dir=
-    lang==="fa"
-      ?"rtl"
-      :"ltr";
-
-
-  document.getElementById(
-    "faBtn"
-  ).classList.toggle(
-    "active",
-    lang==="fa"
+  showModal(
+   "اشتراک‌گذاری",
+   "متن در کلیپ‌بورد کپی شد.",
+   ""
   );
-
-
-  document.getElementById(
-    "enBtn"
-  ).classList.toggle(
-    "active",
-    lang==="en"
-  );
-
-
-  input.placeholder=
-    tr("placeholder");
-
-
-  document.getElementById(
-    "welcome"
-  ).textContent=
-    tr("welcome");
-
-
-  document.getElementById(
-    "historySearch"
-  ).placeholder=
-    tr("searchChats");
-
-
-  document
-    .querySelectorAll(
-      "[data-i18n]"
-    )
-    .forEach(el=>{
-
-      el.textContent=
-        tr(
-          el.getAttribute(
-            "data-i18n"
-          )
-        );
-
-    });
-
-
-  document.getElementById(
-    "removeFile"
-  ).textContent=
-    tr("remove");
-
-
-  applyFont();
-
-  renderHistory();
-
-  render();
-
+ }
 }
 
 
-/* =========================================================
-   SUPPORT
-========================================================= */
+/* =====================================================
+   MENU
+   ===================================================== */
 
-const PHONE=
-  "989011268205";
+function openMenu(){
 
+ document.getElementById("side")
+  .classList.add("show");
 
-document.getElementById(
-  "whatsapp"
-).onclick=()=>{
-
-  window.open(
-    "https://wa.me/"+
-    PHONE,
-    "_blank"
-  );
-
-};
+ document.getElementById("overlay")
+  .classList.add("show");
+}
 
 
-document.getElementById(
-  "telegram"
-).onclick=()=>{
+function closeMenu(){
 
-  window.open(
-    "https://t.me/+"+
-    PHONE,
-    "_blank"
-  );
+ document.getElementById("side")
+  .classList.remove("show");
 
-};
+ document.getElementById("overlay")
+  .classList.remove("show");
+}
 
 
-/* =========================================================
-   SHARE APP
-========================================================= */
+/* =====================================================
+   MODAL
+   ===================================================== */
 
-document.getElementById(
-  "shareApp"
-).onclick=async()=>{
+function showModal(title,text,status){
 
-  const footer=
-    language==="fa"
-    ?"با ما باشید روباه"
-    :"Powered by FOX AI";
+ document.getElementById("modalTitle")
+  .textContent=title;
 
+ document.getElementById("modalText")
+  .textContent=text;
 
-  const text=
-    "FOX AI\n\n"+
-    footer+
-    "\n"+
-    "https://gamengrahman8-dot.github.io/fox-aiii/";
+ document.getElementById("modalStatus")
+  .textContent=status || "";
 
-
-  try{
-
-    if(navigator.share){
-
-      await navigator.share({
-
-        title:"FOX AI",
-
-        text
-
-      });
-
-    }else{
-
-      await copyText(text);
-
-      toastMessage(
-        tr("copiedText")
-      );
-
-    }
-
-  }catch(e){}
-
-};
+ document.getElementById("modal")
+  .classList.add("show");
+}
 
 
-/* =========================================================
-   EXPORT
-========================================================= */
+function hideModal(){
 
-document.getElementById(
-  "exportChats"
-).onclick=()=>{
+ document.getElementById("modal")
+  .classList.remove("show");
+}
 
-  if(!chats.length){
 
-    toastMessage(
-      tr("noChats")
-    );
+function closeModal(e){
 
-    return;
+ if(e.target.id==="modal")
+  hideModal();
+}
+
+
+function showAbout(){
+
+ closeMenu();
+
+ showModal(
+  "درباره FOX AI",
+  "FOX AI یک برنامه چندکاره موبایل‌محور است.",
+  "موزیک، ماشین‌حساب، نقشه و هوش مصنوعی Gemini"
+ );
+}
+
+
+/* =====================================================
+   AI ENTER
+   ===================================================== */
+
+document.getElementById("aiInput")
+ .addEventListener("keydown",e=>{
+
+  if(e.key==="Enter" && !e.shiftKey){
+
+   e.preventDefault();
+   sendAI();
 
   }
+ });
 
 
-  const data=
-    JSON.stringify(
-      chats,
-      null,
-      2
-    );
+document.getElementById("aiInput")
+ .addEventListener("input",function(){
 
+  this.style.height="auto";
 
-  const blob=
-    new Blob(
-      [data],
-      {
-        type:
-          "application/json"
-      }
-    );
+  this.style.height=
+   Math.min(this.scrollHeight,140)+"px";
+ });
 
 
-  const url=
-    URL.createObjectURL(
-      blob
-    );
+/* =====================================================
+   START
+   ===================================================== */
 
+loadHistory();
 
-  const a=
-    document.createElement(
-      "a"
-    );
-
-
-  a.href=url;
-
-  a.download=
-    "fox-ai-chats.json";
-
-
-  document.body.appendChild(a);
-
-  a.click();
-
-  a.remove();
-
-  URL.revokeObjectURL(url);
-
-};
-
-
-/* =========================================================
-   IMPORT
-========================================================= */
-
-document.getElementById(
-  "importChats"
-).onclick=()=>{
-
-  document.getElementById(
-    "importFile"
-  ).click();
-
-};
-
-
-document.getElementById(
-  "importFile"
-).onchange=e=>{
-
-  const file=
-    e.target.files?.[0];
-
-  if(!file)
-    return;
-
-
-  const reader=
-    new FileReader();
-
-
-  reader.onload=()=>{
-
-    try{
-
-      const imported=
-        JSON.parse(
-          reader.result
-        );
-
-
-      if(
-        !Array.isArray(
-          imported
-        )
-      )
-        throw new Error();
-
-
-      chats=imported;
-
-      currentId=
-        chats[0]?.id||null;
-
-
-      save();
-
-      render();
-
-      renderHistory();
-
-
-      toastMessage(
-        tr("chatsImported")
-      );
-
-
-    }catch(e){
-
-      toastMessage(
-        tr("invalidFile")
-      );
-
-    }
-
-
-    e.target.value="";
-
-  };
-
-
-  reader.readAsText(file);
-
-};
-
-
-/* =========================================================
-   CLEAR CURRENT
-========================================================= */
-
-document.getElementById(
-  "clearCurrent"
-).onclick=()=>{
-
-  const c=
-    currentChat();
-
-  if(!c)
-    return;
-
-
-  c.messages=[];
-
-
-  save();
-
-  render();
-
-  renderHistory();
-
-
-  settingsModal
-    .classList.remove(
-      "show"
-    );
-
-
-  toastMessage(
-    tr("currentCleared")
-  );
-
-};
-
-
-/* =========================================================
-   RESET SETTINGS
-========================================================= */
-
-document.getElementById(
-  "resetSettings"
-).onclick=()=>{
-
-  settings={
-
-    enter:true,
-
-    scroll:true,
-
-    time:false,
-
-    font:"normal"
-
-  };
-
-
-  try{
-
-    localStorage.removeItem(
-      "fox_settings"
-    );
-
-    localStorage.removeItem(
-      "fox_theme"
-    );
-
-    localStorage.removeItem(
-      "fox_language"
-    );
-
-  }catch(e){}
-
-
-  document.body.classList.remove(
-    "light",
-    "font-small",
-    "font-large"
-  );
-
-
-  document.body.classList.add(
-    "font-normal"
-  );
-
-
-  themeSwitch.classList.remove(
-    "on"
-  );
-
-
-  setupSwitch(
-    "enterSwitch",
-    "enter"
-  );
-
-  setupSwitch(
-    "scrollSwitch",
-    "scroll"
-  );
-
-  setupSwitch(
-    "timeSwitch",
-    "time"
-  );
-
-
-  language="fa";
-
-  setLanguage("fa");
-
-  applyFont();
-
-
-  toastMessage(
-    tr("settingsReset")
-  );
-
-};
-
-
-/* =========================================================
-   DELETE ALL
-========================================================= */
-
-document.getElementById(
-  "deleteAll"
-).onclick=()=>{
-
-  if(
-    !confirm(
-      tr("deleteConfirm")
-    )
-  )
-    return;
-
-
-  chats=[];
-
-  currentId=null;
-
-
-  save();
-
-  render();
-
-  renderHistory();
-
-  closeMenu();
-
-};
-
-
-/* =========================================================
-   ABOUT
-========================================================= */
-
-const aboutModal=
-  document.getElementById(
-    "aboutModal"
-  );
-
-
-document.getElementById(
-  "aboutBtn"
-).onclick=()=>{
-
-  closeMenu();
-
-  aboutModal
-    .classList.add(
-      "show"
-    );
-
-};
-
-
-document.getElementById(
-  "closeAbout"
-).onclick=()=>{
-
-  aboutModal
-    .classList.remove(
-      "show"
-    );
-
-};
-
-
-aboutModal.onclick=e=>{
-
-  if(
-    e.target===aboutModal
-  ){
-
-    aboutModal
-      .classList.remove(
-        "show"
-      );
-
-  }
-
-};
-
-
-/* =========================================================
-   INIT
-========================================================= */
-
-try{
-
-  language=
-    localStorage.getItem(
-      "fox_language"
-    )||
-    "fa";
-
-}catch(e){
-
-  language="fa";
-
-}
-
-
-load();
-
-
-if(chats.length){
-
-  currentId=
-    chats[0].id;
-
-}
-
-
-setLanguage(language);
-
-applyFont();
-
-render();
-
-renderHistory();
-
-
-setTimeout(()=>{
-
-  document
-    .getElementById(
-      "foxSplash"
-    )
-    ?.remove();
-
-},2300);
+initMap();
 
 </script>
 
